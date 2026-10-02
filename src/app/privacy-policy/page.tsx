@@ -1,0 +1,75 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description:
+    "Vidhya Sri Ambulance privacy policy — how we collect, use, and protect your personal information.",
+};
+
+export default function PrivacyPolicyPage() {
+  return (
+    <>
+      <section className="w-full bg-navy py-16 sm:py-20">
+        <div className="max-w-3xl mx-auto px-4 sm:px-8 lg:px-12">
+          <h1 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">
+            Privacy Policy
+          </h1>
+          <p className="mt-3 text-sm font-medium text-white/60">
+            Last updated: October 2024
+          </p>
+        </div>
+        <div className="h-2 bg-warm-yellow mt-8" />
+      </section>
+
+      <section className="w-full bg-paper py-12 sm:py-16">
+        <article className="max-w-3xl mx-auto px-4 sm:px-8 lg:px-12 prose prose-sm prose-navy">
+          <div className="space-y-8 text-sm font-medium text-navy/75 leading-relaxed">
+            <div className="bg-white border-2 border-navy p-6 shadow-brutal-sm">
+              <h2 className="text-sm font-extrabold uppercase tracking-tight text-navy mb-3">
+                1. Information We Collect
+              </h2>
+              <p>
+                When you contact us for ambulance services, we collect information necessary
+                to dispatch and provide medical transport, including: your name, phone number,
+                pickup and drop-off locations, patient condition details, and any medical
+                information shared for appropriate care coordination.
+              </p>
+            </div>
+
+            <div className="bg-white border-2 border-navy p-6 shadow-brutal-sm">
+              <h2 className="text-sm font-extrabold uppercase tracking-tight text-navy mb-3">
+                2. How We Use Your Information
+              </h2>
+              <p>
+                Your information is used exclusively for: dispatching ambulance services,
+                coordinating with hospitals, processing payments, contacting you about your
+                service, and improving our operations. We do not sell or share your personal
+                information with third parties for marketing purposes.
+              </p>
+            </div>
+
+            <div className="bg-white border-2 border-navy p-6 shadow-brutal-sm">
+              <h2 className="text-sm font-extrabold uppercase tracking-tight text-navy mb-3">
+                3. Data Security
+              </h2>
+              <p>
+                We implement reasonable security measures to protect your personal information
+                against unauthorized access, alteration, disclosure, or destruction.
+              </p>
+            </div>
+
+            <div className="bg-white border-2 border-navy p-6 shadow-brutal-sm">
+              <h2 className="text-sm font-extrabold uppercase tracking-tight text-navy mb-3">
+                4. Contact
+              </h2>
+              <p>
+                For privacy-related inquiries, contact us at dispatch@vidhyasri.in or call
+                our main office line.
+              </p>
+            </div>
+          </div>
+        </article>
+      </section>
+    </>
+  );
+}
