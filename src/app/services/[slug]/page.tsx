@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { services, getServiceBySlug, getRelatedServices } from "@/data/services";
 import { siteConfig } from "@/data/site";
 import { localities } from "@/data/coverage";
+import { getServiceImage } from "@/data/images";
+import { ImageFrame } from "@/components/ui/ImageFrame";
 
 // ── Static params for SSG ──
 export async function generateStaticParams() {
@@ -155,56 +157,78 @@ export default async function ServiceDetailPage({ params }: Props) {
         />
       )}
 
-      {/* ── Hero ── */}
-      <section className="w-full bg-brand-gradient py-20 sm:py-28 relative overflow-hidden">
+      {/* ── Hero (Editorial 55% Content / 45% Image Composition) ── */}
+      <section className="w-full bg-brand-gradient py-16 sm:py-24 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
-          {/* Breadcrumb */}
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/60 mb-6"
-          >
-            <Link href="/" className="hover:text-white transition-colors">
-              Home
-            </Link>
-            <span>/</span>
-            <Link href="/services" className="hover:text-white transition-colors">
-              Services
-            </Link>
-            <span>/</span>
-            <span className="text-white">{service.name}</span>
-          </nav>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            {/* Left: 55% content (7 cols) */}
+            <div className="lg:col-span-7">
+              {/* Breadcrumb */}
+              <nav
+                aria-label="Breadcrumb"
+                className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/60 mb-6"
+              >
+                <Link href="/" className="hover:text-white transition-colors">
+                  Home
+                </Link>
+                <span>/</span>
+                <Link href="/services" className="hover:text-white transition-colors">
+                  Services
+                </Link>
+                <span>/</span>
+                <span className="text-white">{service.name}</span>
+              </nav>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 text-warm-yellow text-[10px] font-black uppercase tracking-widest mb-4">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            {service.category} · 24×7 Available
-          </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 text-warm-yellow text-[10px] font-black uppercase tracking-widest mb-4">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                {service.category} · 24×7 Available
+              </div>
 
-          {/* Exact H1 Title */}
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white leading-[0.95] mb-4">
-            {service.h1Title}
-          </h1>
-          <p className="text-base sm:text-lg font-medium text-white/85 max-w-2xl leading-relaxed">
-            {service.description}
-          </p>
+              {/* Exact H1 Title */}
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white leading-[0.95] mb-4">
+                {service.h1Title}
+              </h1>
+              <p className="text-base sm:text-lg font-medium text-white/85 max-w-xl leading-relaxed">
+                {service.description}
+              </p>
 
-          {/* CTA */}
-          <div className="flex flex-wrap items-center gap-3 mt-8">
-            <a
-              href={siteConfig.phone.href}
-              className="inline-flex items-center gap-2.5 px-7 py-4 bg-coral border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-coral/90 transition-all shadow-[5px_5px_0px_rgba(0,0,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px]"
-            >
-              <span className="material-symbols-outlined text-[18px]">call</span>
-              Call 24×7 · {siteConfig.phone.display}
-            </a>
-            <a
-              href={siteConfig.whatsapp.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-7 py-4 bg-white/10 border-2 border-white text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-white/20 transition-all"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              WhatsApp Us
-            </a>
+              {/* CTA */}
+              <div className="flex flex-wrap items-center gap-3 mt-8">
+                <a
+                  href={siteConfig.phone.href}
+                  className="inline-flex items-center gap-2.5 px-7 py-4 bg-coral border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-coral/90 transition-all shadow-[5px_5px_0px_rgba(0,0,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px]"
+                >
+                  <span className="material-symbols-outlined text-[18px]">call</span>
+                  Call 24×7 · {siteConfig.phone.display}
+                </a>
+                <a
+                  href={siteConfig.whatsapp.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 px-7 py-4 bg-white/10 border-2 border-white text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-white/20 transition-all"
+                >
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  WhatsApp Us
+                </a>
+              </div>
+            </div>
+
+            {/* Right: 45% Large Framed Service Image (5 cols) */}
+            <div className="lg:col-span-5">
+              <ImageFrame
+                src={getServiceImage(service.slug).src}
+                alt={getServiceImage(service.slug).alt}
+                caption={getServiceImage(service.slug).caption}
+                captionLocation={getServiceImage(service.slug).captionLocation}
+                badge={getServiceImage(service.slug).badge}
+                variant="featured"
+                offsetColor="warmYellow"
+                aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
+                objectPosition={getServiceImage(service.slug).objectPosition}
+                priority={true}
+                sizes="(max-width: 1024px) 100vw, 42vw"
+              />
+            </div>
           </div>
         </div>
         <div className="h-2 bg-warm-yellow relative z-10 mt-12" />

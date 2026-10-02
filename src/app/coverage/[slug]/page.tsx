@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { localities, getLocalityBySlug } from "@/data/coverage";
 import { services } from "@/data/services";
 import { siteConfig } from "@/data/site";
+import { siteImages } from "@/data/images";
+import { ImageFrame } from "@/components/ui/ImageFrame";
 
 // ── Static params for SSG ──
 export async function generateStaticParams() {
@@ -241,48 +243,67 @@ export default async function LocalityCoveragePage({ params }: Props) {
         <div className="h-2 bg-warm-yellow relative z-10 mt-12" />
       </section>
 
-      {/* ── Key Corridors & Nearby Hospitals ── */}
+      {/* ── Key Corridors, Nearby Hospitals & Dispatch Visual ── */}
       <section className="w-full bg-paper py-14 sm:py-18 border-b-2 border-navy/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Primary Corridors */}
-            <div className="p-6 bg-white border-2 border-navy shadow-brutal-sm">
-              <span className="inline-block px-2.5 py-0.5 bg-warm-yellow text-navy text-[10px] font-black uppercase tracking-wider border border-navy mb-3">
-                Key Road Links
-              </span>
-              <h2 className="text-lg font-extrabold uppercase tracking-tight text-navy mb-3">
-                {loc.name} Transit Corridors
-              </h2>
-              <ul className="space-y-2 text-xs font-bold text-navy/70">
-                {loc.landmarkCorridors.map((corridor) => (
-                  <li key={corridor} className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[16px] text-care-blue">
-                      route
-                    </span>
-                    {corridor}
-                  </li>
-                ))}
-              </ul>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Corridors and Hospitals (7 cols) */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {/* Primary Corridors */}
+              <div className="p-6 bg-white border-2 border-navy shadow-brutal-sm">
+                <span className="inline-block px-2.5 py-0.5 bg-warm-yellow text-navy text-[10px] font-black uppercase tracking-wider border border-navy mb-3">
+                  Key Road Links
+                </span>
+                <h2 className="text-lg font-extrabold uppercase tracking-tight text-navy mb-3">
+                  {loc.name} Transit Corridors
+                </h2>
+                <ul className="space-y-2 text-xs font-bold text-navy/70">
+                  {loc.landmarkCorridors.map((corridor) => (
+                    <li key={corridor} className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-[16px] text-care-blue">
+                        route
+                      </span>
+                      {corridor}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Nearby Hospital Clusters */}
+              <div className="p-6 bg-white border-2 border-navy shadow-brutal-sm">
+                <span className="inline-block px-2.5 py-0.5 bg-lavender text-navy text-[10px] font-black uppercase tracking-wider border border-navy mb-3">
+                  Nearby Medical Facilities
+                </span>
+                <h2 className="text-lg font-extrabold uppercase tracking-tight text-navy mb-3">
+                  Key Healthcare Destinations
+                </h2>
+                <ul className="space-y-2 text-xs font-bold text-navy/70">
+                  {loc.nearbyHospitalClusters.map((hosp) => (
+                    <li key={hosp} className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-[16px] text-emerald-600">
+                        local_hospital
+                      </span>
+                      {hosp}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
-            {/* Nearby Hospital Clusters */}
-            <div className="p-6 bg-white border-2 border-navy shadow-brutal-sm">
-              <span className="inline-block px-2.5 py-0.5 bg-lavender text-navy text-[10px] font-black uppercase tracking-wider border border-navy mb-3">
-                Nearby Medical Facilities
-              </span>
-              <h2 className="text-lg font-extrabold uppercase tracking-tight text-navy mb-3">
-                Key Healthcare Destinations
-              </h2>
-              <ul className="space-y-2 text-xs font-bold text-navy/70">
-                {loc.nearbyHospitalClusters.map((hosp) => (
-                  <li key={hosp} className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[16px] text-emerald-600">
-                      local_hospital
-                    </span>
-                    {hosp}
-                  </li>
-                ))}
-              </ul>
+            {/* Central Dispatch Supporting Image (5 cols) */}
+            <div className="lg:col-span-5">
+              <ImageFrame
+                src={siteImages.coverage.supportingImage.src}
+                alt={siteImages.coverage.supportingImage.alt}
+                caption={siteImages.coverage.supportingImage.caption}
+                captionLocation={`Central Dispatch · Serving ${loc.name}`}
+                badge="LOCAL DISPATCH"
+                variant="offset"
+                offsetColor="careBlue"
+                aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
+                objectPosition={siteImages.coverage.supportingImage.objectPosition}
+                sizes="(max-width: 1024px) 100vw, 42vw"
+              />
             </div>
           </div>
         </div>

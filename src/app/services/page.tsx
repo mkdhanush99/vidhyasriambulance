@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { services, ServiceData } from "@/data/services";
 import { siteConfig } from "@/data/site";
+import { siteImages } from "@/data/images";
+import { ImageFrame } from "@/components/ui/ImageFrame";
 
 export const metadata: Metadata = {
   title: "Ambulance Services in Hyderabad",
@@ -54,6 +56,35 @@ const accentBorderMap: Record<string, string> = {
   mist: "border-clinic-mist",
 };
 
+// Services that receive an editorial visual feature on the overview page
+const visualServiceSlugs: Record<string, { image: typeof siteImages.servicesOverview.emergencyFeatured; offsetColor: "warmYellow" | "careBlue" | "coral" | "mint" }> = {
+  "emergency-ambulance": {
+    image: siteImages.servicesOverview.emergencyFeatured,
+    offsetColor: "coral",
+  },
+  "icu-ambulance": {
+    image: siteImages.servicesOverview.icuSecondary,
+    offsetColor: "careBlue",
+  },
+  "patient-transfer-ambulance": {
+    image: siteImages.servicesOverview.transferSupporting,
+    offsetColor: "warmYellow",
+  },
+  "mortuary-transportation": {
+    image: {
+      src: siteImages.services["mortuary-transportation"].src,
+      alt: siteImages.services["mortuary-transportation"].alt,
+      caption: siteImages.services["mortuary-transportation"].caption,
+      captionLocation: siteImages.services["mortuary-transportation"].captionLocation,
+      badge: siteImages.services["mortuary-transportation"].badge,
+      aspectRatio: "aspect-[16/10]",
+      objectPosition: "center",
+      assetType: "REAL_CLIENT_ASSET",
+    },
+    offsetColor: "mint",
+  },
+};
+
 export default function ServicesPage() {
   return (
     <>
@@ -84,13 +115,13 @@ export default function ServicesPage() {
         <div className="h-2 bg-warm-yellow relative z-10 mt-12" />
       </section>
 
-      {/* ── Categorized Services ── */}
+      {/* ── Categorized Services (Editorial Mixed Grid) ── */}
       <section className="w-full bg-paper py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 space-y-16">
           {categories.map((cat) => {
             const catServices = services.filter((s) => s.category === cat.name);
             return (
-              <div key={cat.name} className="space-y-6">
+              <div key={cat.name} className="space-y-8">
                 {/* Category Header */}
                 <div className="border-b-2 border-navy/15 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                   <div>
@@ -103,58 +134,107 @@ export default function ServicesPage() {
                       {cat.name}
                     </h2>
                   </div>
-                  <p className="text-xs font-semibold text-navy/60 max-w-md">
+                  <p className="text-sm font-medium text-navy/70 max-w-md">
                     {cat.description}
                   </p>
                 </div>
 
-                {/* Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {catServices.map((service: ServiceData) => (
-                    <Link
-                      key={service.slug}
-                      href={`/services/${service.slug}`}
-                      className={`group flex flex-col p-6 border-2 border-navy ${accentBgMap[service.accent] || "bg-clinic-mist"} hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutal-navy transition-all duration-200`}
-                    >
-                      <div className="flex items-center gap-3 mb-4">
-                        <span
-                          className={`inline-flex items-center justify-center w-10 h-10 border-2 border-navy ${accentBorderMap[service.accent] || "border-clinic-mist"} bg-white`}
+                {/* Services Cards — Controlled Editorial Density */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {catServices.map((service) => {
+                    const visualConfig = visualServiceSlugs[service.slug];
+
+                    // Visual featured card (where selected)
+                    if (visualConfig) {
+                      return (
+                        <div
+                          key={service.slug}
+                          className="flex flex-col bg-white border-2 border-navy p-5 shadow-brutal-navy"
                         >
-                          <span className="material-symbols-outlined text-[20px] text-navy">
-                            {service.icon}
-                          </span>
-                        </span>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-navy/50">
-                          {service.name}
-                        </span>
-                      </div>
+                          {/* Image frame */}
+                          <div className="mb-4">
+                            <ImageFrame
+                              src={visualConfig.image.src}
+                              alt={visualConfig.image.alt}
+                              caption={visualConfig.image.caption}
+                              captionLocation={visualConfig.image.captionLocation}
+                              badge={visualConfig.image.badge}
+                              variant="default"
+                              aspectRatio="aspect-[16/10]"
+                              objectPosition={visualConfig.image.objectPosition}
+                              sizes="(max-width: 768px) 100vw, 33vw"
+                            />
+                          </div>
 
-                      <h3 className="text-base font-extrabold uppercase tracking-tight text-navy mb-2 group-hover:text-care-blue transition-colors">
-                        {service.name}
-                      </h3>
+                          {/* Content */}
+                          <div className="flex items-center gap-2.5 mb-2">
+                            <span
+                              className={`inline-flex items-center justify-center w-8 h-8 border-2 border-navy ${accentBorderMap[service.accent] || "border-clinic-mist"} bg-white`}
+                            >
+                              <span className="material-symbols-outlined text-[16px] text-navy">
+                                {service.icon}
+                              </span>
+                            </span>
+                            <span className="text-[9px] font-black uppercase tracking-widest text-navy/50">
+                              {service.category}
+                            </span>
+                          </div>
 
-                      <p className="text-[13px] font-medium text-navy/65 leading-relaxed flex-1">
-                        {service.shortDescription}
-                      </p>
+                          <h3 className="text-base font-extrabold uppercase tracking-tight text-navy mb-2">
+                            {service.name}
+                          </h3>
 
-                      <div className="mt-4 flex flex-wrap gap-1.5">
-                        {service.features.slice(0, 2).map((f) => (
-                          <span
-                            key={f}
-                            className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 bg-white border border-navy/20 text-navy/60"
+                          <p className="text-xs font-medium text-navy/70 leading-relaxed mb-4 flex-1">
+                            {service.shortDescription}
+                          </p>
+
+                          <Link
+                            href={`/services/${service.slug}`}
+                            className="inline-flex items-center justify-between px-4 py-2.5 bg-paper hover:bg-clinic-mist border-2 border-navy text-navy text-[11px] font-extrabold uppercase tracking-wider transition-colors"
                           >
-                            {f}
-                          </span>
-                        ))}
-                      </div>
+                            <span>{service.cardAnchor}</span>
+                            <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                          </Link>
+                        </div>
+                      );
+                    }
 
-                      <div className="mt-4 text-navy/60 group-hover:text-care-blue transition-colors">
-                        <span className="text-[11px] font-bold uppercase tracking-wide">
-                          {service.cardAnchor}
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
+                    // Non-visual typography + colour + icon card
+                    return (
+                      <Link
+                        key={service.slug}
+                        href={`/services/${service.slug}`}
+                        className={`group flex flex-col p-6 border-2 border-navy ${accentBgMap[service.accent] || "bg-clinic-mist"} hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutal-navy transition-all duration-200`}
+                      >
+                        <div className="flex items-center gap-3 mb-4">
+                          <span
+                            className={`inline-flex items-center justify-center w-10 h-10 border-2 border-navy ${accentBorderMap[service.accent] || "border-clinic-mist"} bg-white`}
+                          >
+                            <span className="material-symbols-outlined text-[20px] text-navy">
+                              {service.icon}
+                            </span>
+                          </span>
+                          <span className="text-[10px] font-black uppercase tracking-widest text-navy/50">
+                            {service.category}
+                          </span>
+                        </div>
+
+                        <h3 className="text-base font-extrabold uppercase tracking-tight text-navy mb-2 group-hover:text-care-blue transition-colors">
+                          {service.name}
+                        </h3>
+
+                        <p className="text-[13px] font-medium text-navy/65 leading-relaxed flex-1">
+                          {service.shortDescription}
+                        </p>
+
+                        <div className="mt-4 text-navy/60 group-hover:text-care-blue transition-colors">
+                          <span className="text-[11px] font-bold uppercase tracking-wide">
+                            {service.cardAnchor}
+                          </span>
+                        </div>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             );
@@ -162,35 +242,27 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ── Bottom CTA ── */}
-      <section className="w-full bg-coral py-14 border-y-2 border-navy">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      {/* ── Direct Dispatch CTA ── */}
+      <section className="w-full bg-navy text-white py-16 sm:py-20 border-t-2 border-navy">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy">
-              Need Dispatch Assistance?
+            <span className="inline-block px-3 py-1 bg-white/10 border border-white/20 text-warm-yellow text-[10px] font-black uppercase tracking-widest mb-3">
+              Need Assistance Selecting?
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight">
+              Speak with our dispatch team.
             </h2>
-            <p className="text-sm font-semibold text-navy/70 mt-1">
-              Contact our 24×7 coordination helpline to confirm the right ambulance category for your patient.
+            <p className="mt-2 text-sm text-white/70 max-w-xl">
+              If you are unsure whether Basic Life Support, ICU, or Oxygen transport is required, our coordinators will help assess the journey.
             </p>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href={siteConfig.phone.href}
-              className="inline-flex items-center gap-2.5 px-7 py-4 bg-navy border-2 border-navy text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-navy-dark transition-all shadow-brutal-white shrink-0"
-            >
-              <span className="material-symbols-outlined text-[18px]">call</span>
-              Call {siteConfig.phone.display}
-            </a>
-            <a
-              href={siteConfig.whatsapp.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-7 py-4 bg-white border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-gray-50 transition-all shadow-brutal-navy shrink-0"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-              WhatsApp Us
-            </a>
-          </div>
+          <a
+            href={siteConfig.phone.href}
+            className="inline-flex items-center gap-2 px-6 py-4 bg-coral border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-coral/90 transition-all shrink-0 shadow-brutal-sm"
+          >
+            <span className="material-symbols-outlined text-[18px]">call</span>
+            Call 24×7 · {siteConfig.phone.display}
+          </a>
         </div>
       </section>
     </>
