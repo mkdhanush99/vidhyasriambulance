@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { siteConfig } from "@/data/site";
 import { services } from "@/data/services";
@@ -5,92 +6,117 @@ import { services } from "@/data/services";
 export const metadata: Metadata = {
   title: "Frequently Asked Questions",
   description:
-    "Get answers to common questions about Vidhya Sri Ambulance services, response times, coverage, pricing, and booking.",
+    "Find answers to common questions about booking an ambulance in Hyderabad, patient transfers, outstation journeys, and coordination details.",
+  alternates: {
+    canonical: `${siteConfig.seo.url}/faq`,
+  },
 };
 
 const generalFaqs = [
   {
-    question: "How do I book an ambulance?",
+    question: "How do I book an ambulance in Hyderabad?",
     answer:
-      "You can call our 24×7 emergency hotline or send a WhatsApp message. For non-emergency transfers, you can also book via WhatsApp with your preferred date and time.",
+      "To book an ambulance with Vidhya Sri Ambulance Services, call our 24×7 helpline directly at 9951648174 or send a message via WhatsApp. Our coordination team verifies your pickup address, patient transport needs, and destination to arrange the appropriate ambulance.",
   },
   {
-    question: "What areas do you cover?",
+    question: "What details should I share when booking?",
     answer:
-      "We cover all of Greater Hyderabad and surrounding districts. For outstation transfers, we provide all-India coverage with proper interstate permits.",
+      "Please provide the exact pickup location with a nearby landmark, destination hospital or address, the patient's current mobility status, and any medical support requirements (such as oxygen support or intensive care monitoring) advised by the treating team.",
   },
   {
-    question: "Do you accept insurance?",
+    question: "Can I request an ambulance for hospital transfer?",
     answer:
-      "We accept cashless claims from select insurance providers. Please contact our billing team for insurance-related queries and pre-authorization.",
+      "Yes. We arrange patient transfers between hospitals, diagnostic centers, and residential addresses across Hyderabad. This includes planned transfers for dialysis, chemotherapy, and routine post-surgery hospital discharge.",
   },
   {
-    question: "What payment methods are accepted?",
+    question: "Do you provide outstation ambulance services?",
     answer:
-      "We accept cash, UPI (GPay, PhonePe, Paytm), debit/credit cards, and bank transfers. Corporate clients can be invoiced on credit terms.",
+      "Yes. Vidhya Sri Ambulance Services arranges outstation patient transportation from Hyderabad to destinations across Telangana, Andhra Pradesh, and neighboring states, subject to vehicle availability and medical suitability for road travel.",
   },
   {
-    question: "Are your ambulances equipped for COVID patients?",
+    question: "Can I contact Vidhya Sri through WhatsApp?",
     answer:
-      "Yes, all our ambulances can be configured for infectious disease transport with proper isolation protocols, negative pressure capability, and PPE-equipped crew.",
+      "Yes. You can contact Vidhya Sri Ambulance Services via WhatsApp at 9951648174 to share your live location pin, medical summaries, and coordinate scheduled journey timings.",
   },
   {
-    question: "Do you provide ambulance for events?",
+    question: "Which ambulance type is appropriate for my journey?",
     answer:
-      "Yes, we offer event standby ambulance services for corporate events, sports venues, conventions, industrial sites, and film productions.",
-  },
-  {
-    question: "What is the difference between ALS and BLS?",
-    answer:
-      "ALS (Advanced Life Support) ambulances are equipped with advanced medical equipment like cardiac monitors, defibrillators, and ventilators, staffed by paramedics who can administer medications. BLS (Basic Life Support) provides essential emergency care with oxygen therapy and basic monitoring.",
-  },
-  {
-    question: "Can I get a recurring booking for hospital visits?",
-    answer:
-      "Yes, our Patient Transfer Ambulance service offers scheduled recurring bookings for dialysis, chemotherapy, physiotherapy, and other regular hospital visits.",
+      "The choice of ambulance depends on the patient's clinical requirements as assessed by the treating medical team. For general mobility, a Patient Transfer or BLS unit may suffice; for continuous monitoring or breathing assistance, an ICU or Ventilator ambulance is recommended. When in doubt, consult the patient's doctors and speak with our coordination team.",
   },
 ];
 
 export default function FAQPage() {
-  // Collect service-specific FAQs
   const serviceFaqs = services
     .filter((s) => s.faqs.length > 0)
     .flatMap((s) =>
       s.faqs.map((faq) => ({
         ...faq,
         serviceName: s.name,
+        serviceSlug: s.slug,
       }))
     );
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [...generalFaqs, ...serviceFaqs].map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.answer,
+      },
+    })),
+  };
+
   return (
     <>
-      {/* Hero */}
-      <section className="w-full bg-brand-gradient py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-          <span className="inline-block px-3 py-1 bg-white/10 border border-white/25 text-white text-[10px] font-black uppercase tracking-widest mb-4">
-            FAQ
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
+      {/* ── Hero ── */}
+      <section className="w-full bg-brand-gradient py-20 sm:py-28 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+          <nav
+            aria-label="Breadcrumb"
+            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/60 mb-6"
+          >
+            <Link href="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
+            <span>/</span>
+            <span className="text-white">FAQ</span>
+          </nav>
+
+          <span className="inline-block px-3 py-1 bg-white/10 border border-white/25 text-warm-yellow text-[10px] font-black uppercase tracking-widest mb-4">
+            Help & Answers
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white leading-[0.95]">
-            Frequently <span className="text-warm-yellow">Asked.</span>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white leading-[0.95] mb-4">
+            Frequently Asked Questions
           </h1>
+          <p className="text-base sm:text-lg font-medium text-white/85 max-w-2xl leading-relaxed">
+            Helpful information on booking ambulances in Hyderabad, patient transfer details, and outstation medical travel.
+          </p>
         </div>
-        <div className="h-2 bg-warm-yellow mt-12" />
+        <div className="h-2 bg-warm-yellow relative z-10 mt-12" />
       </section>
 
-      {/* General FAQs */}
+      {/* ── General FAQs ── */}
       <section className="w-full bg-paper py-16 sm:py-20">
-        <div className="max-w-3xl mx-auto px-4 sm:px-8 lg:px-12">
-          <span className="inline-block px-3 py-1 bg-coral border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-6 shadow-brutal-sm">
-            General
+        <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
+          <span className="inline-block px-3 py-1 bg-coral border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-4 shadow-brutal-sm">
+            General Booking
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-8">
-            General Questions
+            Booking & Service Questions
           </h2>
 
-          <div className="flex flex-col gap-3">
-            {generalFaqs.map((faq, i) => (
+          <div className="space-y-3 mb-16">
+            {generalFaqs.map((faq, idx) => (
               <details
-                key={i}
+                key={idx}
                 className="group bg-white border-2 border-navy p-5 shadow-brutal-sm open:shadow-brutal-navy transition-all"
               >
                 <summary className="flex items-center justify-between cursor-pointer text-sm font-extrabold uppercase tracking-tight text-navy list-none">
@@ -99,34 +125,30 @@ export default function FAQPage() {
                     expand_more
                   </span>
                 </summary>
-                <p className="mt-4 text-[13px] font-medium text-navy/70 leading-relaxed">
+                <p className="mt-3 text-xs sm:text-sm font-medium text-navy/70 leading-relaxed border-t border-navy/10 pt-3">
                   {faq.answer}
                 </p>
               </details>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Service-specific FAQs */}
-      <section className="w-full bg-clinic-mist py-16 sm:py-20 border-t-2 border-navy/10">
-        <div className="max-w-3xl mx-auto px-4 sm:px-8 lg:px-12">
-          <span className="inline-block px-3 py-1 bg-lavender border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-6 shadow-brutal-sm">
-            Service-Specific
+          {/* ── Service Specific FAQs ── */}
+          <span className="inline-block px-3 py-1 bg-warm-yellow border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-4 shadow-brutal-sm">
+            Service Specific
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-8">
-            By Service Type
+            Questions by Ambulance Type
           </h2>
 
-          <div className="flex flex-col gap-3">
-            {serviceFaqs.map((faq, i) => (
+          <div className="space-y-3">
+            {serviceFaqs.map((faq, idx) => (
               <details
-                key={i}
+                key={idx}
                 className="group bg-white border-2 border-navy p-5 shadow-brutal-sm open:shadow-brutal-navy transition-all"
               >
                 <summary className="flex items-center justify-between cursor-pointer text-sm font-extrabold uppercase tracking-tight text-navy list-none">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[9px] font-bold text-care-blue uppercase tracking-widest">
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-care-blue block mb-1">
                       {faq.serviceName}
                     </span>
                     <span>{faq.question}</span>
@@ -135,33 +157,49 @@ export default function FAQPage() {
                     expand_more
                   </span>
                 </summary>
-                <p className="mt-4 text-[13px] font-medium text-navy/70 leading-relaxed">
-                  {faq.answer}
-                </p>
+                <div className="mt-3 border-t border-navy/10 pt-3">
+                  <p className="text-xs sm:text-sm font-medium text-navy/70 leading-relaxed">
+                    {faq.answer}
+                  </p>
+                  <Link
+                    href={`/services/${faq.serviceSlug}`}
+                    className="inline-block mt-3 text-xs font-bold text-care-blue hover:underline"
+                  >
+                    View {faq.serviceName} Page →
+                  </Link>
+                </div>
               </details>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ── Bottom CTA ── */}
       <section className="w-full bg-coral py-14 border-y-2 border-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
             <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy">
-              Still Have Questions?
+              Have Additional Questions?
             </h2>
             <p className="text-sm font-semibold text-navy/70 mt-1">
-              Call or WhatsApp us — we&apos;re happy to help.
+              Contact our 24×7 dispatch team directly to discuss your patient transfer requirements.
             </p>
           </div>
-          <a
-            href={siteConfig.phone.href}
-            className="inline-flex items-center gap-2.5 px-7 py-4 bg-navy border-2 border-navy text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-navy-dark transition-all shadow-brutal-white shrink-0"
-          >
-            <span className="material-symbols-outlined text-[18px]">call</span>
-            Contact Us
-          </a>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={siteConfig.phone.href}
+              className="inline-flex items-center gap-2.5 px-7 py-4 bg-navy border-2 border-navy text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-navy-dark transition-all shadow-brutal-white shrink-0"
+            >
+              <span className="material-symbols-outlined text-[18px]">call</span>
+              Call {siteConfig.phone.display}
+            </a>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2.5 px-6 py-4 bg-white border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-clinic-mist transition-all shadow-brutal-navy shrink-0"
+            >
+              Contact Details
+            </Link>
+          </div>
         </div>
       </section>
     </>

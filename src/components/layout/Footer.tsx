@@ -4,18 +4,20 @@ import { siteConfig } from "@/data/site";
 import { services } from "@/data/services";
 
 const coverageAreas = [
-  "Banjara Hills",
-  "Jubilee Hills",
-  "Hitec City",
-  "Gachibowli",
-  "Somajiguda",
-  "Secunderabad",
-  "Kondapur",
-  "Kukatpally",
-  "Begumpet",
-  "Mehdipatnam",
-  "LB Nagar",
-  "Madhapur",
+  { name: "Hyderabad Central", slug: "hyderabad" },
+  { name: "Somajiguda", slug: "somajiguda" },
+  { name: "Banjara Hills", slug: "banjara-hills" },
+  { name: "Jubilee Hills", slug: "jubilee-hills" },
+  { name: "Punjagutta", slug: "punjagutta" },
+  { name: "Begumpet", slug: "begumpet" },
+  { name: "Secunderabad", slug: "secunderabad" },
+  { name: "Madhapur", slug: "madhapur" },
+  { name: "Hitech City", slug: "hitech-city" },
+  { name: "Gachibowli", slug: "gachibowli" },
+  { name: "Kondapur", slug: "kondapur" },
+  { name: "Kukatpally", slug: "kukatpally" },
+  { name: "Mehdipatnam", slug: "mehdipatnam" },
+  { name: "LB Nagar", slug: "lb-nagar" },
 ];
 
 export function Footer() {
@@ -34,30 +36,27 @@ export function Footer() {
               className="h-9 w-auto object-contain self-start"
               unoptimized
             />
-            <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white mt-1">
-              Care, moving forward.
+            <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mt-1">
+              Care, moving when it matters.
             </h2>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-[11px] font-black uppercase text-white/60">
-              Hyderabad Fleet:
-            </span>
             <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/20 text-warm-yellow text-[11px] font-black uppercase">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              Dispatch Ready 24×7
+              24×7 Ambulance Helpline Active
             </span>
           </div>
         </div>
 
-        {/* ── Links Grid ── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12">
-          {/* Services */}
+        {/* ── Links Grid: 5 Categories ── */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 py-12">
+          {/* 1. Services */}
           <div className="flex flex-col gap-3">
             <span className="text-[11px] font-black uppercase tracking-widest text-warm-yellow border-b border-white/15 pb-2">
               Services
             </span>
             <ul className="flex flex-col gap-2 text-xs font-semibold text-white/75">
-              {services.slice(0, 6).map((service) => (
+              {services.map((service) => (
                 <li key={service.slug}>
                   <Link
                     href={`/services/${service.slug}`}
@@ -70,26 +69,34 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Coverage */}
+          {/* 2. Coverage */}
           <div className="flex flex-col gap-3">
             <span className="text-[11px] font-black uppercase tracking-widest text-warm-yellow border-b border-white/15 pb-2">
-              Coverage Hubs
+              Coverage
             </span>
             <ul className="flex flex-col gap-2 text-xs font-semibold text-white/75">
-              {coverageAreas.slice(0, 6).map((area) => (
-                <li key={area}>
+              {coverageAreas.slice(0, 10).map((area) => (
+                <li key={area.slug}>
                   <Link
-                    href={`/coverage/${area.toLowerCase().replace(/\s+/g, "-")}`}
+                    href={`/coverage/${area.slug}`}
                     className="hover:text-white transition-colors"
                   >
-                    {area}
+                    {area.name}
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/coverage"
+                  className="text-warm-yellow hover:underline mt-1 block"
+                >
+                  View All Areas →
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Company */}
+          {/* 3. Company */}
           <div className="flex flex-col gap-3">
             <span className="text-[11px] font-black uppercase tracking-widest text-warm-yellow border-b border-white/15 pb-2">
               Company
@@ -111,6 +118,63 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/services" className="hover:text-white transition-colors">
+                  All Services
+                </Link>
+              </li>
+              <li>
+                <Link href="/coverage" className="hover:text-white transition-colors">
+                  Coverage Hub
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* 4. Contact */}
+          <div className="flex flex-col gap-3">
+            <span className="text-[11px] font-black uppercase tracking-widest text-warm-yellow border-b border-white/15 pb-2">
+              Contact
+            </span>
+            <ul className="flex flex-col gap-2.5 text-xs font-semibold text-white/75">
+              <li>
+                <span className="text-[10px] uppercase text-white/50 block font-bold">24×7 Phone</span>
+                <a href={siteConfig.phone.href} className="text-white hover:underline font-bold">
+                  {siteConfig.phone.display}
+                </a>
+              </li>
+              <li>
+                <span className="text-[10px] uppercase text-white/50 block font-bold">WhatsApp</span>
+                <a
+                  href={siteConfig.whatsapp.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:underline"
+                >
+                  {siteConfig.whatsapp.display}
+                </a>
+              </li>
+              <li>
+                <span className="text-[10px] uppercase text-white/50 block font-bold">Email</span>
+                <a href={`mailto:${siteConfig.email}`} className="text-white hover:underline break-all">
+                  {siteConfig.email}
+                </a>
+              </li>
+              <li>
+                <span className="text-[10px] uppercase text-white/50 block font-bold">Address</span>
+                <span className="text-white/80 leading-relaxed block">
+                  Somajiguda, Hyderabad, Telangana 500082
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* 5. Legal */}
+          <div className="flex flex-col gap-3">
+            <span className="text-[11px] font-black uppercase tracking-widest text-warm-yellow border-b border-white/15 pb-2">
+              Legal
+            </span>
+            <ul className="flex flex-col gap-2 text-xs font-semibold text-white/75">
+              <li>
                 <Link href="/privacy-policy" className="hover:text-white transition-colors">
                   Privacy Policy
                 </Link>
@@ -127,32 +191,16 @@ export function Footer() {
               </li>
             </ul>
           </div>
-
-          {/* Contact */}
-          <div className="flex flex-col gap-3">
-            <span className="text-[11px] font-black uppercase tracking-widest text-warm-yellow border-b border-white/15 pb-2">
-              Contact & Emergency
-            </span>
-            <ul className="flex flex-col gap-2 text-xs font-semibold text-white/75">
-              <li className="font-bold text-white">
-                Emergency: {siteConfig.phone.display}
-              </li>
-              <li>WhatsApp: {siteConfig.whatsapp.display}</li>
-              <li>Corporate: {siteConfig.email}</li>
-              <li>{siteConfig.address.full}</li>
-            </ul>
-          </div>
         </div>
 
         {/* ── Bottom Strip ── */}
         <div className="pt-8 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/60 font-medium">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span>Hyderabad Central Dispatch Active · 24×7 Operational</span>
+            <span>24×7 Medical Transportation Services · Hyderabad, Telangana</span>
           </div>
           <span>
-            © {new Date().getFullYear()} {siteConfig.companyLegalName}. All
-            rights reserved.
+            © {new Date().getFullYear()} {siteConfig.companyLegalName}. All rights reserved.
           </span>
         </div>
       </div>

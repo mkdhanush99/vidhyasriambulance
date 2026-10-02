@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { siteConfig } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Vidhya Sri Ambulance privacy policy — how we collect, use, and protect your personal information.",
+    "Vidhya Sri Ambulance Services privacy policy — how we collect, use, and protect your personal information during dispatch and transport.",
+  alternates: {
+    canonical: `${siteConfig.seo.url}/privacy-policy`,
+  },
 };
 
 export default function PrivacyPolicyPage() {
@@ -63,8 +67,14 @@ export default function PrivacyPolicyPage() {
                 4. Contact
               </h2>
               <p>
-                For privacy-related inquiries, contact us at dispatch@vidhyasri.in or call
-                our main office line.
+                For privacy-related inquiries, contact us at{" "}
+                <a href={`mailto:${siteConfig.email}`} className="text-care-blue underline font-bold">
+                  {siteConfig.email}
+                </a>{" "}
+                or call our 24×7 coordination line at{" "}
+                <a href={siteConfig.phone.href} className="text-care-blue underline font-bold">
+                  {siteConfig.phone.display}
+                </a>.
               </p>
             </div>
           </div>

@@ -2,8 +2,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { services, getServiceBySlug, getRelatedServices } from "@/data/services";
-import { localities } from "@/data/coverage";
 import { siteConfig } from "@/data/site";
+import { localities } from "@/data/coverage";
 
 // ── Static params for SSG ──
 export async function generateStaticParams() {
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const url = `${siteConfig.seo.url}/services/${service.slug}`;
 
   return {
-    title: service.seo.title,
+    title: { absolute: service.seo.title },
     description: service.seo.description,
     alternates: {
       canonical: url,
@@ -50,18 +50,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const accentBgMap: Record<string, string> = {
-  coral: "bg-coral",
-  lavender: "bg-lavender",
-  peach: "bg-peach",
-  aqua: "bg-aqua",
-  warmYellow: "bg-warm-yellow",
-  mint: "bg-mint",
-  softGreen: "bg-soft-green",
-  purple: "bg-purple-accent",
-  mist: "bg-clinic-mist",
-};
-
-const accentLightBgMap: Record<string, string> = {
   coral: "bg-coral-light",
   lavender: "bg-lavender-light",
   peach: "bg-peach-light",
@@ -79,7 +67,6 @@ export default async function ServiceDetailPage({ params }: Props) {
   if (!service) notFound();
 
   const related = getRelatedServices(service.relatedServices);
-  // Highlight top relevant coverage zones
   const sampleCoverage = localities.slice(0, 6);
 
   // Structured Data: BreadcrumbList + Service + FAQPage
@@ -111,7 +98,7 @@ export default async function ServiceDetailPage({ params }: Props) {
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: service.name,
+    name: service.h1Title,
     description: service.description,
     provider: {
       "@type": "EmergencyService",
@@ -131,7 +118,7 @@ export default async function ServiceDetailPage({ params }: Props) {
       "@type": "City",
       name: "Hyderabad",
     },
-    serviceType: "Ambulance Transport Service",
+    serviceType: service.name,
   };
 
   const faqJsonLd =
@@ -187,20 +174,16 @@ export default async function ServiceDetailPage({ params }: Props) {
             <span className="text-white">{service.name}</span>
           </nav>
 
-          <div className="flex items-start gap-4 mb-6">
-            <span
-              className={`inline-flex items-center justify-center w-14 h-14 border-2 border-white/30 ${accentBgMap[service.accent] || "bg-clinic-mist"}`}
-            >
-              <span className="material-symbols-outlined text-[28px] text-navy">
-                {service.icon}
-              </span>
-            </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 text-warm-yellow text-[10px] font-black uppercase tracking-widest mb-4">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            {service.category} · 24×7 Available
           </div>
 
+          {/* Exact H1 Title */}
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white leading-[0.95] mb-4">
-            {service.name}
+            {service.h1Title}
           </h1>
-          <p className="text-base sm:text-lg font-medium text-white/80 max-w-2xl leading-relaxed">
+          <p className="text-base sm:text-lg font-medium text-white/85 max-w-2xl leading-relaxed">
             {service.description}
           </p>
 
@@ -211,7 +194,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               className="inline-flex items-center gap-2.5 px-7 py-4 bg-coral border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-coral/90 transition-all shadow-[5px_5px_0px_rgba(0,0,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px]"
             >
               <span className="material-symbols-outlined text-[18px]">call</span>
-              Dispatch {service.name}
+              Call 24×7 · {siteConfig.phone.display}
             </a>
             <a
               href={siteConfig.whatsapp.href}
@@ -220,123 +203,182 @@ export default async function ServiceDetailPage({ params }: Props) {
               className="inline-flex items-center gap-2.5 px-7 py-4 bg-white/10 border-2 border-white text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-white/20 transition-all"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              WhatsApp Triage
+              WhatsApp Us
             </a>
           </div>
         </div>
-        <div className="h-2 bg-warm-yellow relative z-10" />
+        <div className="h-2 bg-warm-yellow relative z-10 mt-12" />
       </section>
 
-      {/* ── Practical Booking & Information Protocol ── */}
+      {/* ── Booking Information Checklist & Service Specifications ── */}
       <section className="w-full bg-white py-14 sm:py-18 border-b-2 border-navy/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="p-6 bg-clinic-mist border-2 border-navy shadow-brutal-sm">
+            {/* Checklist */}
+            <div className="p-6 sm:p-8 bg-clinic-mist border-2 border-navy shadow-brutal-sm">
               <span className="inline-block px-2.5 py-0.5 bg-warm-yellow text-navy text-[10px] font-black uppercase tracking-wider border border-navy mb-3">
-                Pre-Dispatch Checklist
+                Pre-Booking Checklist
               </span>
               <h2 className="text-lg font-extrabold uppercase tracking-tight text-navy mb-3">
-                Information to Share When Requesting This Unit
+                Information to Share When Booking
               </h2>
-              <ul className="space-y-2 text-xs font-semibold text-navy/75">
-                <li className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-care-blue mt-0.5">
-                    check
-                  </span>
-                  Exact caller location, floor number, and landmark details for driver routing.
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-care-blue mt-0.5">
-                    check
-                  </span>
-                  Current conscious state, breathing status, and known underlying medical conditions.
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-care-blue mt-0.5">
-                    check
-                  </span>
-                  Destination hospital or clinic name (and whether admission has been pre-arranged).
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-care-blue mt-0.5">
-                    check
-                  </span>
-                  Any specialized transport requirements (such as ventilator mode or infant incubator).
-                </li>
+              <p className="text-xs text-navy/70 mb-4 font-medium">
+                To help our dispatch coordinators arrange the right unit quickly, please share the following details:
+              </p>
+              <ul className="space-y-2.5 text-xs font-bold text-navy/80">
+                {service.bookingChecklist.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-[16px] text-care-blue mt-0.5 shrink-0">
+                      check_circle
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
 
-            <div className="p-6 bg-clinic-mist border-2 border-navy shadow-brutal-sm">
-              <span className="inline-block px-2.5 py-0.5 bg-mint text-navy text-[10px] font-black uppercase tracking-wider border border-navy mb-3">
-                Journey Arrangement
+            {/* Core Features */}
+            <div className="p-6 sm:p-8 bg-paper border-2 border-navy shadow-brutal-sm">
+              <span className="inline-block px-2.5 py-0.5 bg-lavender text-navy text-[10px] font-black uppercase tracking-wider border border-navy mb-3">
+                Service Capabilities
               </span>
               <h2 className="text-lg font-extrabold uppercase tracking-tight text-navy mb-3">
-                How Transit Care is Coordinated
+                Key Support Features
               </h2>
-              <p className="text-xs sm:text-sm font-medium text-navy/70 leading-relaxed mb-4">
-                The appropriate ambulance configuration is confirmed with our central dispatch coordinator based on clinical severity. En route, the medical escort coordinates vitals telemetry and pre-alerts the receiving emergency department to facilitate immediate bed-to-bed handover upon arrival.
+              <p className="text-xs text-navy/70 mb-4 font-medium">
+                Standard equipment and operational capabilities arranged for this service category:
               </p>
-              <Link
-                href="/how-it-works"
-                className="text-xs font-black uppercase text-care-blue hover:text-navy transition-colors inline-flex items-center gap-1"
-              >
-                Learn more about our 4-step dispatch workflow →
-              </Link>
+              <ul className="space-y-2.5 text-xs font-bold text-navy/80">
+                {service.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-[16px] text-care-blue mt-0.5 shrink-0">
+                      verified
+                    </span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Features & Capabilities ── */}
-      <section className={`w-full ${accentLightBgMap[service.accent] || "bg-clinic-mist"} py-16 sm:py-20`}>
+      {/* ── Related Services & Coverage Internal Links ── */}
+      <section className="w-full bg-paper py-14 sm:py-18 border-b-2 border-navy/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-          <span className="inline-block px-3 py-1 bg-warm-yellow border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-6 shadow-brutal-sm">
-            Equipment & Capabilities
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-8">
-            On-Board Equipment for {service.name}
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {service.features.map((feature) => (
-              <div
-                key={feature}
-                className="flex items-start gap-3 p-5 bg-white border-2 border-navy shadow-brutal-sm"
-              >
-                <span className="material-symbols-outlined text-[20px] text-care-blue mt-0.5">
-                  check_circle
-                </span>
-                <span className="text-sm font-bold text-navy">{feature}</span>
+          {/* Related Services */}
+          {related.length > 0 && (
+            <div className="mb-14">
+              <div className="flex items-end justify-between gap-4 mb-6">
+                <div>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-navy/50">
+                    Related Services
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-navy">
+                    Explore Other Medical Transport Options
+                  </h2>
+                </div>
+                <Link
+                  href="/services"
+                  className="text-xs font-bold uppercase text-care-blue hover:text-navy transition-colors shrink-0"
+                >
+                  All Services →
+                </Link>
               </div>
-            ))}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {related.map((rel) => (
+                  <Link
+                    key={rel.slug}
+                    href={`/services/${rel.slug}`}
+                    className={`p-5 border-2 border-navy ${accentBgMap[rel.accent] || "bg-clinic-mist"} hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutal-navy transition-all`}
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="material-symbols-outlined text-[18px] text-navy">
+                        {rel.icon}
+                      </span>
+                      <h3 className="text-sm font-extrabold uppercase text-navy">
+                        {rel.name}
+                      </h3>
+                    </div>
+                    <p className="text-xs text-navy/70 line-clamp-2 font-medium">
+                      {rel.shortDescription}
+                    </p>
+                    <span className="text-[10px] font-extrabold uppercase text-care-blue mt-3 inline-block">
+                      {rel.cardAnchor}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Hyderabad Coverage Links */}
+          <div>
+            <div className="flex items-end justify-between gap-4 mb-4">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-navy/50">
+                  Service Coverage
+                </span>
+                <h2 className="text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-navy">
+                  Available Across Hyderabad Localities
+                </h2>
+              </div>
+              <Link
+                href="/coverage"
+                className="text-xs font-bold uppercase text-care-blue hover:text-navy transition-colors shrink-0"
+              >
+                All Coverage Hubs →
+              </Link>
+            </div>
+            <p className="text-xs text-navy/70 mb-4 font-medium">
+              Vidhya Sri Ambulance provides {service.name.toLowerCase()} support across all major hubs in Greater Hyderabad:
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <Link
+                href="/coverage/hyderabad"
+                className="px-3 py-1.5 bg-navy text-white text-[11px] font-bold uppercase tracking-wider hover:bg-navy-dark transition-all"
+              >
+                Hyderabad Metropolitan Area
+              </Link>
+              {sampleCoverage.slice(1).map((loc) => (
+                <Link
+                  key={loc.slug}
+                  href={`/coverage/${loc.slug}`}
+                  className="px-3 py-1.5 bg-white border border-navy text-navy text-[11px] font-bold uppercase tracking-wider hover:bg-clinic-mist transition-all"
+                >
+                  {loc.name}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── FAQ ── */}
+      {/* ── FAQ Section ── */}
       {service.faqs.length > 0 && (
-        <section className="w-full bg-paper py-16 sm:py-20">
-          <div className="max-w-3xl mx-auto px-4 sm:px-8 lg:px-12">
-            <span className="inline-block px-3 py-1 bg-lavender border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-6 shadow-brutal-sm">
-              FAQ
+        <section className="w-full bg-white py-14 sm:py-18 border-b-2 border-navy/10">
+          <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
+            <span className="inline-block px-3 py-1 bg-warm-yellow border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-3 shadow-brutal-sm">
+              Questions & Answers
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-8">
               Frequently Asked Questions About {service.name}
             </h2>
 
-            <div className="flex flex-col gap-4">
-              {service.faqs.map((faq, i) => (
+            <div className="space-y-3">
+              {service.faqs.map((faq, idx) => (
                 <details
-                  key={i}
-                  className="group bg-white border-2 border-navy p-5 shadow-brutal-sm open:shadow-brutal-navy transition-all"
+                  key={idx}
+                  className="group bg-paper border-2 border-navy p-5 shadow-brutal-sm open:shadow-brutal-navy transition-all"
                 >
                   <summary className="flex items-center justify-between cursor-pointer text-sm font-extrabold uppercase tracking-tight text-navy list-none">
                     {faq.question}
-                    <span className="material-symbols-outlined text-[20px] text-navy/40 group-open:rotate-180 transition-transform">
+                    <span className="material-symbols-outlined text-[20px] text-navy/40 group-open:rotate-180 transition-transform shrink-0 ml-4">
                       expand_more
                     </span>
                   </summary>
-                  <p className="mt-4 text-[13px] font-medium text-navy/70 leading-relaxed">
+                  <p className="mt-3 text-xs sm:text-sm font-medium text-navy/70 leading-relaxed border-t border-navy/10 pt-3">
                     {faq.answer}
                   </p>
                 </details>
@@ -346,96 +388,32 @@ export default async function ServiceDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* ── Relevant Hyderabad Coverage Zones ── */}
-      <section className="w-full bg-clinic-mist py-16 border-t-2 border-navy/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <div>
-              <h2 className="text-2xl font-extrabold uppercase tracking-tight text-navy">
-                Hyderabad Coverage Areas for {service.name}
-              </h2>
-              <p className="text-xs font-semibold text-navy/60 mt-1">
-                Stationed response units ready across primary medical and residential zones.
-              </p>
-            </div>
-            <Link
-              href="/coverage"
-              className="text-xs font-bold uppercase tracking-wider text-care-blue hover:text-navy transition-colors shrink-0"
-            >
-              Browse All Hyderabad Coverage Hubs →
-            </Link>
-          </div>
-
-          <div className="flex flex-wrap gap-2.5">
-            {sampleCoverage.map((area) => (
-              <Link
-                key={area.slug}
-                href={`/coverage/${area.slug}`}
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border-2 border-navy text-xs font-extrabold uppercase text-navy hover:bg-warm-yellow transition-colors shadow-brutal-sm"
-              >
-                <span className="material-symbols-outlined text-[16px] text-care-blue">
-                  location_on
-                </span>
-                {area.name}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Related Services ── */}
-      {related.length > 0 && (
-        <section className="w-full bg-paper py-16 sm:py-20 border-t-2 border-navy/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-8">
-              Related Ambulance Services
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {related.map((s) => (
-                <Link
-                  key={s.slug}
-                  href={`/services/${s.slug}`}
-                  className={`group flex flex-col p-5 border-2 border-navy ${accentLightBgMap[s.accent] || "bg-clinic-mist"} hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutal-navy transition-all`}
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="material-symbols-outlined text-[18px] text-navy">
-                      {s.icon}
-                    </span>
-                    <h3 className="text-sm font-extrabold uppercase tracking-tight text-navy group-hover:text-care-blue transition-colors">
-                      {s.name}
-                    </h3>
-                  </div>
-                  <p className="text-[12px] font-medium text-navy/60 leading-relaxed flex-1">
-                    {s.shortDescription}
-                  </p>
-                  <span className="mt-3 text-[10px] font-bold uppercase text-care-blue">
-                    View {s.name} →
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ── Emergency CTA ── */}
+      {/* ── Emergency Action Strip ── */}
       <section className="w-full bg-coral py-14 border-y-2 border-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
             <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy">
-              Need {service.name}?
+              Book {service.name}
             </h2>
             <p className="text-sm font-semibold text-navy/70 mt-1">
-              Available 24×7 across Hyderabad. Call now for immediate dispatch.
+              Contact our 24×7 dispatch team directly by phone or WhatsApp to coordinate your journey.
             </p>
           </div>
-          <a
-            href={siteConfig.phone.href}
-            className="inline-flex items-center gap-2.5 px-7 py-4 bg-navy border-2 border-navy text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-navy-dark transition-all shadow-brutal-white shrink-0"
-          >
-            <span className="material-symbols-outlined text-[18px]">call</span>
-            Call {siteConfig.phone.display}
-          </a>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={siteConfig.phone.href}
+              className="inline-flex items-center gap-2.5 px-7 py-4 bg-navy border-2 border-navy text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-navy-dark transition-all shadow-brutal-white shrink-0"
+            >
+              <span className="material-symbols-outlined text-[18px]">call</span>
+              Call {siteConfig.phone.display}
+            </a>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2.5 px-6 py-4 bg-white border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-clinic-mist transition-all shadow-brutal-navy shrink-0"
+            >
+              Contact Details
+            </Link>
+          </div>
         </div>
       </section>
     </>

@@ -18,17 +18,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const loc = getLocalityBySlug(slug);
   if (!loc) return {};
 
+  const pageTitle =
+    slug === "hyderabad"
+      ? "Ambulance Service in Hyderabad | Vidhya Sri Ambulance"
+      : `Ambulance Service in ${loc.name}, Hyderabad | Vidhya Sri Ambulance`;
+
+  const pageDescription =
+    slug === "hyderabad"
+      ? "Vidhya Sri Ambulance Services provides 24×7 emergency ambulance and planned patient transportation across Greater Hyderabad. Call 9951648174."
+      : `24×7 ambulance and patient transportation in ${loc.name}, Hyderabad. Emergency ALS, ICU, and scheduled hospital transfers by Vidhya Sri Ambulance. Call 9951648174.`;
+
   const url = `${siteConfig.seo.url}/coverage/${loc.slug}`;
 
   return {
-    title: loc.seo.title,
-    description: loc.seo.description,
+    title: { absolute: pageTitle },
+    description: pageDescription,
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title: loc.seo.title,
-      description: loc.seo.description,
+      title: pageTitle,
+      description: pageDescription,
       url,
       type: "website",
       images: [
@@ -42,8 +52,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: loc.seo.title,
-      description: loc.seo.description,
+      title: pageTitle,
+      description: pageDescription,
       images: [`${siteConfig.seo.url}${siteConfig.ogImage}`],
     },
   };
@@ -53,6 +63,16 @@ export default async function LocalityCoveragePage({ params }: Props) {
   const { slug } = await params;
   const loc = getLocalityBySlug(slug);
   if (!loc) notFound();
+
+  const isPrimaryCityHub = slug === "hyderabad";
+
+  const h1Title = isPrimaryCityHub
+    ? "Ambulance Service in Hyderabad"
+    : `Ambulance Service in ${loc.name}, Hyderabad`;
+
+  const introText = isPrimaryCityHub
+    ? "Vidhya Sri Ambulance Services provides ambulance and patient transportation across Hyderabad, including emergency transport, planned patient transfers and specialized ambulance requirements."
+    : `Vidhya Sri Ambulance Services provides ambulance and patient transportation support in and around ${loc.name}, subject to availability and journey requirements. ${loc.intro}`;
 
   // Matched services for this locality
   const matchedServices = services.filter((s) =>
@@ -79,7 +99,7 @@ export default async function LocalityCoveragePage({ params }: Props) {
       {
         "@type": "ListItem",
         position: 3,
-        name: loc.name,
+        name: isPrimaryCityHub ? "Hyderabad" : loc.name,
         item: `${siteConfig.seo.url}/coverage/${loc.slug}`,
       },
     ],
@@ -88,7 +108,7 @@ export default async function LocalityCoveragePage({ params }: Props) {
   const emergencyServiceJsonLd = {
     "@context": "https://schema.org",
     "@type": "EmergencyService",
-    name: `Vidhya Sri Ambulance Service - ${loc.name}`,
+    name: `Vidhya Sri Ambulance Service - ${isPrimaryCityHub ? "Hyderabad" : loc.name}`,
     image: `${siteConfig.seo.url}${siteConfig.logo.stacked.gradient}`,
     "@id": `${siteConfig.seo.url}/coverage/${loc.slug}#service`,
     url: `${siteConfig.seo.url}/coverage/${loc.slug}`,
@@ -108,8 +128,8 @@ export default async function LocalityCoveragePage({ params }: Props) {
       longitude: 78.4357,
     },
     areaServed: {
-      "@type": "AdministrativeArea",
-      name: `${loc.name}, Hyderabad`,
+      "@type": "City",
+      name: "Hyderabad",
     },
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
@@ -182,7 +202,7 @@ export default async function LocalityCoveragePage({ params }: Props) {
               Coverage
             </Link>
             <span>/</span>
-            <span className="text-white">{loc.name}</span>
+            <span className="text-white">{isPrimaryCityHub ? "Hyderabad" : loc.name}</span>
           </nav>
 
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 text-warm-yellow text-[10px] font-black uppercase tracking-widest mb-4">
@@ -191,11 +211,11 @@ export default async function LocalityCoveragePage({ params }: Props) {
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white leading-[0.95] mb-4">
-            Ambulance Service in {loc.name}
+            {h1Title}
           </h1>
 
-          <p className="text-base sm:text-lg font-medium text-white/80 max-w-3xl leading-relaxed">
-            {loc.intro}
+          <p className="text-base sm:text-lg font-medium text-white/85 max-w-3xl leading-relaxed">
+            {introText}
           </p>
 
           {/* Quick CTAs */}
@@ -205,7 +225,7 @@ export default async function LocalityCoveragePage({ params }: Props) {
               className="inline-flex items-center gap-2.5 px-7 py-4 bg-coral border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-coral/90 transition-all shadow-[5px_5px_0px_rgba(0,0,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px]"
             >
               <span className="material-symbols-outlined text-[18px]">call</span>
-              Dispatch {loc.name} Ambulance
+              Call 24×7 · {siteConfig.phone.display}
             </a>
             <a
               href={siteConfig.whatsapp.href}
@@ -218,7 +238,7 @@ export default async function LocalityCoveragePage({ params }: Props) {
             </a>
           </div>
         </div>
-        <div className="h-2 bg-warm-yellow relative z-10" />
+        <div className="h-2 bg-warm-yellow relative z-10 mt-12" />
       </section>
 
       {/* ── Key Corridors & Nearby Hospitals ── */}
@@ -251,7 +271,7 @@ export default async function LocalityCoveragePage({ params }: Props) {
                 Nearby Medical Facilities
               </span>
               <h2 className="text-lg font-extrabold uppercase tracking-tight text-navy mb-3">
-                Primary Receiving Hospitals
+                Key Healthcare Destinations
               </h2>
               <ul className="space-y-2 text-xs font-bold text-navy/70">
                 {loc.nearbyHospitalClusters.map((hosp) => (
@@ -307,10 +327,10 @@ export default async function LocalityCoveragePage({ params }: Props) {
       <section className="w-full bg-paper py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
           <span className="inline-block px-3 py-1 bg-warm-yellow border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-4 shadow-brutal-sm">
-            Fleet Deployment
+            Service Options
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-8">
-            Available Ambulance Configurations for {loc.name}
+            Available Ambulance Services in {loc.name}
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -335,7 +355,7 @@ export default async function LocalityCoveragePage({ params }: Props) {
                 </p>
                 <div className="mt-4 pt-3 border-t border-navy/10 flex items-center justify-between text-navy/50 group-hover:text-care-blue transition-colors">
                   <span className="text-[10px] font-black uppercase tracking-wider">
-                    Explore {service.name}
+                    {service.cardAnchor}
                   </span>
                   <span>→</span>
                 </div>
@@ -352,7 +372,7 @@ export default async function LocalityCoveragePage({ params }: Props) {
             Caller Guidance
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-6">
-            Dispatch Advice for {loc.name} Residents
+            Helpful Advice for Callers in {loc.name}
           </h2>
           <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-navy space-y-4">
             {loc.pickupGuidance.map((tip, idx) => (
@@ -402,19 +422,27 @@ export default async function LocalityCoveragePage({ params }: Props) {
         </section>
       )}
 
-      {/* ── Nearby Coverage Hubs ── */}
+      {/* ── Nearby Coverage Hubs & Navigation ── */}
       <section className="w-full bg-clinic-mist py-14 border-t-2 border-navy/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <h2 className="text-xl font-extrabold uppercase tracking-tight text-navy">
-              Nearby Coverage Areas
+              Related Coverage Areas & Links
             </h2>
-            <Link
-              href="/coverage"
-              className="text-xs font-bold uppercase tracking-wider text-care-blue hover:text-navy transition-colors"
-            >
-              View All Hyderabad Coverage Zones →
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/coverage"
+                className="text-xs font-bold uppercase tracking-wider text-care-blue hover:text-navy transition-colors"
+              >
+                Coverage Hub →
+              </Link>
+              <Link
+                href="/contact"
+                className="text-xs font-bold uppercase tracking-wider text-care-blue hover:text-navy transition-colors"
+              >
+                Contact Page →
+              </Link>
+            </div>
           </div>
 
           <div className="flex flex-wrap gap-2.5">
@@ -430,12 +458,14 @@ export default async function LocalityCoveragePage({ params }: Props) {
                 {nearby.name}
               </Link>
             ))}
-            <Link
-              href="/coverage/hyderabad"
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-navy text-white text-xs font-extrabold uppercase border-2 border-navy hover:bg-navy-dark transition-colors shadow-brutal-sm"
-            >
-              Greater Hyderabad Central Hub
-            </Link>
+            {!isPrimaryCityHub && (
+              <Link
+                href="/coverage/hyderabad"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-navy text-white text-xs font-extrabold uppercase border-2 border-navy hover:bg-navy-dark transition-colors shadow-brutal-sm"
+              >
+                Hyderabad Central Hub
+              </Link>
+            )}
           </div>
         </div>
       </section>
@@ -448,16 +478,24 @@ export default async function LocalityCoveragePage({ params }: Props) {
               Need An Ambulance in {loc.name}?
             </h2>
             <p className="text-sm font-semibold text-navy/70 mt-1">
-              Stationed units ready for immediate response across {loc.zone}.
+              Contact our 24×7 dispatch team for emergency or planned patient transportation.
             </p>
           </div>
-          <a
-            href={siteConfig.phone.href}
-            className="inline-flex items-center gap-2.5 px-7 py-4 bg-navy border-2 border-navy text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-navy-dark transition-all shadow-brutal-white shrink-0"
-          >
-            <span className="material-symbols-outlined text-[18px]">call</span>
-            Call {siteConfig.phone.display}
-          </a>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={siteConfig.phone.href}
+              className="inline-flex items-center gap-2.5 px-7 py-4 bg-navy border-2 border-navy text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-navy-dark transition-all shadow-brutal-white shrink-0"
+            >
+              <span className="material-symbols-outlined text-[18px]">call</span>
+              Call {siteConfig.phone.display}
+            </a>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2.5 px-6 py-4 bg-white border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-clinic-mist transition-all shadow-brutal-navy shrink-0"
+            >
+              Contact Us
+            </Link>
+          </div>
         </div>
       </section>
     </>

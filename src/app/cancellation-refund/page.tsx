@@ -14,6 +14,14 @@ export const metadata: Metadata = {
     description:
       "Cancellation and refund guidelines for Vidhya Sri Ambulance — policies for emergency response, scheduled transfers, and refund processing.",
     url: `${siteConfig.seo.url}/cancellation-refund`,
+    images: [
+      {
+        url: `${siteConfig.seo.url}${siteConfig.ogImage}`,
+        width: 1200,
+        height: 630,
+        alt: "Vidhya Sri Ambulance Cancellation & Refund Policy",
+      },
+    ],
   },
 };
 

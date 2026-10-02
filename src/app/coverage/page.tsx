@@ -11,10 +11,18 @@ export const metadata: Metadata = {
     canonical: `${siteConfig.seo.url}/coverage`,
   },
   openGraph: {
-    title: "Ambulance Coverage Areas Across Hyderabad | Vidhya Sri",
+    title: "Ambulance Coverage Areas Across Hyderabad | Vidhya Sri Ambulance",
     description:
       "24×7 ambulance coverage across Greater Hyderabad, Secunderabad, Cyberabad, and outstation interstate routes. Find your nearest ambulance dispatch node.",
     url: `${siteConfig.seo.url}/coverage`,
+    images: [
+      {
+        url: `${siteConfig.seo.url}${siteConfig.ogImage}`,
+        width: 1200,
+        height: 630,
+        alt: "Ambulance Coverage Areas Across Hyderabad - Vidhya Sri Ambulance",
+      },
+    ],
   },
 };
 

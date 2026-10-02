@@ -14,6 +14,14 @@ export const metadata: Metadata = {
     description:
       "Terms of service for Vidhya Sri Ambulance — medical transport agreements, dispatch scope, patient handoff, and service policies.",
     url: `${siteConfig.seo.url}/terms`,
+    images: [
+      {
+        url: `${siteConfig.seo.url}${siteConfig.ogImage}`,
+        width: 1200,
+        height: 630,
+        alt: "Vidhya Sri Ambulance Terms of Service",
+      },
+    ],
   },
 };
 

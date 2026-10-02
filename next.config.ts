@@ -7,8 +7,14 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // ── Core Legacy Service Routes ──
       {
         source: "/emergency-services",
+        destination: "/services/emergency-ambulance",
+        permanent: true,
+      },
+      {
+        source: "/emergency-services/:path*",
         destination: "/services/emergency-ambulance",
         permanent: true,
       },
@@ -18,17 +24,37 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/non-emergency-services/:path*",
+        destination: "/services/patient-transfer-ambulance",
+        permanent: true,
+      },
+      {
         source: "/icu-services",
         destination: "/services/icu-ambulance",
         permanent: true,
       },
       {
+        source: "/icu-services/:path*",
+        destination: "/services/icu-ambulance",
+        permanent: true,
+      },
+      {
         source: "/local-services",
-        destination: "/coverage",
+        destination: "/coverage/hyderabad",
+        permanent: true,
+      },
+      {
+        source: "/local-services/:path*",
+        destination: "/coverage/hyderabad",
         permanent: true,
       },
       {
         source: "/outstation-services",
+        destination: "/services/outstation-ambulance",
+        permanent: true,
+      },
+      {
+        source: "/outstation-services/:path*",
         destination: "/services/outstation-ambulance",
         permanent: true,
       },
@@ -38,18 +64,67 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/deadbody-transport-services/:path*",
+        destination: "/services/mortuary-transportation",
+        permanent: true,
+      },
+      {
         source: "/deadbody-freezer-services",
         destination: "/services/mortuary-transportation",
         permanent: true,
       },
+      {
+        source: "/deadbody-freezer-services/:path*",
+        destination: "/services/mortuary-transportation",
+        permanent: true,
+      },
+
+      // ── Legacy Company & Contact Routes ──
       {
         source: "/about-us",
         destination: "/about",
         permanent: true,
       },
       {
+        source: "/about-us/:path*",
+        destination: "/about",
+        permanent: true,
+      },
+      {
         source: "/contact-us",
         destination: "/contact",
+        permanent: true,
+      },
+      {
+        source: "/contact-us/:path*",
+        destination: "/contact",
+        permanent: true,
+      },
+
+      // ── Legacy WordPress Categories, Tags, Author, Feeds ──
+      {
+        source: "/category/:path*",
+        destination: "/services",
+        permanent: true,
+      },
+      {
+        source: "/tag/:path*",
+        destination: "/services",
+        permanent: true,
+      },
+      {
+        source: "/author/:path*",
+        destination: "/about",
+        permanent: true,
+      },
+      {
+        source: "/feed",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
+      {
+        source: "/feed/:path*",
+        destination: "/sitemap.xml",
         permanent: true,
       },
     ];

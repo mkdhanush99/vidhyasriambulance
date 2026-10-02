@@ -8,44 +8,51 @@
  */
 
 export const siteConfig = {
-  companyName: "Vidhya Sri Ambulance",
-  companyLegalName: "Vidhya Sri Healthcare Mobility",
+  companyName: "Vidhya Sri Ambulance Services",
+  brandName: "Vidhya Sri Ambulance",
+  companyLegalName: "Vidhya Sri Ambulance Services",
   tagline: "Care, Moving When It Matters.",
   description:
-    "24×7 emergency ambulance and advanced patient transportation across Hyderabad and Telangana.",
+    "Vidhya Sri Ambulance Services provides 24×7 emergency and patient transportation in Hyderabad, with support for planned transfers, specialized ambulance requirements, and outstation journeys.",
 
-  // ── Contact (PLACEHOLDERS — verify with client) ──
+  // ── Contact (Verified Business Information) ──
   phone: {
-    display: "(040) 4999-8888",
-    href: "tel:+914049998888",
-    raw: "+914049998888",
+    display: "+91 99516 48174",
+    href: "tel:+919951648174",
+    raw: "+919951648174",
   },
   whatsapp: {
-    display: "+91 99887 76655",
-    href: "https://wa.me/919988776655",
-    raw: "+919988776655",
+    display: "+91 99516 48174",
+    href: "https://wa.me/919951648174",
+    raw: "+919951648174",
   },
-  email: "dispatch@vidhyasri.in",
+  email: "vidhyasriambulanceservices@gmail.com",
 
-  // ── Address (PLACEHOLDER — verify with client) ──
+  // ── Verified Primary Business Address ──
   address: {
-    street: "Rd No. 1, Banjara Hills",
+    street:
+      "H.No: 6-3-662/5 & 6/4, Arun Residency, Jafar Ali Bagh, Circle 17, Somajiguda",
     city: "Hyderabad",
     state: "Telangana",
-    zip: "500034",
+    zip: "500082",
     country: "India",
-    full: "Rd No. 1, Banjara Hills, Hyderabad, Telangana 500034",
+    full: "H.No: 6-3-662/5 & 6/4, Arun Residency, Jafar Ali Bagh, Circle 17, Somajiguda, Hyderabad, Telangana 500082, India",
   },
 
-  // ── Hours ──
-  hours: "24 hours a day, 7 days a week",
+  // ── Verified Google Maps Listing Destination ──
+  googleMapsUrl:
+    "https://maps.google.com/?q=Vidhya+Sri+Ambulance+Services,+Somajiguda,+Hyderabad,+Telangana+500082",
 
-  // ── Social Links (PLACEHOLDERS — verify with client) ──
+  // ── Hours ──
+  hours: "24 Hours / 7 Days",
+
+  // ── Social Links (Only verified channels; placeholders set to null) ──
   socialLinks: {
-    facebook: "#",
-    instagram: "#",
-    twitter: "#",
-    youtube: "#",
+    handle: "@vidhyasriambulance",
+    facebook: null as string | null,
+    instagram: null as string | null,
+    twitter: null as string | null,
+    youtube: null as string | null,
   },
 
   // ── Brand Assets (production paths under /brand/) ──
@@ -110,9 +117,9 @@ export const siteConfig = {
   seo: {
     siteName: "Vidhya Sri Ambulance",
     defaultTitle:
-      "Vidhya Sri Ambulance | 24×7 Emergency Ambulance Service Hyderabad",
+      "Emergency Ambulance Service in Hyderabad | Vidhya Sri Ambulance",
     defaultDescription:
-      "24×7 emergency ambulance and advanced patient transportation across Hyderabad and Telangana. ICU ambulance, ventilator support, neonatal transport, and bed-to-bed clinical continuity.",
+      "Vidhya Sri Ambulance Services provides 24×7 emergency and patient transportation in Hyderabad, with support for planned transfers, specialized ambulance requirements and outstation journeys.",
     url: "https://vidhyasriambulance.com",
     locale: "en_IN",
   },

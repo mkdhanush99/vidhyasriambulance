@@ -1,17 +1,23 @@
 /**
  * Services data — single source of truth for all ambulance service types.
  * One data model → one template. Do NOT create separate layouts per service.
+ *
+ * All claims are factual and restrained in accordance with project guidelines.
  */
 
 export interface ServiceData {
   slug: string;
   name: string;
+  h1Title: string;
+  category: "EMERGENCY & CRITICAL CARE" | "PATIENT TRANSPORT" | "SPECIALIZED & PLANNED TRANSPORT";
   shortDescription: string;
   description: string;
+  cardAnchor: string;
   accent: string;       // Tailwind color class for card accent
   accentHex: string;    // Hex value for dynamic usage
   icon: string;         // Material Symbols icon name
   features: string[];
+  bookingChecklist: string[];
   relatedServices: string[]; // slugs
   faqs: { question: string; answer: string }[];
   seo: {
@@ -23,348 +29,547 @@ export interface ServiceData {
 export const services: ServiceData[] = [
   {
     slug: "emergency-ambulance",
-    name: "Emergency Ambulance (ALS)",
+    name: "Emergency Ambulance",
+    h1Title: "Emergency Ambulance Service in Hyderabad",
+    category: "EMERGENCY & CRITICAL CARE",
     shortDescription:
-      "Advanced Life Support for acute trauma, cardiac arrests, and respiratory crises.",
+      "24×7 urgent medical transport across Hyderabad for trauma, cardiac crises, and critical health emergencies.",
     description:
-      "Our emergency ALS fleet functions as a mobile trauma centre configured for road transit. Equipped with clinical oxygen banks, defibrillators, and real-time hospital telemetry linkage. Staffed with dual ACLS paramedics.",
+      "When urgent medical transport is required, an ambulance provides a purpose-built way to move a patient to a hospital or other healthcare facility. Vidhya Sri Ambulance Services provides emergency ambulance support in Hyderabad and surrounding areas.",
+    cardAnchor: "Explore Emergency Ambulance →",
     accent: "coral",
     accentHex: "#FF7468",
     icon: "emergency",
     features: [
-      "Advanced airway management",
-      "Cardiac monitoring & defibrillation",
-      "High-flow oxygen therapy",
-      "Spinal immobilization",
-      "IV access & medication administration",
+      "Immediate 24×7 dispatch coordination",
+      "Stretcher and patient immobilization setup",
+      "Oxygen administration capability",
+      "Cardiac vitals monitoring",
+      "Emergency hospital transit across Hyderabad",
     ],
-    relatedServices: ["icu-ambulance", "ventilator-ambulance"],
+    bookingChecklist: [
+      "Exact pickup address and prominent nearby landmark",
+      "Current patient condition and conscious state",
+      "Destination hospital or preferred medical center",
+      "Caller direct contact number for driver coordination",
+    ],
+    relatedServices: [
+      "icu-ambulance",
+      "ventilator-ambulance",
+      "bls-ambulance",
+      "oxygen-ambulance",
+      "patient-transfer-ambulance",
+    ],
     faqs: [
       {
-        question: "What is an ALS ambulance?",
+        question: "How do I book an emergency ambulance in Hyderabad?",
         answer:
-          "An Advanced Life Support ambulance is equipped with advanced medical equipment and staffed by trained paramedics who can provide critical care interventions during transport.",
+          "For an urgent ambulance requirement, call Vidhya Sri Ambulance directly at 9951648174. You can also reach our dispatch team via WhatsApp with your pickup location.",
       },
       {
-        question: "How quickly can you reach me?",
+        question: "When should an emergency ambulance be requested?",
         answer:
-          "Our target response time across Hyderabad is under 15 minutes, depending on location and traffic conditions. Call us immediately for the fastest dispatch.",
+          "Emergency ambulance transport is appropriate for situations including road accidents, sudden severe chest pain, breathing difficulty, loss of consciousness, or urgent transfer between emergency departments.",
       },
     ],
     seo: {
-      title: "Emergency Ambulance Service (ALS) | Vidhya Sri Ambulance Hyderabad",
+      title: "Emergency Ambulance Service in Hyderabad | Vidhya Sri Ambulance",
       description:
-        "24×7 Advanced Life Support (ALS) emergency ambulance service in Hyderabad. Cardiac monitoring, defibrillation, advanced airway management. Call now.",
+        "Emergency ambulance service in Hyderabad by Vidhya Sri Ambulance Services. 24×7 dispatch support for acute medical and trauma transfers. Call 9951648174.",
     },
   },
   {
     slug: "icu-ambulance",
     name: "ICU Ambulance",
+    h1Title: "ICU Ambulance Service in Hyderabad",
+    category: "EMERGENCY & CRITICAL CARE",
     shortDescription:
-      "Hospital ICU on wheels for critically ill patients requiring continuous monitoring.",
+      "Intensive care transport for critically ill patients requiring continuous clinical oversight during inter-facility transit.",
     description:
-      "Mobile Intensive Care Unit with continuous invasive monitoring, multi-channel infusion pumps, and critical care physician escort for safe inter-facility transfers.",
+      "An ICU ambulance is intended for patients who require a higher level of support during transportation than a standard patient-transfer vehicle. Vidhya Sri Ambulance Services coordinates ICU ambulance transfers across Hyderabad healthcare institutions.",
+    cardAnchor: "View ICU Ambulance Services →",
     accent: "lavender",
     accentHex: "#DCCBFF",
     icon: "monitor_heart",
     features: [
-      "Invasive arterial pressure monitoring",
-      "Multi-channel infusion pumps",
-      "Critical care physician escort",
-      "Continuous vitals telemetry",
-      "Ventilator support",
+      "Continuous multipara vitals monitoring",
+      "In-transit infusion pump capability",
+      "Specialized intensive care stretcher setup",
+      "Dedicated medical escort coordination",
+      "Bed-to-bed clinical handoff protocol",
     ],
-    relatedServices: ["emergency-ambulance", "ventilator-ambulance"],
+    bookingChecklist: [
+      "Current patient condition as advised by the treating team",
+      "Pickup hospital, ward/bed number, and attending contact",
+      "Receiving hospital and confirmed bed acceptance",
+      "Whether ongoing oxygen, ventilator, or monitoring support is required",
+    ],
+    relatedServices: [
+      "emergency-ambulance",
+      "ventilator-ambulance",
+      "oxygen-ambulance",
+      "patient-transfer-ambulance",
+    ],
     faqs: [
       {
-        question: "When is an ICU ambulance needed?",
+        question: "What information is needed before booking an ICU ambulance?",
         answer:
-          "ICU ambulances are needed for critically ill patients requiring continuous monitoring and life support during inter-hospital or facility transfers.",
+          "Please share the patient's current medical summary from the treating team, pickup hospital ward, destination receiving hospital, and required in-transit clinical support.",
+      },
+      {
+        question: "Can an ICU ambulance travel outside Hyderabad?",
+        answer:
+          "Yes, Vidhya Sri coordinates both intra-city inter-hospital ICU transfers and long-distance outstation ICU journeys across Telangana and Andhra Pradesh, subject to medical stability and advance planning.",
       },
     ],
     seo: {
-      title: "ICU Ambulance Service | Vidhya Sri Ambulance Hyderabad",
+      title: "ICU Ambulance Service in Hyderabad | Vidhya Sri Ambulance",
       description:
-        "Mobile ICU ambulance with critical care physician escort, invasive monitoring, and ventilator support for safe inter-facility transfers in Hyderabad.",
+        "ICU ambulance service in Hyderabad for critical patient transfers requiring continuous medical supervision and monitoring. Available 24×7. Call 9951648174.",
     },
   },
   {
     slug: "ventilator-ambulance",
     name: "Ventilator Ambulance",
+    h1Title: "Ventilator Ambulance Service in Hyderabad",
+    category: "EMERGENCY & CRITICAL CARE",
     shortDescription:
-      "Dedicated ventilator support with pneumatic backups and continuous oxygen.",
+      "Dedicated transport for respiratory patients requiring continuous mechanical ventilatory support during transit.",
     description:
-      "Specialized transport ventilation ambulance with non-invasive and invasive ventilator support, pneumatic backups, and independent high-volume oxygen supplies for respiratory patients.",
+      "Ventilator-supported transport may be required for patients who depend on ventilatory support during transfer. Vidhya Sri Ambulance Services arranges ventilator-equipped ambulances with appropriate clinical coordination across Hyderabad.",
+    cardAnchor: "See Ventilator Ambulance Options →",
     accent: "peach",
     accentHex: "#FFC48A",
     icon: "pulmonology",
     features: [
-      "Transport ventilator support",
-      "Non-invasive & invasive modes",
-      "Pneumatic backup systems",
-      "High-volume oxygen supply",
-      "Trained respiratory technician",
+      "Transport mechanical ventilator compatibility",
+      "High-capacity medical oxygen supply",
+      "Airway management & suction equipment",
+      "Respiratory technician or clinical escort support",
+      "Coordinated transit between ICUs",
     ],
-    relatedServices: ["icu-ambulance", "emergency-ambulance"],
+    bookingChecklist: [
+      "Pickup hospital and receiving hospital destination",
+      "Whether the patient is already on ventilator support (invasive or non-invasive)",
+      "Hospital and treating medical team transfer instructions",
+      "Confirmed receiving ICU bed and team readiness",
+    ],
+    relatedServices: [
+      "icu-ambulance",
+      "emergency-ambulance",
+      "oxygen-ambulance",
+      "patient-transfer-ambulance",
+    ],
     faqs: [
       {
-        question: "What conditions require a ventilator ambulance?",
+        question: "Who needs a ventilator ambulance?",
         answer:
-          "Patients on mechanical ventilation, those with severe respiratory distress, COPD exacerbations, or post-surgical patients who require ventilator support during transport.",
+          "Patients requiring continuous mechanical respiratory assistance, tracheostomy ventilation, or advanced airway management during inter-facility transit require a ventilator-equipped ambulance.",
+      },
+      {
+        question: "Can family members accompany the patient in a ventilator ambulance?",
+        answer:
+          "Typically one attendant is permitted, subject to the space needed for clinical equipment and the attending medical escort.",
       },
     ],
     seo: {
-      title: "Ventilator Ambulance Service | Vidhya Sri Ambulance Hyderabad",
+      title: "Ventilator Ambulance Service in Hyderabad | Vidhya Sri Ambulance",
       description:
-        "Ventilator-equipped ambulance service in Hyderabad with transport ventilators, pneumatic backups, and respiratory technician escort. Available 24×7.",
+        "Ventilator ambulance service in Hyderabad for patients requiring continuous ventilatory support during transit. 24×7 dispatch coordination. Call 9951648174.",
     },
   },
   {
     slug: "bls-ambulance",
-    name: "Basic Life Support (BLS)",
+    name: "BLS Ambulance",
+    h1Title: "BLS Ambulance Service in Hyderabad",
+    category: "EMERGENCY & CRITICAL CARE",
     shortDescription:
-      "Stabilized non-critical emergency transfers with oxygen and basic monitoring.",
+      "Basic Life Support medical transport for stable patients needing oxygen, monitoring, and assistance during travel.",
     description:
-      "Basic Life Support ambulance for stabilized, non-critical emergency transfers including fracture mobility, low-flow oxygen administration, and EMT escort.",
+      "Basic Life Support ambulance services are generally used for patients who need ambulance transportation with basic medical support during the journey. Vidhya Sri Ambulance Services provides BLS transfers throughout Hyderabad.",
+    cardAnchor: "Explore BLS Ambulance →",
     accent: "aqua",
     accentHex: "#B9E7ED",
     icon: "local_hospital",
     features: [
-      "Oxygen therapy",
-      "Basic monitoring",
-      "Fracture stabilization",
-      "EMT escort",
-      "Stretcher & wheelchair",
+      "Standard ambulance stretcher & wheelchair",
+      "Oxygen administration setup",
+      "First aid and splinting supplies",
+      "Trained emergency transport crew",
+      "City and regional transfer coverage",
     ],
-    relatedServices: ["patient-transfer-ambulance", "oxygen-ambulance"],
+    bookingChecklist: [
+      "Pickup address, floor level, and elevator availability",
+      "Destination hospital, clinic, or residence",
+      "Whether the patient requires low-flow oxygen during travel",
+      "Preferred pickup time for scheduled transfers",
+    ],
+    relatedServices: [
+      "emergency-ambulance",
+      "patient-transfer-ambulance",
+      "oxygen-ambulance",
+      "outstation-ambulance",
+    ],
     faqs: [
       {
-        question: "What is the difference between ALS and BLS?",
+        question: "What is a BLS ambulance?",
         answer:
-          "BLS (Basic Life Support) provides essential medical care and transport, while ALS (Advanced Life Support) includes advanced interventions like cardiac monitoring, intubation, and IV medication.",
+          "A Basic Life Support ambulance is designed for stable patients who do not require advanced cardiac or ventilator intervention but benefit from stretcher transport, oxygen support, and basic monitoring.",
+      },
+      {
+        question: "Can I book a BLS ambulance for hospital discharge?",
+        answer:
+          "Yes, BLS ambulances are commonly utilized for safe hospital discharges when patients cannot sit upright or need continuous oxygen on the way home.",
       },
     ],
     seo: {
-      title: "Basic Life Support Ambulance (BLS) | Vidhya Sri Ambulance Hyderabad",
+      title: "BLS Ambulance Service in Hyderabad | Vidhya Sri Ambulance",
       description:
-        "Basic Life Support ambulance service in Hyderabad for non-critical transfers with oxygen therapy, fracture stabilization, and EMT escort. Call 24×7.",
+        "Basic Life Support (BLS) ambulance service in Hyderabad for non-critical patient transfers, hospital discharges, and monitored travel. Call 9951648174.",
     },
   },
   {
     slug: "patient-transfer-ambulance",
     name: "Patient Transfer Ambulance",
+    h1Title: "Patient Transfer Ambulance Service in Hyderabad",
+    category: "PATIENT TRANSPORT",
     shortDescription:
-      "Pre-scheduled comfort transit for dialysis, chemotherapy, and post-operative care.",
+      "Scheduled, comfort-focused transport for hospital discharges, dialysis, chemotherapy, and clinic appointments.",
     description:
-      "Pre-scheduled recurring comfort transit for chemotherapy routines, dialysis sessions, post-operative returns, and mobility-assisted patients requiring safe, comfortable transport.",
+      "For non-emergency medical journeys including hospital-to-hospital transfers, hospital discharges, planned diagnostic appointments, and mobility-limited patients, Vidhya Sri Ambulance Services provides dependable patient transfer services across Hyderabad.",
+    cardAnchor: "Explore Patient Transfer Ambulance →",
     accent: "warmYellow",
     accentHex: "#F4D46A",
     icon: "transfer_within_a_station",
     features: [
-      "Wheelchair-accessible",
-      "Reclining stretcher",
-      "Comfortable ride suspension",
-      "Scheduled booking",
-      "Return trip coordination",
+      "Pre-scheduled booking options",
+      "Reclining stretcher with safety straps",
+      "Wheelchair-assisted boarding",
+      "Door-to-door escort assistance",
+      "Round-trip coordination for therapy sessions",
     ],
-    relatedServices: ["bls-ambulance", "outstation-ambulance"],
+    bookingChecklist: [
+      "Scheduled hospital discharge or appointment time",
+      "Pickup ward/room or residential address",
+      "Patient mobility status (bed-bound, wheelchair, ambulatory)",
+      "Whether a return trip should be reserved",
+    ],
+    relatedServices: [
+      "bls-ambulance",
+      "oxygen-ambulance",
+      "outstation-ambulance",
+    ],
     faqs: [
       {
-        question: "Can I book a recurring transfer?",
+        question: "Can I schedule recurring patient transfers for dialysis?",
         answer:
-          "Yes, we offer scheduled recurring transfers for patients needing regular hospital visits such as dialysis, chemotherapy, or physiotherapy sessions.",
+          "Yes, we arrange planned recurring transfers for dialysis, chemotherapy, radiotherapy, and physiotherapy sessions according to your weekly schedule.",
+      },
+      {
+        question: "How far in advance should I book a patient transfer?",
+        answer:
+          "While same-day requests are accommodated subject to vehicle availability, booking a few hours or a day in advance ensures preferred scheduling.",
       },
     ],
     seo: {
-      title: "Patient Transfer Ambulance | Vidhya Sri Ambulance Hyderabad",
+      title: "Patient Transfer Ambulance Service in Hyderabad | Vidhya Sri Ambulance",
       description:
-        "Scheduled patient transfer ambulance in Hyderabad for dialysis, chemotherapy, and post-operative transport. Comfortable, wheelchair-accessible. Book now.",
+        "Patient transfer ambulance service in Hyderabad for hospital discharge, clinic visits, dialysis, and inter-hospital patient transport. Call 9951648174.",
     },
   },
   {
     slug: "oxygen-ambulance",
     name: "Oxygen Ambulance",
+    h1Title: "Oxygen Ambulance Service in Hyderabad",
+    category: "PATIENT TRANSPORT",
     shortDescription:
-      "Dedicated oxygen supply ambulance for patients requiring continuous O2 therapy.",
+      "Transport equipped with dedicated medical oxygen cylinders for patients requiring continuous respiratory therapy.",
     description:
-      "Ambulance equipped with high-flow and low-flow oxygen systems for patients requiring continuous oxygen therapy during transport.",
+      "Some patients require uninterrupted oxygen support during transport. Vidhya Sri Ambulance Services provides oxygen-equipped ambulances in Hyderabad, ensuring continuous oxygenation throughout the journey.",
+    cardAnchor: "View Oxygen Ambulance Services →",
     accent: "mint",
     accentHex: "#BFE8D5",
     icon: "air",
     features: [
-      "High-flow oxygen delivery",
-      "Low-flow continuous O2",
-      "Pulse oximetry monitoring",
-      "Trained oxygen technician",
-      "Backup oxygen cylinders",
+      "Continuous medical-grade oxygen supply",
+      "Nasal cannula and face mask compatibility",
+      "Pulse oximeter for SpO2 monitoring",
+      "Backup oxygen cylinder capacity",
+      "Trained support personnel",
     ],
-    relatedServices: ["bls-ambulance", "ventilator-ambulance"],
+    bookingChecklist: [
+      "Current oxygen requirement in litres per minute (LPM)",
+      "Prescribed delivery method (nasal prongs, simple mask, or NRBM)",
+      "Pickup location and destination healthcare center",
+      "Treating doctor instructions regarding in-transit flow rates",
+    ],
+    relatedServices: [
+      "icu-ambulance",
+      "ventilator-ambulance",
+      "bls-ambulance",
+      "patient-transfer-ambulance",
+    ],
     faqs: [
       {
-        question: "What oxygen delivery systems are available?",
+        question: "What oxygen information should I give when booking?",
         answer:
-          "Our oxygen ambulances carry both high-flow and low-flow delivery systems including nasal cannulas, face masks, and non-rebreather masks with continuous pulse oximetry monitoring.",
+          "Please inform our coordinator of the patient's current oxygen flow rate (litres per minute) and delivery mechanism as advised by your healthcare team.",
+      },
+      {
+        question: "Are oxygen ambulances suitable for home-to-hospital transit?",
+        answer:
+          "Yes, our oxygen ambulances are frequently arranged to transport patients from residences to hospitals or diagnostic centers requiring continuous supplemental oxygen.",
       },
     ],
     seo: {
-      title: "Oxygen Ambulance Service | Vidhya Sri Ambulance Hyderabad",
+      title: "Oxygen Ambulance Service in Hyderabad | Vidhya Sri Ambulance",
       description:
-        "Oxygen-equipped ambulance service in Hyderabad with high-flow and low-flow O2 therapy, pulse oximetry, and backup cylinders. Available 24×7.",
+        "Oxygen-equipped ambulance service in Hyderabad for patients requiring continuous oxygen therapy during transit. 24×7 booking support. Call 9951648174.",
     },
   },
   {
     slug: "nicu-neonatal-ambulance",
     name: "NICU / Neonatal Ambulance",
+    h1Title: "NICU / Neonatal Ambulance Service in Hyderabad",
+    category: "PATIENT TRANSPORT",
     shortDescription:
-      "Thermoregulated neonatal transport with specialized infant respiratory support.",
+      "Specialized, temperature-regulated ambulance arrangements for newborns and infants requiring coordinated hospital transfer.",
     description:
-      "Specialized neonatal transport with thermoregulated incubators, micro-infusion units, infant respiratory support, and neonatal nurse escorts.",
+      "Transport for newborns and infants can require specialized arrangements and coordination with the treating healthcare team. Vidhya Sri Ambulance Services helps arrange neonatal ambulance support in Hyderabad with appropriate medical coordination.",
+    cardAnchor: "See NICU / Neonatal Transport →",
     accent: "softGreen",
     accentHex: "#B9D9C6",
     icon: "child_care",
     features: [
-      "Transport incubator",
-      "Infant ventilator",
-      "Micro-infusion pumps",
-      "Neonatal nurse escort",
-      "Temperature regulation",
+      "Transport incubator accommodation",
+      "Specialized infant thermal regulation",
+      "Neonatal respiratory support readiness",
+      "Coordination with pediatric medical escorts",
+      "Careful vibration-dampened transport protocol",
     ],
-    relatedServices: ["icu-ambulance", "ventilator-ambulance"],
+    bookingChecklist: [
+      "Baby's age, gestational weight, and clinical status",
+      "Current hospital neonatal unit and attending doctor details",
+      "Destination hospital NICU confirmation and bed availability",
+      "Medical support required as advised by the treating neonatal team",
+    ],
+    relatedServices: [
+      "icu-ambulance",
+      "ventilator-ambulance",
+      "patient-transfer-ambulance",
+    ],
     faqs: [
       {
-        question: "Is a specialized nurse included?",
+        question: "What is required to book a neonatal transfer?",
         answer:
-          "Yes, all NICU transports include a qualified neonatal nurse escort trained in newborn stabilization and emergency care.",
+          "Arranging a neonatal transfer requires coordination between the referring doctor and the receiving NICU team to ensure appropriate specialized equipment and escort arrangements.",
+      },
+      {
+        question: "Can parents travel in the neonatal ambulance?",
+        answer:
+          "Typically one parent or designated guardian can accompany the infant, subject to safety and medical team space requirements.",
       },
     ],
     seo: {
-      title: "NICU Neonatal Ambulance | Vidhya Sri Ambulance Hyderabad",
+      title: "NICU Neonatal Ambulance Service in Hyderabad | Vidhya Sri Ambulance",
       description:
-        "Neonatal ambulance service in Hyderabad with transport incubators, infant ventilators, and neonatal nurse escort for safe NICU transfers.",
+        "NICU and neonatal ambulance services in Hyderabad for safe infant transfers between maternity hospitals and specialized pediatric centers. Call 9951648174.",
     },
   },
   {
     slug: "outstation-ambulance",
     name: "Outstation Ambulance",
+    h1Title: "Outstation Ambulance Service from Hyderabad",
+    category: "SPECIALIZED & PLANNED TRANSPORT",
     shortDescription:
-      "Long-distance medical transfers across Telangana, AP, Karnataka, and Maharashtra.",
+      "Long-distance and interstate patient transportation from Hyderabad across Telangana, Andhra Pradesh, and nearby states.",
     description:
-      "Long-distance medical transfers with dual drivers, non-stop monitoring, and all-India permits for interstate medical transport.",
+      "Vidhya Sri Ambulance Services arranges outstation patient transportation from Hyderabad for journeys within Telangana, Andhra Pradesh and other destinations, subject to availability and the requirements of the journey.",
+    cardAnchor: "Explore Outstation Ambulance →",
     accent: "coral",
     accentHex: "#FF7468",
     icon: "route",
     features: [
-      "All-India road permits",
-      "Dual-driver relay system",
-      "Non-stop vitals monitoring",
-      "Long-distance fuel capacity",
-      "Interstate coordination",
+      "Interstate road transport permits",
+      "Dual-driver arrangement for long highway routes",
+      "Continuous patient comfort and vitals monitoring",
+      "High-capacity fuel and oxygen supplies",
+      "Coordination across Telangana, AP, and neighboring states",
     ],
-    relatedServices: ["icu-ambulance", "patient-transfer-ambulance"],
+    bookingChecklist: [
+      "Pickup city/location and final destination address",
+      "Patient medical stability and doctor clearance for road travel",
+      "Expected journey date and preferred departure time",
+      "Accompanying family members and luggage volume",
+    ],
+    relatedServices: [
+      "icu-ambulance",
+      "ventilator-ambulance",
+      "patient-transfer-ambulance",
+      "mortuary-transportation",
+    ],
     faqs: [
       {
-        question: "Which states do you cover?",
+        question: "Which states can an outstation ambulance travel to?",
         answer:
-          "We provide interstate ambulance transport across Telangana, Andhra Pradesh, Karnataka, Maharashtra, Tamil Nadu, and other Indian states with proper permits.",
+          "We arrange outstation transport from Hyderabad across all districts of Telangana and Andhra Pradesh, as well as routes to Karnataka, Maharashtra, and other destinations upon advance review.",
+      },
+      {
+        question: "How is an outstation transfer planned?",
+        answer:
+          "Contact our coordinators with the pickup address, destination town, patient medical condition, and preferred timing. We verify vehicle suitability, oxygen requirements, and route logistics before confirming the journey.",
       },
     ],
     seo: {
-      title: "Outstation Ambulance Service | Vidhya Sri Ambulance Hyderabad",
+      title: "Outstation Ambulance Service from Hyderabad | Vidhya Sri Ambulance",
       description:
-        "Long-distance outstation ambulance service from Hyderabad with all-India permits, dual drivers, and continuous monitoring. Interstate medical transport.",
+        "Outstation ambulance service from Hyderabad across Telangana, Andhra Pradesh, and interstate destinations. 24×7 long-distance medical transfers. Call 9951648174.",
     },
   },
   {
     slug: "event-standby-ambulance",
     name: "Event Standby Ambulance",
+    h1Title: "Event Standby Ambulance Service in Hyderabad",
+    category: "SPECIALIZED & PLANNED TRANSPORT",
     shortDescription:
-      "Dedicated ambulance stationing for corporate events, sports, and conventions.",
+      "On-site ambulance stationing for sporting tournaments, conferences, exhibitions, productions, and public gatherings.",
     description:
-      "On-site ambulance standby services for tech parks, industrial facilities, sports events, conventions, and film productions with dedicated EMT team.",
+      "Event organizers can contact Vidhya Sri Ambulance Services to discuss standby ambulance requirements, location, duration, and expected attendance for public and private events in Hyderabad.",
+    cardAnchor: "View Event Standby Options →",
     accent: "purple",
     accentHex: "#B9A4E8",
     icon: "stadium",
     features: [
-      "On-site EMT team",
-      "First-aid station setup",
-      "Emergency evacuation plan",
-      "Event medical coordination",
-      "Flexible duration booking",
+      "On-site stationary ambulance positioning",
+      "First aid and emergency evacuation readiness",
+      "Trained medical crew during event hours",
+      "Flexible hourly, single-day, or multi-day booking",
+      "Coordination with nearby hospital emergency rooms",
     ],
-    relatedServices: ["corporate-ambulance", "bls-ambulance"],
+    bookingChecklist: [
+      "Venue location, staging access, and parking space",
+      "Event dates, daily start time, and total hours",
+      "Estimated crowd size and type of event (sports, corporate, festival)",
+      "On-site safety coordinator contact information",
+    ],
+    relatedServices: [
+      "corporate-ambulance",
+      "bls-ambulance",
+      "emergency-ambulance",
+    ],
     faqs: [
       {
-        question: "How far in advance should I book?",
+        question: "What types of events require an on-site ambulance?",
         answer:
-          "We recommend booking event standby ambulances at least 48 hours in advance, though we can accommodate urgent requests subject to fleet availability.",
+          "Conferences, sports tournaments, corporate conventions, exhibitions, marathons, film sets, and large public or private gatherings often require a dedicated standby ambulance.",
+      },
+      {
+        question: "How do event organizers book standby ambulance coverage?",
+        answer:
+          "Contact Vidhya Sri Ambulance Services with your event venue, dates, operating hours, and crowd estimates to arrange on-site ambulance stationing.",
       },
     ],
     seo: {
-      title: "Event Standby Ambulance | Vidhya Sri Ambulance Hyderabad",
+      title: "Event Standby Ambulance Service in Hyderabad | Vidhya Sri Ambulance",
       description:
-        "Event medical standby ambulance in Hyderabad for corporate events, sports, conventions, and film productions. On-site EMT team. Book now.",
+        "On-site event standby ambulance service in Hyderabad for sports events, corporate conferences, exhibitions, and public gatherings. Book at 9951648174.",
     },
   },
   {
     slug: "corporate-ambulance",
     name: "Corporate Ambulance",
+    h1Title: "Corporate Ambulance Services in Hyderabad",
+    category: "SPECIALIZED & PLANNED TRANSPORT",
     shortDescription:
-      "Dedicated ambulance services for tech parks, factories, and corporate campuses.",
+      "Workplace medical transportation and ambulance arrangements for IT parks, industrial plants, and business campuses.",
     description:
-      "Corporate ambulance tie-up services with dedicated ambulance stationing at tech parks, industrial facilities, and corporate campuses with customized SLA agreements.",
+      "Organizations can discuss workplace and campus medical transport support with Vidhya Sri Ambulance Services for tech parks, industrial facilities, and corporate office parks in Hyderabad.",
+    cardAnchor: "Discuss Corporate Ambulance →",
     accent: "lavender",
     accentHex: "#DCCBFF",
     icon: "corporate_fare",
     features: [
-      "Dedicated fleet assignment",
-      "SLA-based response times",
-      "On-campus medical room setup",
-      "Employee health screening support",
-      "24×7 emergency hotline",
+      "Campus standby or priority emergency callout arrangements",
+      "Industrial safety and workplace medical compliance support",
+      "Direct dispatch phone coordination for facility managers",
+      "Emergency transfer to designated company-affiliated hospitals",
+      "Flexible contract and operational terms",
     ],
-    relatedServices: ["event-standby-ambulance", "bls-ambulance"],
+    bookingChecklist: [
+      "Corporate campus or industrial facility address",
+      "Total workforce and operational shift pattern",
+      "Type of arrangement required (on-site standby or priority on-call)",
+      "HR, EHS, or facility administration contact details",
+    ],
+    relatedServices: [
+      "event-standby-ambulance",
+      "bls-ambulance",
+      "emergency-ambulance",
+    ],
     faqs: [
       {
-        question: "Do you offer annual contracts?",
+        question: "How can companies partner with Vidhya Sri Ambulance?",
         answer:
-          "Yes, we provide flexible contract options including annual, semi-annual, and event-based arrangements tailored to your organization's needs.",
+          "Corporate teams can contact our administration to establish priority on-call emergency ambulance arrangements or dedicated on-site standby for manufacturing facilities and tech campuses.",
+      },
+      {
+        question: "Can corporate tie-ups cover employee family emergencies?",
+        answer:
+          "Yes, corporate arrangements can include dedicated hotline assistance for employee healthcare transfers and emergency hospital transport across Hyderabad.",
       },
     ],
     seo: {
-      title: "Corporate Ambulance Service | Vidhya Sri Ambulance Hyderabad",
+      title: "Corporate Ambulance Services in Hyderabad | Vidhya Sri Ambulance",
       description:
-        "Corporate ambulance services for tech parks and campuses in Hyderabad. Dedicated fleet, SLA-based response, 24×7 emergency hotline.",
+        "Corporate ambulance tie-up services in Hyderabad for tech parks, business centers, and manufacturing sites. Dedicated workplace emergency coordination. Call 9951648174.",
     },
   },
   {
     slug: "mortuary-transportation",
-    name: "Mortuary Transportation",
+    name: "Mortuary / Dead Body Transportation",
+    h1Title: "Mortuary / Dead Body Transportation in Hyderabad",
+    category: "SPECIALIZED & PLANNED TRANSPORT",
     shortDescription:
-      "Dignified, temperature-regulated deceased transfer for city and nationwide transit.",
+      "Dignified deceased patient transportation across Hyderabad, Telangana, and interstate journeys with respectful care.",
     description:
-      "Dignified and respectful temperature-regulated deceased transfer with integrated refrigeration for city-wide and nationwide transit.",
+      "Vidhya Sri Ambulance Services provides dignified mortuary and deceased patient transportation in Hyderabad, assisting families with respectful transfer between hospitals, residences, and outstation destinations.",
+    cardAnchor: "View Mortuary Transportation →",
     accent: "mist",
     accentHex: "#EAF2FC",
     icon: "church",
     features: [
-      "Temperature-regulated chamber",
-      "Dignified handling protocols",
-      "City-wide and interstate",
-      "Documentation assistance",
-      "24×7 availability",
+      "Dignified and respectful handling protocols",
+      "Freezer box availability for preservation",
+      "Local Hyderabad and long-distance outstation transport",
+      "Assistance with hospital release and documentation formalities",
+      "24×7 compassionate family coordination",
     ],
-    relatedServices: [],
+    bookingChecklist: [
+      "Pickup location (hospital mortuary, ICU, or home residence)",
+      "Destination address (crematorium, residence, or ancestral town)",
+      "Whether freezer box support is required for transit or home preservation",
+      "Availability of hospital death summary / legal documentation",
+    ],
+    relatedServices: [
+      "outstation-ambulance",
+      "patient-transfer-ambulance",
+    ],
     faqs: [
       {
-        question: "Do you help with documentation?",
+        question: "Do you provide freezer box services for deceased transport?",
         answer:
-          "Yes, our team assists with necessary documentation and coordination with hospitals and authorities for smooth processing.",
+          "Yes, we provide mortuary vehicles equipped with mobile cooling units and can arrange freezer box support for home preservation or long-distance outstation journeys.",
+      },
+      {
+        question: "Can deceased transportation be arranged to another state?",
+        answer:
+          "Yes, we arrange interstate mortuary transfers with appropriate vehicle permits and documentation guidance across neighboring states.",
       },
     ],
     seo: {
-      title: "Mortuary Transportation | Vidhya Sri Ambulance Hyderabad",
+      title: "Mortuary / Dead Body Transportation in Hyderabad | Vidhya Sri Ambulance",
       description:
-        "Dignified mortuary transportation service in Hyderabad with temperature-regulated chambers for city-wide and interstate deceased transfer. Available 24×7.",
+        "Dignified mortuary and dead body transportation in Hyderabad by Vidhya Sri Ambulance Services. Freezer box support, local and interstate transfers. Call 9951648174.",
     },
   },
 ];
