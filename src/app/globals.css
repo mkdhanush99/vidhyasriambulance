@@ -384,3 +384,30 @@ body {
 .mb-safe {
   margin-bottom: env(safe-area-inset-bottom, 0px);
 }
+
+/* ═══════════════════════════════════════════════
+   CUSTOM POINTER CURSOR STYLES
+   Desktop Only: @media (hover: hover) and (pointer: fine)
+   ═══════════════════════════════════════════════ */
+
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor body,
+  html.has-custom-cursor a,
+  html.has-custom-cursor button,
+  html.has-custom-cursor [role="button"],
+  html.has-custom-cursor summary,
+  html.has-custom-cursor select,
+  html.has-custom-cursor label,
+  html.has-custom-cursor .cursor-pointer,
+  html.has-custom-cursor .cursor-default {
+    cursor: none !important;
+  }
+
+  /* Retain native I-beam cursor on text editing inputs */
+  html.has-custom-cursor input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+  html.has-custom-cursor textarea,
+  html.has-custom-cursor [contenteditable="true"] {
+    cursor: text !important;
+  }
+}

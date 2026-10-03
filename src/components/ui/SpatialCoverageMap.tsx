@@ -120,7 +120,7 @@ export function SpatialCoverageMap() {
         </div>
 
         {/* Spatial Map Graphic Area */}
-        <div className="relative w-full h-[360px] sm:h-[440px] bg-[#F8FAFD] overflow-hidden select-none">
+        <div data-cursor="explore" className="relative w-full h-[360px] sm:h-[440px] bg-[#F8FAFD] overflow-hidden select-none">
           {/* Subtle Background Radial & Grid Pattern */}
           <svg
             className="absolute inset-0 w-full h-full text-[#1565D8]/8"

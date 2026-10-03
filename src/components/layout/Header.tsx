@@ -85,6 +85,7 @@ export function Header() {
               id="search-trigger-btn"
               type="button"
               onClick={() => setSearchOpen(true)}
+              data-cursor="search"
               aria-label="Search services and locations"
               className="flex items-center gap-1.5 px-2.5 py-1.5 text-[#536B86] hover:text-[#0A2A5E] border border-[#DDE7F2] hover:border-[#0A2A5E] rounded-[3px] bg-[#F8FAFD] transition-all cursor-pointer"
             >

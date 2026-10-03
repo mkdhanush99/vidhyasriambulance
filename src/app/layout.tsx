@@ -5,6 +5,7 @@ import { siteConfig } from "@/data/site";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileCTA } from "@/components/layout/MobileCTA";
+import { CustomCursor } from "@/components/ui/CustomCursor";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -146,6 +147,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-white text-gray-900 antialiased">
+        <CustomCursor />
         <Header />
         <main className="w-full pt-20">{children}</main>
         <Footer />
