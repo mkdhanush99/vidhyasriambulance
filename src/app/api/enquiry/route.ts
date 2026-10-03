@@ -88,11 +88,13 @@ function renderEmailTemplate({
       <!-- HEADER -->
       <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #FFFFFF; border-bottom: 3px solid #0A2A5E;">
         <tr>
-          <td class="email-pad" style="padding: 16px 32px; text-align: left;">
-            <img src="${baseUrl}/email/logo-header.png" alt="Vidhya Sri Ambulance" height="38" style="display: block; height: 38px; width: auto; border: 0;" />
+          <td class="email-pad" style="padding: 16px 32px; text-align: left; vertical-align: middle;">
+            <a href="${baseUrl}" target="_blank" style="display: inline-block; text-decoration: none;">
+              <img src="${baseUrl}/brand/png/logo/logo-horizontal-gradient-800.png" alt="Vidhya Sri Ambulance" width="180" height="42" style="display: block; width: 180px; height: 42px; border: 0; outline: none; font-family: 'Manrope', Arial, sans-serif; font-size: 18px; font-weight: 800; color: #0A2A5E;" />
+            </a>
           </td>
-          <td class="email-pad" style="padding: 16px 32px; text-align: right;">
-            <span style="display: inline-block; padding: 6px 10px; background-color: #EAF2FC; border: 1px solid #1565D8; color: #1565D8; font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; white-space: nowrap;">
+          <td class="email-pad" style="padding: 16px 32px; text-align: right; vertical-align: middle;">
+            <span style="display: inline-block; padding: 6px 12px; background-color: #EAF2FC; border: 1px solid #1565D8; color: #1565D8; font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; white-space: nowrap;">
               ${label}
             </span>
           </td>
@@ -101,7 +103,11 @@ function renderEmailTemplate({
 
       <!-- ACCENT STRIP -->
       <div class="email-pad" style="padding: 20px 32px 0;">
-        <img src="${baseUrl}/email/accent-strip.gif" alt="" width="560" style="display: block; width: 100%; height: auto; border: 0;" />
+        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+          <tr>
+            <td style="height: 4px; background-color: #1565D8; border-top: 2px solid #0A2A5E; font-size: 1px; line-height: 1px;">&nbsp;</td>
+          </tr>
+        </table>
       </div>
 
       <!-- HERO INTRO -->
@@ -306,7 +312,9 @@ function renderEmailTemplate({
 
       <!-- FOOTER -->
       <div class="email-pad" style="background-color: #0A2A5E; padding: 28px 32px;">
-        <img src="${baseUrl}/email/logo-footer.png" alt="Vidhya Sri Ambulance" height="34" style="display: block; height: 34px; width: auto; border: 0;" />
+        <a href="${baseUrl}" target="_blank" style="display: inline-block; text-decoration: none;">
+          <img src="${baseUrl}/brand/png/logo/logo-horizontal-reverse-800.png" alt="Vidhya Sri Ambulance" width="160" height="37" style="display: block; width: 160px; height: 37px; border: 0; outline: none; font-family: 'Manrope', Arial, sans-serif; font-size: 16px; font-weight: 800; color: #FFFFFF;" />
+        </a>
         <div style="margin-top: 16px; font-size: 12px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #BBD5F7;">
           Emergency &amp; Patient Transport
         </div>
