@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { services, ServiceData } from "@/data/services";
 import { siteConfig } from "@/data/site";
-import { siteImages } from "@/data/images";
+import { siteImages, getServiceImage } from "@/data/images";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { AmbulanceFinder } from "@/components/ui/AmbulanceFinder";
 import { ProcessReassurance } from "@/components/ui/ProcessReassurance";
@@ -33,35 +33,6 @@ const categories = [
     badgeBg: "bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8]",
   },
 ] as const;
-
-// Services that receive an editorial visual feature on the overview page
-const visualServiceSlugs: Record<string, { image: typeof siteImages.servicesOverview.emergencyFeatured; offsetColor: "warmYellow" | "careBlue" | "coral" | "mint" }> = {
-  "emergency-ambulance": {
-    image: siteImages.servicesOverview.emergencyFeatured,
-    offsetColor: "careBlue",
-  },
-  "icu-ambulance": {
-    image: siteImages.servicesOverview.icuSecondary,
-    offsetColor: "careBlue",
-  },
-  "patient-transfer-ambulance": {
-    image: siteImages.servicesOverview.transferSupporting,
-    offsetColor: "warmYellow",
-  },
-  "mortuary-transportation": {
-    image: {
-      src: siteImages.services["mortuary-transportation"].src,
-      alt: siteImages.services["mortuary-transportation"].alt,
-      caption: siteImages.services["mortuary-transportation"].caption,
-      captionLocation: siteImages.services["mortuary-transportation"].captionLocation,
-      badge: siteImages.services["mortuary-transportation"].badge,
-      aspectRatio: "aspect-[16/10]",
-      objectPosition: "center",
-      assetType: "REAL_CLIENT_ASSET",
-    },
-    offsetColor: "mint",
-  },
-};
 
 export default function ServicesPage() {
   return (
@@ -124,99 +95,62 @@ export default function ServicesPage() {
                   </p>
                 </div>
 
-                {/* Services Cards — Controlled Editorial Density */}
+                {/* Services Cards — Uniform, aligned layout with clear ambulance view */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {catServices.map((service) => {
-                    const visualConfig = visualServiceSlugs[service.slug];
+                    const img = getServiceImage(service.slug);
 
-                    // Visual featured card (where selected)
-                    if (visualConfig) {
-                      return (
-                        <div
-                          key={service.slug}
-                          className="flex flex-col bg-white border-2 border-[#DDE7F2] rounded-[4px] p-5 shadow-[4px_4px_0_#EAF2FC, 4px_4px_0_2px_#DDE7F2]"
-                        >
-                          {/* Image frame */}
-                          <div className="mb-4">
-                            <ImageFrame
-                              src={visualConfig.image.src}
-                              alt={visualConfig.image.alt}
-                              caption={visualConfig.image.caption}
-                              captionLocation={visualConfig.image.captionLocation}
-                              badge={visualConfig.image.badge}
-                              variant="default"
-                              aspectRatio="aspect-[16/10]"
-                              objectPosition={visualConfig.image.objectPosition}
-                              sizes="(max-width: 768px) 100vw, 33vw"
-                            />
-                          </div>
-
-                          {/* Content */}
-                          <div className="flex items-center gap-2.5 mb-2">
-                            <span className="inline-flex items-center justify-center w-8 h-8 border border-[#1565D8]/20 bg-[#EAF2FC] rounded-[2px]">
-                              <span className="material-symbols-outlined text-[16px] text-[#1565D8]">
-                                {service.icon}
-                              </span>
-                            </span>
-                            <span className="text-[9px] font-black uppercase tracking-widest text-[#536B86]">
-                              {service.category}
-                            </span>
-                          </div>
-
-                          <h3 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-2">
-                            {service.name}
-                          </h3>
-
-                          <p className="text-xs font-medium text-[#536B86] leading-relaxed mb-4 flex-1">
-                            {service.shortDescription}
-                          </p>
-
-                          <Link
-                            href={`/services/${service.slug}`}
-                            className="inline-flex items-center justify-between px-4 py-2.5 bg-[#F8FAFD] hover:bg-[#EAF2FC] border border-[#DDE7F2] text-[#0A2A5E] text-[11px] font-extrabold uppercase tracking-wider rounded-[2px] transition-colors"
-                          >
-                            <span>{service.cardAnchor}</span>
-                            <span className="material-symbols-outlined text-[14px] text-[#1565D8]">arrow_forward</span>
-                          </Link>
-                        </div>
-                      );
-                    }
-
-                    // Non-visual clean card
                     return (
-                      <Link
+                      <div
                         key={service.slug}
-                        href={`/services/${service.slug}`}
-                        className="group flex flex-col p-6 bg-[#F8FAFD] border-2 border-[#DDE7F2] rounded-[4px] shadow-[4px_4px_0_#EAF2FC, 4px_4px_0_2px_#DDE7F2] hover:border-[#1565D8] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0_#1565D8] transition-all duration-200"
+                        className="flex flex-col h-full bg-white border-2 border-[#0A2A5E] rounded-[4px] p-4 sm:p-5 shadow-[4px_4px_0_#EAF2FC] hover:shadow-[4px_4px_0_#1565D8] hover:-translate-y-0.5 transition-all duration-200"
                       >
-                        <div className="flex items-center gap-3 mb-4">
-                          <span className="inline-flex items-center justify-center w-10 h-10 border border-[#1565D8]/20 bg-[#EAF2FC] rounded-[2px]">
-                            <span className="material-symbols-outlined text-[20px] text-[#1565D8]">
+                        {/* Image frame with clear ambulance view */}
+                        <div className="mb-4">
+                          <ImageFrame
+                            src={img.src}
+                            alt={img.alt}
+                            caption={img.caption}
+                            captionLocation={img.captionLocation}
+                            badge={img.badge}
+                            variant="default"
+                            aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
+                            objectPosition={img.objectPosition}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                        </div>
+
+                        {/* Category & Icon */}
+                        <div className="flex items-center gap-2.5 mb-2.5">
+                          <span className="inline-flex items-center justify-center w-8 h-8 border border-[#1565D8]/20 bg-[#EAF2FC] rounded-[2px]">
+                            <span className="material-symbols-outlined text-[17px] text-[#1565D8]">
                               {service.icon}
                             </span>
                           </span>
-                          <span className="text-[10px] font-black uppercase tracking-widest text-[#536B86]">
+                          <span className="text-[9.5px] font-black uppercase tracking-widest text-[#536B86]">
                             {service.category}
                           </span>
                         </div>
 
-                        <h3 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-2 group-hover:text-[#1565D8] transition-colors">
+                        {/* Service Title */}
+                        <h3 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-2 leading-snug">
                           {service.name}
                         </h3>
 
-                        <p className="text-[13px] font-medium text-[#536B86] leading-relaxed flex-1">
+                        {/* Short Description */}
+                        <p className="text-xs sm:text-[13px] font-medium text-[#536B86] leading-relaxed mb-4 flex-1">
                           {service.shortDescription}
                         </p>
 
-                        <div className="mt-4 text-[#1565D8] flex items-center justify-between">
-                          <span className="text-[11px] font-bold uppercase tracking-wide">
-                            {service.cardAnchor}
-                          </span>
-                          <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">
-                            arrow_forward
-                          </span>
-                        </div>
-                      </Link>
+                        {/* Action Link */}
+                        <Link
+                          href={`/services/${service.slug}`}
+                          className="inline-flex items-center justify-between px-4 py-2.5 bg-[#F8FAFD] hover:bg-[#EAF2FC] border-2 border-[#0A2A5E] text-[#0A2A5E] text-[11px] font-extrabold uppercase tracking-wider rounded-[2px] shadow-[2px_2px_0_#0A2A5E] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
+                        >
+                          <span>{service.cardAnchor}</span>
+                          <span className="material-symbols-outlined text-[15px] text-[#1565D8]">arrow_forward</span>
+                        </Link>
+                      </div>
                     );
                   })}
                 </div>

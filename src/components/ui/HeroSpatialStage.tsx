@@ -10,6 +10,7 @@ interface HeroSpatialStageProps {
   caption?: string;
   captionLocation?: string;
   priority?: boolean;
+  objectPosition?: string;
 }
 
 export function HeroSpatialStage({
@@ -19,6 +20,7 @@ export function HeroSpatialStage({
   caption = "Somajiguda Central Hub",
   captionLocation = "Greater Hyderabad",
   priority = true,
+  objectPosition = "center 65%",
 }: HeroSpatialStageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
@@ -144,7 +146,7 @@ export function HeroSpatialStage({
               fill
               priority={priority}
               sizes="(max-width: 1024px) 100vw, 44vw"
-              style={{ objectFit: "cover", objectPosition: "center" }}
+              style={{ objectFit: "cover", objectPosition }}
               className="transition-transform duration-700 hover:scale-[1.02]"
             />
 

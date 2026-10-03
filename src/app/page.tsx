@@ -121,6 +121,7 @@ function HeroSection() {
               caption={siteImages.home.hero.caption}
               captionLocation={siteImages.home.hero.captionLocation}
               badge={siteImages.home.hero.badge}
+              objectPosition={siteImages.home.hero.objectPosition}
               priority={true}
             />
           </div>
