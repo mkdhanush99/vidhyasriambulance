@@ -35,24 +35,13 @@ export function Header() {
       <header className="fixed top-0 left-0 w-full z-50 bg-white border-b-[3px] border-[#0A2A5E]">
         <div className="h-[78px] w-full px-4 sm:px-6 lg:px-10 max-w-[1280px] mx-auto flex items-center justify-between gap-4">
           {/* ── Logo ── */}
-          <Link href="/" className="flex items-center gap-3 shrink-0">
-            {/* Desktop & Tablet: horizontal logo */}
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0" aria-label="Vidhya Sri Ambulance Home">
             <Image
               src={siteConfig.logo.horizontal.gradient}
               alt="Vidhya Sri Ambulance"
               width={190}
               height={44}
-              className="h-[44px] w-auto object-contain hidden sm:block"
-              priority
-              unoptimized
-            />
-            {/* Mobile: compact symbol */}
-            <Image
-              src={siteConfig.logo.symbol.gradient}
-              alt="Vidhya Sri Ambulance"
-              width={48}
-              height={44}
-              className="h-[40px] w-auto object-contain sm:hidden"
+              className="h-[36px] sm:h-[44px] w-auto max-w-[155px] xs:max-w-[180px] sm:max-w-none object-contain"
               priority
               unoptimized
             />
