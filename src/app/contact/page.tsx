@@ -71,9 +71,109 @@ export default function ContactPage() {
         <div className="h-1.5 bg-[#1565D8] relative z-10 mt-12 w-full" />
       </section>
 
-      {/* ── Contact Methods (White Dominant Cards) ── */}
-      <section className="w-full bg-white py-16 sm:py-20">
+      {/* ── Dual Enquiry Pathways: Customer vs Business ── */}
+      <section className="w-full bg-white pt-12 pb-6 border-b-2 border-[#DDE7F2]">
         <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-12">
+          <div className="text-center max-w-xl mx-auto mb-8">
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#1565D8] block mb-1">
+              Select Your Enquiry Type
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#0A2A5E]">
+              Online Enquiry &amp; Dispatch Forms
+            </h2>
+            <p className="text-xs sm:text-sm text-[#536B86] mt-2 font-medium">
+              Choose the dedicated enquiry pathway that matches your requirement for priority response and automated confirmation receipts.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {/* 1. Customer / Patient Card */}
+            <div className="p-6 sm:p-8 bg-[#F8FAFD] border-2 border-[#1565D8] shadow-[6px_6px_0_#0A2A5E] flex flex-col justify-between">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-[#EAF2FC] border border-[#1565D8]/40 text-[#1565D8] text-[10px] font-black uppercase tracking-wider mb-4 rounded-[2px]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#1565D8]" />
+                  Patients &amp; Families
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#0A2A5E] mb-2">
+                  Customer Enquiry Form
+                </h3>
+                <p className="text-xs sm:text-sm text-[#536B86] leading-relaxed mb-6 font-medium">
+                  For individual emergency ambulance booking, ICU ventilator patient transfer, dialysis appointments, and hospital discharge transport across Hyderabad.
+                </p>
+                <ul className="text-xs text-[#0A2A5E] font-bold space-y-2 mb-6">
+                  <li className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[16px] text-[#1565D8]">check</span>
+                    Emergency BLS &amp; Cardiac ICU Ventilator Fleet
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[16px] text-[#1565D8]">check</span>
+                    Instant Confirmation Email to Customer
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[16px] text-[#1565D8]">check</span>
+                    Somajiguda 24×7 Central Dispatch
+                  </li>
+                </ul>
+              </div>
+
+              <Link
+                href="/customer-enquiry"
+                className="w-full py-3.5 bg-[#1565D8] hover:bg-[#0B3F9E] text-white border-2 border-[#0A2A5E] text-xs font-black uppercase tracking-wider text-center rounded-[3px] shadow-[3px_3px_0_#0A2A5E] active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center justify-center gap-2"
+              >
+                Go to Customer Enquiry Form
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </Link>
+            </div>
+
+            {/* 2. Business / Corporate Card */}
+            <div className="p-6 sm:p-8 bg-[#FFFFFF] border-2 border-[#0A2A5E] shadow-[6px_6px_0_#1565D8] flex flex-col justify-between">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-[#0A2A5E] text-white text-[10px] font-black uppercase tracking-wider mb-4 rounded-[2px]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#38A3F7]" />
+                  Hospitals &amp; Corporates
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#0A2A5E] mb-2">
+                  Business Enquiry Form
+                </h3>
+                <p className="text-xs sm:text-sm text-[#536B86] leading-relaxed mb-6 font-medium">
+                  For hospital patient transfer contracts, IT park on-site standby units, event medical standby, industrial coverage, and corporate employee healthcare SLAs.
+                </p>
+                <ul className="text-xs text-[#0A2A5E] font-bold space-y-2 mb-6">
+                  <li className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[16px] text-[#0A2A5E]">check</span>
+                    Dedicated Fleet Allocation &amp; SLA Response Guarantees
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[16px] text-[#0A2A5E]">check</span>
+                    Formal Onboarding Roadmap &amp; Billing Agreements
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[16px] text-[#0A2A5E]">check</span>
+                    Direct Institutional Key Account Manager
+                  </li>
+                </ul>
+              </div>
+
+              <Link
+                href="/business-enquiry"
+                className="w-full py-3.5 bg-[#0A2A5E] hover:bg-[#1565D8] text-white border-2 border-[#0A2A5E] text-xs font-black uppercase tracking-wider text-center rounded-[3px] shadow-[3px_3px_0_#1565D8] active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center justify-center gap-2"
+              >
+                Go to Business Enquiry Form
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Contact Methods (White Dominant Cards) ── */}
+      <section className="w-full bg-white py-12 sm:py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-12">
+          <div className="border-b-2 border-[#DDE7F2] pb-3 mb-8">
+            <h2 className="text-lg font-black uppercase tracking-wider text-[#0A2A5E]">
+              Direct Contact Lines &amp; Office Coordinates
+            </h2>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
             {contactMethods.map((m) => (
               <a

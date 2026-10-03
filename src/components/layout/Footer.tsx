@@ -132,13 +132,18 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-[#38A3F7] transition-colors">
-                  All Services
+                <Link href="/customer-enquiry" className="text-[#38A3F7] hover:underline font-extrabold">
+                  🚑 Customer Enquiry
                 </Link>
               </li>
               <li>
-                <Link href="/coverage" className="hover:text-[#38A3F7] transition-colors">
-                  Coverage Hub
+                <Link href="/business-enquiry" className="text-[#38A3F7] hover:underline font-extrabold">
+                  🏢 Business Tie-Ups
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-[#38A3F7] transition-colors">
+                  Contact Hub
                 </Link>
               </li>
             </ul>
