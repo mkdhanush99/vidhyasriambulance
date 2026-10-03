@@ -117,9 +117,8 @@ export function AmbulanceFinder({
         {[1, 2, 3].map((s) => (
           <div
             key={s}
-            className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
-              step >= s ? "bg-[#1565D8]" : "bg-[#DDE7F2]"
-            }`}
+            className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${step >= s ? "bg-[#1565D8]" : "bg-[#DDE7F2]"
+              }`}
           />
         ))}
       </div>
@@ -145,11 +144,10 @@ export function AmbulanceFinder({
               onClick={() => {
                 setIsEmergency(true);
               }}
-              className={`p-4 border-2 text-left rounded-[4px] transition-all flex flex-col justify-between gap-3 ${
-                isEmergency === true
-                  ? "border-[#D32F2F] bg-[#FDEDEC] shadow-sm"
-                  : "border-[#DDE7F2] hover:border-[#D32F2F] hover:bg-[#FFF5F5]"
-              }`}
+              className={`p-4 border-2 text-left rounded-[4px] transition-all flex flex-col justify-between gap-3 ${isEmergency === true
+                ? "border-[#D32F2F] bg-[#FDEDEC] shadow-sm"
+                : "border-[#DDE7F2] hover:border-[#D32F2F] hover:bg-[#FFF5F5]"
+                }`}
             >
               <div className="flex items-center justify-between">
                 <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#D32F2F]">
@@ -310,11 +308,10 @@ export function AmbulanceFinder({
                     setStep(3);
                   }
                 }}
-                className={`p-3.5 border-2 text-left rounded-[4px] transition-all flex items-start gap-3 ${
-                  supportType === item.id
-                    ? "border-[#1565D8] bg-[#EAF2FC]"
-                    : "border-[#DDE7F2] hover:border-[#1565D8] hover:bg-[#F8FAFD]"
-                }`}
+                className={`p-3.5 border-2 text-left rounded-[4px] transition-all flex items-start gap-3 ${supportType === item.id
+                  ? "border-[#1565D8] bg-[#EAF2FC]"
+                  : "border-[#DDE7F2] hover:border-[#1565D8] hover:bg-[#F8FAFD]"
+                  }`}
               >
                 <span className="material-symbols-outlined text-[#1565D8] text-[22px] mt-0.5 shrink-0">
                   {item.icon}

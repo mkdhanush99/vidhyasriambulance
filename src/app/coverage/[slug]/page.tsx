@@ -412,39 +412,6 @@ export default async function LocalityCoveragePage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── Local FAQs ── */}
-      {loc.faqs.length > 0 && (
-        <section className="w-full bg-white py-16 sm:py-20 border-t border-[#DDE7F2]">
-          <div className="max-w-3xl mx-auto px-4 sm:px-8 lg:px-12">
-            <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
-              Local FAQ
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-8">
-              Frequently Asked Questions in {loc.name}
-            </h2>
-
-            <div className="flex flex-col gap-4">
-              {loc.faqs.map((faq, i) => (
-                <details
-                  key={i}
-                  className="group bg-white border-2 border-[#DDE7F2] p-5 shadow-sm open:border-[#0A2A5E] transition-all rounded-[2px]"
-                >
-                  <summary className="flex items-center justify-between cursor-pointer text-sm font-extrabold uppercase tracking-tight text-[#0A2A5E] list-none">
-                    {faq.question}
-                    <span className="material-symbols-outlined text-[20px] text-[#536B86] group-open:rotate-180 transition-transform">
-                      expand_more
-                    </span>
-                  </summary>
-                  <p className="mt-4 text-[13px] font-medium text-[#536B86] leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* ── Process Reassurance ── */}
       <ProcessReassurance />
 

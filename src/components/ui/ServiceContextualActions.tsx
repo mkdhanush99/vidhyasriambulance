@@ -17,6 +17,7 @@ export function ServiceContextualActions({
 }: ServiceContextualActionsProps) {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [finderOpen, setFinderOpen] = useState(false);
+  const [bookingSlug, setBookingSlug] = useState(serviceSlug);
 
   return (
     <>
@@ -134,7 +135,7 @@ export function ServiceContextualActions({
           <div className="relative w-full max-w-2xl bg-white border-[3px] border-[#0A2A5E] shadow-[8px_8px_0_#0A2A5E] rounded-[4px] p-5 sm:p-7 z-10 max-h-[90vh] overflow-y-auto">
             <AmbulanceBookingFlow
               isModal
-              initialServiceSlug={serviceSlug}
+              initialServiceSlug={bookingSlug}
               onClose={() => setBookingOpen(false)}
             />
           </div>
@@ -158,6 +159,7 @@ export function ServiceContextualActions({
               isModal
               onClose={() => setFinderOpen(false)}
               onRequestBooking={(slug) => {
+                setBookingSlug(slug);
                 setFinderOpen(false);
                 setBookingOpen(true);
               }}

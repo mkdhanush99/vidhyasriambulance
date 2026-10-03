@@ -4,6 +4,8 @@ import { services, ServiceData } from "@/data/services";
 import { siteConfig } from "@/data/site";
 import { siteImages } from "@/data/images";
 import { ImageFrame } from "@/components/ui/ImageFrame";
+import { AmbulanceFinder } from "@/components/ui/AmbulanceFinder";
+import { ProcessReassurance } from "@/components/ui/ProcessReassurance";
 
 export const metadata: Metadata = {
   title: "Ambulance Services in Hyderabad",
@@ -89,6 +91,13 @@ export default function ServicesPage() {
           </p>
         </div>
         <div className="h-1.5 bg-[#1565D8] relative z-10 mt-12 w-full" />
+      </section>
+
+      {/* ── Decision Helper: Find the Right Ambulance ── */}
+      <section id="finder" className="w-full bg-[#F8FAFD] py-12 sm:py-16 border-b-[3px] border-[#0A2A5E]">
+        <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-10">
+          <AmbulanceFinder />
+        </div>
       </section>
 
       {/* ── Categorized Services (White Dominant Surfaces) ── */}
@@ -216,6 +225,9 @@ export default function ServicesPage() {
           })}
         </div>
       </section>
+
+      {/* ── Operational Process Reassurance ── */}
+      <ProcessReassurance />
 
       {/* ── Direct Dispatch CTA (Navy CTA) ── */}
       <section className="w-full bg-[#0A2A5E] text-white py-16 sm:py-20 border-t-2 border-[#0A2A5E]">
