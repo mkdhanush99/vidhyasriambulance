@@ -10,6 +10,9 @@ import { HeroSpatialStage } from "@/components/ui/HeroSpatialStage";
 import { SpatialServiceCard } from "@/components/ui/SpatialServiceCard";
 import { SpatialHowItWorks } from "@/components/ui/SpatialHowItWorks";
 import { SpatialCoverageMap } from "@/components/ui/SpatialCoverageMap";
+import { AmbulanceFinder } from "@/components/ui/AmbulanceFinder";
+import { AmbulanceBookingFlow } from "@/components/ui/AmbulanceBookingFlow";
+import { ProcessReassurance } from "@/components/ui/ProcessReassurance";
 
 // ═══════════════════════════════════════════════
 // 1. HERO SECTION (LIGHT PREMIUM HEALTHCARE)
@@ -233,6 +236,19 @@ function ServicesGridSection() {
             <SpatialServiceCard key={service.slug} service={service} index={idx} />
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════
+// 3B. FIND THE RIGHT AMBULANCE (DECISION HELPER)
+// ═══════════════════════════════════════════════
+function FinderSection() {
+  return (
+    <section id="finder" className="w-full bg-[#F8FAFD] py-16 sm:py-20 border-b-[3px] border-[#0A2A5E]">
+      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-10">
+        <AmbulanceFinder />
       </div>
     </section>
   );
@@ -701,7 +717,9 @@ export default function HomePage() {
       <HeroSection />
       <BrandStatementSection />
       <ServicesGridSection />
+      <FinderSection />
       <HowItWorksSection />
+      <ProcessReassurance />
       <CoverageSection />
       <FeatureIcuSection />
       <TrustSection />

@@ -6,6 +6,8 @@ import { services } from "@/data/services";
 import { siteConfig } from "@/data/site";
 import { siteImages } from "@/data/images";
 import { ImageFrame } from "@/components/ui/ImageFrame";
+import { NearbyAreas } from "@/components/ui/NearbyAreas";
+import { ProcessReassurance } from "@/components/ui/ProcessReassurance";
 
 // ── Static params for SSG ──
 export async function generateStaticParams() {
@@ -443,63 +445,81 @@ export default async function LocalityCoveragePage({ params }: Props) {
         </section>
       )}
 
-      {/* ── Nearby Coverage Hubs & Navigation ── */}
-      <section className="w-full bg-[#EAF2FC] py-14 border-t border-[#DDE7F2]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <h2 className="text-xl font-extrabold uppercase tracking-tight text-[#0A2A5E]">
-              Related Coverage Areas & Links
-            </h2>
-            <div className="flex items-center gap-3">
-              <Link
-                href="/coverage"
-                className="text-xs font-bold uppercase tracking-wider text-[#1565D8] hover:text-[#0A2A5E] transition-colors"
-              >
-                Coverage Hub →
-              </Link>
-              <Link
-                href="/contact"
-                className="text-xs font-bold uppercase tracking-wider text-[#1565D8] hover:text-[#0A2A5E] transition-colors"
-              >
-                Contact Page →
-              </Link>
-            </div>
-          </div>
+      {/* ── Process Reassurance ── */}
+      <ProcessReassurance />
 
-          <div className="flex flex-wrap gap-2.5">
-            {loc.nearbyLocalities.map((nearby) => (
-              <Link
-                key={nearby.slug}
-                href={`/coverage/${nearby.slug}`}
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-[#DDE7F2] text-xs font-extrabold uppercase text-[#0A2A5E] hover:border-[#0A2A5E] hover:bg-white shadow-sm transition-colors rounded-[2px]"
-              >
-                <span className="material-symbols-outlined text-[16px] text-[#1565D8]">
-                  near_me
-                </span>
-                {nearby.name}
-              </Link>
-            ))}
-            {!isPrimaryCityHub && (
-              <Link
-                href="/coverage/hyderabad"
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#0A2A5E] text-white text-xs font-extrabold uppercase border border-[#0A2A5E] hover:bg-[#1565D8] transition-colors shadow-sm rounded-[2px]"
-              >
-                Hyderabad Central Hub
-              </Link>
-            )}
-          </div>
+      {/* ── Also Serving Nearby (Dedicated Component) ── */}
+      <section className="w-full bg-[#F8FAFD] py-14 sm:py-18 border-b border-[#DDE7F2]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+          <NearbyAreas currentLocality={loc} />
         </div>
       </section>
 
-      {/* ── Emergency CTA (Navy CTA) ── */}
-      <section className="w-full bg-[#0A2A5E] py-14 border-t-2 border-[#1565D8] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      {/* ── Local FAQs ── */}
+      {loc.faqs.length > 0 && (
+        <section className="w-full bg-white py-16 sm:py-20 border-b border-[#DDE7F2]">
+          <div className="max-w-3xl mx-auto px-4 sm:px-8 lg:px-12">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+              <div>
+                <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-2 rounded-[2px]">
+                  Local FAQ
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E]">
+                  Frequently Asked Questions in {loc.name}
+                </h2>
+              </div>
+              <Link
+                href="/faq"
+                className="text-xs font-bold uppercase text-[#1565D8] hover:text-[#0A2A5E] transition-colors shrink-0"
+              >
+                All FAQs →
+              </Link>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {loc.faqs.map((faq, i) => (
+                <details
+                  key={i}
+                  className="group bg-white border-2 border-[#DDE7F2] p-5 shadow-sm open:border-[#0A2A5E] transition-all rounded-[2px]"
+                >
+                  <summary className="flex items-center justify-between cursor-pointer text-sm font-extrabold uppercase tracking-tight text-[#0A2A5E] list-none">
+                    {faq.question}
+                    <span className="material-symbols-outlined text-[20px] text-[#536B86] group-open:rotate-180 transition-transform">
+                      expand_more
+                    </span>
+                  </summary>
+                  <p className="mt-4 text-[13px] font-medium text-[#536B86] leading-relaxed border-t border-[#DDE7F2] pt-3">
+                    {faq.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
+
+            <div className="mt-8 pt-4 border-t border-[#DDE7F2] flex items-center justify-between text-xs text-[#536B86]">
+              <span>Need general ambulance booking questions answered?</span>
+              <Link
+                href="/faq"
+                className="font-extrabold uppercase text-[#1565D8] hover:text-[#0A2A5E]"
+              >
+                View Full FAQ →
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Emergency & Planned Action Strip (Navy CTA) ── */}
+      <section className="w-full bg-[#0A2A5E] py-16 border-t-2 border-[#1565D8] text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white">
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#38A3F7] block mb-1">
+              24×7 Local Dispatch Active
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-white">
               Need An Ambulance in {loc.name}?
             </h2>
-            <p className="text-sm font-medium text-white/80 mt-1">
-              Contact our 24×7 dispatch team for emergency or planned patient transportation.
+            <p className="text-sm font-medium text-white/80 mt-2 max-w-xl">
+              Our Somajiguda dispatch center mobilizes the nearest emergency ALS, ICU, or patient transport unit directly to your pickup point.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -510,11 +530,22 @@ export default async function LocalityCoveragePage({ params }: Props) {
               <span className="material-symbols-outlined text-[18px]">call</span>
               Call {siteConfig.phone.display}
             </a>
+            <a
+              href={`${siteConfig.whatsapp.href}?text=${encodeURIComponent(
+                `Hello Vidhya Sri, I need ambulance support in ${loc.name}. Please confirm active vehicle availability.`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-6 py-4 bg-[#25D366] border-2 border-white text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#1EBE5D] transition-all shrink-0"
+            >
+              <span className="material-symbols-outlined text-[18px]">chat</span>
+              WhatsApp Dispatch
+            </a>
             <Link
               href="/contact"
               className="inline-flex items-center gap-2.5 px-6 py-4 bg-white border-2 border-white text-[#0A2A5E] text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#EAF2FC] transition-all shrink-0"
             >
-              Contact Us
+              Contact Hub
             </Link>
           </div>
         </div>

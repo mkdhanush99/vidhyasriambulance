@@ -88,7 +88,7 @@ function CallbackModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
               Request Immediate Callback
             </h2>
             <p className="text-xs text-[#536B86] mt-1 font-medium">
-              Enter your number. Our Somajiguda control room calls back in 2 minutes.
+              Enter your number. Our Somajiguda control room coordinates promptly.
             </p>
           </div>
           <button

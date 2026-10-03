@@ -6,6 +6,8 @@ import { siteConfig } from "@/data/site";
 import { localities } from "@/data/coverage";
 import { getServiceImage } from "@/data/images";
 import { ImageFrame } from "@/components/ui/ImageFrame";
+import { ProcessReassurance } from "@/components/ui/ProcessReassurance";
+import { ServiceContextualActions } from "@/components/ui/ServiceContextualActions";
 
 // ── Static params for SSG ──
 export async function generateStaticParams() {
@@ -379,16 +381,29 @@ export default async function ServiceDetailPage({ params }: Props) {
         </div>
       </section>
 
+      {/* ── Process Reassurance ── */}
+      <ProcessReassurance />
+
       {/* ── FAQ Section ── */}
       {service.faqs.length > 0 && (
         <section className="w-full bg-white py-14 sm:py-18 border-b border-[#DDE7F2]">
           <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
-            <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-3 rounded-[2px]">
-              Questions & Answers
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-8">
-              Frequently Asked Questions About {service.name}
-            </h2>
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+              <div>
+                <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-2 rounded-[2px]">
+                  Questions & Answers
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E]">
+                  Frequently Asked Questions About {service.name}
+                </h2>
+              </div>
+              <Link
+                href="/faq"
+                className="text-xs font-bold uppercase text-[#1565D8] hover:text-[#0A2A5E] transition-colors shrink-0"
+              >
+                All FAQs →
+              </Link>
+            </div>
 
             <div className="space-y-3">
               {service.faqs.map((faq, idx) => (
@@ -408,38 +423,25 @@ export default async function ServiceDetailPage({ params }: Props) {
                 </details>
               ))}
             </div>
+
+            <div className="mt-8 pt-4 border-t border-[#DDE7F2] flex items-center justify-between text-xs text-[#536B86]">
+              <span>Have additional operational or tariff questions?</span>
+              <Link
+                href="/faq"
+                className="font-extrabold uppercase text-[#1565D8] hover:text-[#0A2A5E]"
+              >
+                Explore Full FAQ Hub →
+              </Link>
+            </div>
           </div>
         </section>
       )}
 
-      {/* ── Emergency Action Strip (Navy CTA) ── */}
-      <section className="w-full bg-[#0A2A5E] py-14 border-t-2 border-[#1565D8] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white">
-              Book {service.name}
-            </h2>
-            <p className="text-sm font-medium text-white/80 mt-1">
-              Contact our 24×7 dispatch team directly by phone or WhatsApp to coordinate your journey.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href={siteConfig.phone.href}
-              className="inline-flex items-center gap-2.5 px-7 py-4 bg-[#1565D8] border-2 border-white text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-white hover:text-[#0A2A5E] transition-all shadow-sm shrink-0"
-            >
-              <span className="material-symbols-outlined text-[18px]">call</span>
-              Call {siteConfig.phone.display}
-            </a>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2.5 px-6 py-4 bg-white border-2 border-white text-[#0A2A5E] text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#EAF2FC] transition-all shrink-0"
-            >
-              Contact Details
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* ── Contextual Service CTAs (Immediate / Transfer / Decision Helper) ── */}
+      <ServiceContextualActions
+        serviceName={service.name}
+        serviceSlug={service.slug}
+      />
     </>
   );
 }
