@@ -56,7 +56,9 @@ function renderEmailTemplate({
     ? "A visitor submitted a request through the website. Details are below."
     : `Thank you, ${cleanName}. Your request has been received by the Vidhya Sri dispatch team. Here is what you submitted.`;
   const footnote = isAdmin
-    ? "Sent automatically from the vidhyasriambulance.com enquiry form. Replying goes to the customer."
+    ? cleanEmail
+      ? "Sent automatically from the vidhyasriambulance.com enquiry form. Replying goes directly to the customer."
+      : "Sent automatically from the vidhyasriambulance.com enquiry form. Customer provided contact phone number only."
     : "You received this email because an enquiry was submitted on vidhyasriambulance.com with this address.";
 
   const baseUrl = "https://vidhyasriambulance.com";
@@ -362,7 +364,21 @@ export async function POST(req: Request) {
 
     const cleanName = String(name).trim() || "Website Visitor";
     const cleanRoute = String(route).trim() || "Not specified";
-    const cleanEmail = String(email).trim();
+    
+    // Strict email validation: Only use email if client provides a genuine, properly-formatted address.
+    // Completely ignore dummy, example, or placeholder values.
+    const rawEmail = String(email || "").trim().toLowerCase();
+    const isEmailValid =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail) &&
+      !rawEmail.includes("example.com") &&
+      !rawEmail.includes("test.com") &&
+      !rawEmail.startsWith("fake") &&
+      rawEmail !== "n/a" &&
+      rawEmail !== "none" &&
+      rawEmail !== "null" &&
+      rawEmail !== "undefined";
+    const cleanEmail = isEmailValid ? rawEmail : "";
+
     const cleanService = String(service).trim() || "Ambulance Transfer";
     const cleanNotes = String(notes).trim();
     const cleanTiming = String(timing).trim() || "Immediate";

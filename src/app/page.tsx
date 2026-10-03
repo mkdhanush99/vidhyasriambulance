@@ -773,7 +773,7 @@ function ContactSection() {
                     <input
                       id="home-email"
                       type="email"
-                      placeholder="email@example.com"
+                      placeholder="yourname@gmail.com"
                       value={formEmail}
                       onChange={(e) => setFormEmail(e.target.value)}
                       className="w-full px-3.5 py-2.5 bg-[#F8FAFD] border-2 border-[#DDE7F2] rounded-[4px] text-[#0A2A5E] font-bold text-[14px] placeholder:text-[#536B86]/60 focus:outline-none focus:bg-white focus:border-[#1565D8] focus:shadow-[2px_2px_0_#1565D8] transition-all"
