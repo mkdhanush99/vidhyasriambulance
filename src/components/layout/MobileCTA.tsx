@@ -44,6 +44,19 @@ function CallbackModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
     const cleanPhone = phone.trim();
     if (!cleanPhone) return;
 
+    // Send background email notification via server-side /api/enquiry
+    fetch("/api/enquiry", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: name.trim() || "Mobile Callback Request",
+        phone: cleanPhone,
+        service: "Immediate Mobile Callback Request",
+        notes: note.trim() || "User clicked 'Request Callback' from mobile bottom rail.",
+        timing: "Immediate",
+      }),
+    }).catch((err) => console.error("Callback notification error:", err));
+
     const message = encodeURIComponent(
       `🚨 *Urgent Callback Request — Vidhya Sri Ambulance*\n` +
       `• *Name:* ${name.trim() || "Immediate Assistance Needed"}\n` +

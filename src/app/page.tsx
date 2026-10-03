@@ -524,24 +524,50 @@ function TrustSection() {
 function ContactSection() {
   const [formName, setFormName] = useState("");
   const [formPhone, setFormPhone] = useState("");
+  const [formEmail, setFormEmail] = useState("");
   const [formRoute, setFormRoute] = useState("");
-  const [sent, setSent] = useState(false);
+  const [formHoneypot, setFormHoneypot] = useState("");
+  const [formState, setFormState] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  function handleFormSubmit(e: React.FormEvent) {
+  async function handleFormSubmit(e: React.FormEvent) {
     e.preventDefault();
     const phone = formPhone.trim();
     if (!phone) return;
 
-    const message = encodeURIComponent(
-      `🚨 *Urgent Ambulance Booking Request*\n` +
-      `• *Name:* ${formName.trim() || "Immediate Emergency"}\n` +
-      `• *Contact Number:* ${phone}\n` +
-      (formRoute.trim() ? `• *Pickup & Destination:* ${formRoute.trim()}\n` : "") +
-      `\n_Please confirm vehicle availability and dispatch ETA immediately._`
-    );
+    setFormState("loading");
 
-    window.open(`${siteConfig.whatsapp.href}?text=${message}`, "_blank", "noopener,noreferrer");
-    setSent(true);
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formName,
+          phone: formPhone,
+          email: formEmail,
+          route: formRoute,
+          service: "Urgent Callback / Transfer",
+          honeypot: formHoneypot,
+        }),
+      });
+
+      if (res.ok) {
+        setFormState("success");
+      } else {
+        setFormState("error");
+      }
+    } catch {
+      setFormState("error");
+    }
+  }
+
+  function handleReset() {
+    setFormState("idle");
+    setFormName("");
+    setFormPhone("");
+    setFormEmail("");
+    setFormRoute("");
   }
 
   return (
@@ -616,29 +642,92 @@ function ContactSection() {
                 Book an Ambulance
               </div>
 
-              {sent ? (
-                <div className="py-6 text-center bg-[#EAF2FC] border-2 border-[#1565D8] p-4 rounded-[4px]">
+              {formState === "success" && (
+                <div className="py-6 text-center bg-[#EAF2FC] border-2 border-[#1565D8] p-5 rounded-[4px] space-y-3">
                   <span
-                    className="material-symbols-outlined text-4xl text-[#1565D8] mb-2 inline-block"
+                    className="material-symbols-outlined text-4xl text-[#1565D8] inline-block"
                     style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}
                   >
                     check_circle
                   </span>
                   <p className="text-base font-extrabold uppercase text-[#0A2A5E]">
-                    Dispatch Request Prepared
+                    Your enquiry has been received.
                   </p>
-                  <p className="text-xs text-[#536B86] mt-1 font-medium">
-                    WhatsApp is opening with your details. For instant support:
+                  <p className="text-xs text-[#536B86] font-medium leading-relaxed">
+                    Our Somajiguda dispatch coordinators are reviewing your details. For emergency life threats, connect immediately:
                   </p>
-                  <a
-                    href={siteConfig.phone.href}
-                    className="inline-flex items-center justify-center gap-2 mt-4 w-full py-2.5 bg-[#1565D8] text-white border-2 border-[#0A2A5E] text-xs font-black uppercase rounded-[2px]"
+                  <div className="flex flex-col gap-2 pt-2">
+                    <a
+                      href={siteConfig.phone.href}
+                      className="inline-flex items-center justify-center gap-2 w-full py-3 bg-[#1565D8] hover:bg-[#0B3F9E] text-white border-2 border-[#0A2A5E] text-xs font-black uppercase rounded-[3px] transition-colors"
+                    >
+                      <span className="material-symbols-outlined text-[16px]">call</span>
+                      Call Now · {siteConfig.phone.display}
+                    </a>
+                    <a
+                      href={siteConfig.whatsapp.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 w-full py-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-black uppercase rounded-[3px] transition-colors"
+                    >
+                      <span className="material-symbols-outlined text-[16px]">chat</span>
+                      WhatsApp Dispatch
+                    </a>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleReset}
+                    className="text-[11px] font-bold text-[#536B86] hover:text-[#0A2A5E] uppercase tracking-wider underline pt-2 block mx-auto"
                   >
-                    Call {siteConfig.phone.display}
-                  </a>
+                    Send another enquiry
+                  </button>
                 </div>
-              ) : (
+              )}
+
+              {formState === "error" && (
+                <div className="py-6 text-center bg-[#FDEDEC] border-2 border-[#D32F2F] p-5 rounded-[4px] space-y-3">
+                  <span
+                    className="material-symbols-outlined text-4xl text-[#D32F2F] inline-block"
+                    style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}
+                  >
+                    error
+                  </span>
+                  <p className="text-sm font-extrabold uppercase text-[#D32F2F]">
+                    Something went wrong while sending your enquiry. Please try again or call us directly.
+                  </p>
+                  <div className="flex flex-col gap-2 pt-2">
+                    <a
+                      href={siteConfig.phone.href}
+                      className="inline-flex items-center justify-center gap-2 w-full py-3 bg-[#D32F2F] hover:bg-[#B71C1C] text-white text-xs font-black uppercase rounded-[3px] transition-colors"
+                    >
+                      <span className="material-symbols-outlined text-[16px]">call</span>
+                      Call {siteConfig.phone.display}
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => setFormState("idle")}
+                      className="inline-flex items-center justify-center gap-1.5 w-full py-2.5 bg-white border-2 border-[#0A2A5E] text-[#0A2A5E] hover:bg-[#EAF2FC] text-xs font-black uppercase rounded-[3px] transition-colors"
+                    >
+                      Try Again
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {(formState === "idle" || formState === "loading") && (
                 <form onSubmit={handleFormSubmit} className="space-y-3.5">
+                  {/* Honeypot for Bot Prevention */}
+                  <input
+                    type="text"
+                    name="address_secondary"
+                    value={formHoneypot}
+                    onChange={(e) => setFormHoneypot(e.target.value)}
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                  />
+
                   <div>
                     <label
                       htmlFor="home-name"
@@ -676,6 +765,23 @@ function ContactSection() {
 
                   <div>
                     <label
+                      htmlFor="home-email"
+                      className="block text-[11px] font-black uppercase tracking-[.12em] text-[#0A2A5E] mb-1"
+                    >
+                      Email <span className="text-[10px] font-normal text-[#536B86]">(Optional for confirmation)</span>
+                    </label>
+                    <input
+                      id="home-email"
+                      type="email"
+                      placeholder="email@example.com"
+                      value={formEmail}
+                      onChange={(e) => setFormEmail(e.target.value)}
+                      className="w-full px-3.5 py-2.5 bg-[#F8FAFD] border-2 border-[#DDE7F2] rounded-[4px] text-[#0A2A5E] font-bold text-[14px] placeholder:text-[#536B86]/60 focus:outline-none focus:bg-white focus:border-[#1565D8] focus:shadow-[2px_2px_0_#1565D8] transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label
                       htmlFor="home-route"
                       className="block text-[11px] font-black uppercase tracking-[.12em] text-[#0A2A5E] mb-1"
                     >
@@ -693,9 +799,10 @@ function ContactSection() {
 
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-[#1565D8] border-[3px] border-[#0A2A5E] text-white text-[13px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[4px_4px_0_#0A2A5E] hover:bg-[#0B3F9E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#0A2A5E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer mt-2"
+                    disabled={formState === "loading"}
+                    className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-[#1565D8] border-[3px] border-[#0A2A5E] text-white text-[13px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[4px_4px_0_#0A2A5E] hover:bg-[#0B3F9E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#0A2A5E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer mt-2 disabled:opacity-60"
                   >
-                    Request Callback
+                    {formState === "loading" ? "Sending Request..." : "Request Callback"}
                     <span className="material-symbols-outlined text-[19px]">arrow_forward</span>
                   </button>
                 </form>

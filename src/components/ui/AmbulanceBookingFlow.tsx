@@ -114,6 +114,20 @@ export function AmbulanceBookingFlow({
     const waText = buildWhatsAppMessage();
     const waUrl = `${siteConfig.whatsapp.href}?text=${encodeURIComponent(waText)}`;
 
+    // Send email dispatch to admin via server-side /api/enquiry
+    fetch("/api/enquiry", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: userName,
+        phone: userPhone,
+        service: activeServiceObj.name,
+        route: `${pickup} → ${destination}`,
+        timing: journeyTiming,
+        notes: patientCondition,
+      }),
+    }).catch((err) => console.error("Enquiry notification error:", err));
+
     // Open WhatsApp in new tab for direct dispatch
     try {
       window.open(waUrl, "_blank", "noopener,noreferrer");
