@@ -108,10 +108,23 @@ export function Header() {
               WhatsApp
             </a>
 
-            {/* Call CTA */}
+            {/* Call CTA: Circular Red Button on Mobile (matches reference image), Full Button on sm+ */}
             <a
               href={siteConfig.phone.href}
-              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-[#1565D8] border-2 border-[#0A2A5E] text-white text-[11.5px] sm:text-[12.5px] font-extrabold uppercase tracking-wider rounded-[4px] shadow-[4px_4px_0_#0A2A5E] hover:bg-[#0B3F9E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#0A2A5E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all"
+              aria-label={`Call emergency line 24x7 at ${siteConfig.phone.display}`}
+              className="sm:hidden w-[40px] h-[40px] rounded-full bg-[#D32F2F] text-white flex items-center justify-center border-2 border-[#0A2A5E] shadow-[2px_2px_0_#0A2A5E] active:scale-95 active:shadow-none transition-transform"
+            >
+              <span
+                className="material-symbols-outlined text-[20px] leading-none"
+                style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}
+              >
+                call
+              </span>
+            </a>
+
+            <a
+              href={siteConfig.phone.href}
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 bg-[#1565D8] border-2 border-[#0A2A5E] text-white text-[12.5px] font-extrabold uppercase tracking-wider rounded-[4px] shadow-[4px_4px_0_#0A2A5E] hover:bg-[#0B3F9E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#0A2A5E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all"
             >
               <span
                 className="material-symbols-outlined text-[18px] leading-none"
@@ -119,8 +132,7 @@ export function Header() {
               >
                 call
               </span>
-              <span className="hidden sm:inline">CALL 24×7 · {siteConfig.phone.display}</span>
-              <span className="sm:hidden">CALL 24×7</span>
+              <span>CALL 24×7 · {siteConfig.phone.display}</span>
             </a>
 
             {/* Mobile Menu Button */}
