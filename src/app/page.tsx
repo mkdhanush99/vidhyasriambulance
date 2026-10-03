@@ -1,85 +1,108 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { siteConfig } from "@/data/site";
 import { services } from "@/data/services";
 import { siteImages } from "@/data/images";
 import { ImageFrame } from "@/components/ui/ImageFrame";
+import { HeroSpatialStage } from "@/components/ui/HeroSpatialStage";
+import { SpatialServiceCard } from "@/components/ui/SpatialServiceCard";
+import { SpatialHowItWorks } from "@/components/ui/SpatialHowItWorks";
+import { SpatialCoverageMap } from "@/components/ui/SpatialCoverageMap";
 
 // ═══════════════════════════════════════════════
-// SECTION — HERO (EDITORIAL ASYMMETRIC COMPOSITION)
+// 1. HERO SECTION (LIGHT PREMIUM HEALTHCARE)
 // ═══════════════════════════════════════════════
 function HeroSection() {
   return (
-    <section className="relative w-full bg-navy overflow-hidden">
-      {/* Subtle brand gradient overlay */}
-      <div className="absolute inset-0 bg-brand-gradient opacity-90" />
-
-      {/* Grid Pattern overlay for depth */}
+    <section className="relative w-full bg-[#F8FAFD] overflow-hidden border-b-[3px] border-[#0A2A5E]">
+      {/* Subtle healthcare decorative accents */}
       <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
-        }}
+        className="absolute -right-32 -top-32 w-[520px] h-[520px] rounded-full bg-[#EAF2FC] opacity-70 pointer-events-none anim-drift hidden md:block"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute -left-16 -bottom-16 w-[240px] h-[240px] bg-[#EAF2FC] rounded-full opacity-60 pointer-events-none hidden lg:block"
+        aria-hidden="true"
       />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-16 sm:py-20 lg:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 py-16 sm:py-20 lg:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column — Editorial Typography + CTAs (7 cols) */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-7">
-            {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 bg-white/10 border border-white/20 backdrop-blur-sm">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[11px] font-black uppercase tracking-widest text-warm-yellow">
-                24×7 AMBULANCE & PATIENT TRANSPORT
+            {/* Eyebrow badge */}
+            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 bg-white border-2 border-[#DDE7F2] shadow-[3px_3px_0_#DDE7F2] rounded-[2px]">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#0F8F5F] animate-pulse" />
+              <span className="text-[11px] font-black uppercase tracking-[.18em] text-[#0A2A5E]">
+                24×7 Ambulance Helpline Active · Hyderabad
               </span>
             </div>
 
-            {/* H1 */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight leading-[0.95] text-white">
-              Care, moving<br />
+            {/* H1 Headline in Vidhya Navy */}
+            <h1 className="text-[clamp(44px,7.2vw,74px)] font-extrabold uppercase tracking-[-0.025em] leading-[0.95] text-[#0A2A5E]">
+              Care, moving
+              <br />
               when it{" "}
-              <span className="text-warm-yellow">matters.</span>
+              <span className="inline-block bg-[#EAF2FC] text-[#1565D8] px-3 py-0.5 border-2 border-[#1565D8]/30 shadow-[4px_4px_0_#DDE7F2] -rotate-[1deg] align-middle mt-1 sm:mt-0 rounded-[2px]">
+                matters.
+              </span>
             </h1>
 
-            {/* Supporting Copy */}
-            <p className="text-base sm:text-lg font-medium text-white/85 max-w-xl leading-relaxed">
-              Vidhya Sri Ambulance Services provides emergency and patient transportation in Hyderabad, with dedicated vehicles for planned transfers, specialized ICU requirements, and outstation medical journeys.
+            {/* Clean dark copy */}
+            <p className="text-[16px] sm:text-[17px] font-medium text-[#536B86] max-w-xl leading-[1.6]">
+              Vidhya Sri Ambulance Services provides immediate emergency response and planned patient transfers across Hyderabad, equipped with critical care life support and bedside handover protocols.
             </p>
 
-            {/* CTA Pair */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            {/* CTA Set: Care Blue Primary + WhatsApp + Services Secondary */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+              {/* Primary CTA: Care Blue #1565D8 */}
               <a
                 href={siteConfig.phone.href}
-                className="inline-flex items-center gap-2.5 px-7 py-4 bg-coral border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-coral/90 transition-all shadow-[4px_4px_0px_rgba(0,0,0,0.4)] hover:translate-x-[2px] hover:translate-y-[2px]"
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-[#1565D8] border-[3px] border-[#0A2A5E] text-white text-[14px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[5px_5px_0_#0A2A5E] hover:bg-[#0B3F9E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#0A2A5E] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all min-h-[52px]"
               >
-                <span className="material-symbols-outlined text-[18px]">call</span>
+                <span
+                  className="material-symbols-outlined text-[20px]"
+                  style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}
+                >
+                  call
+                </span>
                 Call 24×7 · {siteConfig.phone.display}
               </a>
+
+              {/* WhatsApp: White button with green pulse dot */}
               <a
                 href={siteConfig.whatsapp.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-7 py-4 bg-white/10 border-2 border-white text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-white/20 transition-all"
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-white border-[3px] border-[#0A2A5E] text-[#0A2A5E] text-[14px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[5px_5px_0_#0A2A5E] hover:bg-[#EAF2FC] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#0A2A5E] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all min-h-[52px]"
               >
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                WhatsApp Us
+                <span className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse" />
+                WhatsApp
+              </a>
+
+              {/* Secondary CTA: Services */}
+              <a
+                href="#services"
+                className="inline-flex items-center justify-center gap-2 px-5 py-4 bg-white border-2 border-[#DDE7F2] hover:border-[#0A2A5E] text-[#0A2A5E] text-[13.5px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[4px_4px_0_#DDE7F2] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#DDE7F2] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all min-h-[52px]"
+              >
+                Services
+                <span className="material-symbols-outlined text-[18px]">arrow_downward</span>
               </a>
             </div>
 
-            {/* Hero Supporting Labels */}
-            <div className="pt-6 border-t border-white/15 flex flex-wrap items-center gap-2 sm:gap-2.5">
+            {/* Quick Service Tags */}
+            <div className="pt-4 border-t border-[#DDE7F2] flex flex-wrap items-center gap-2">
               {[
-                { label: "EMERGENCY AMBULANCE", href: "/services/emergency-ambulance" },
-                { label: "ICU AMBULANCE", href: "/services/icu-ambulance" },
-                { label: "PATIENT TRANSFER", href: "/services/patient-transfer-ambulance" },
+                { label: "EMERGENCY ALS", href: "/services/emergency-ambulance" },
+                { label: "ICU ON WHEELS", href: "/services/icu-ambulance" },
+                { label: "VENTILATOR", href: "/services/ventilator-ambulance" },
                 { label: "OUTSTATION", href: "/services/outstation-ambulance" },
               ].map((pill) => (
                 <Link
                   key={pill.label}
                   href={pill.href}
-                  className="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/25 text-[10px] font-black uppercase tracking-widest text-white/90 transition-all"
+                  className="px-3 py-1 bg-white hover:bg-[#EAF2FC] hover:border-[#1565D8] border border-[#DDE7F2] text-[10.5px] font-extrabold uppercase tracking-widest text-[#0A2A5E] transition-all rounded-[2px]"
                 >
                   {pill.label}
                 </Link>
@@ -87,93 +110,36 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column — Editorial Framed Photograph (5 cols) */}
-          <div className="lg:col-span-5">
-            <ImageFrame
+          {/* Right Column — 3D Spatial Stage with Editorial Photograph (5 cols) */}
+          <div className="lg:col-span-5 pr-2 pb-2">
+            <HeroSpatialStage
               src={siteImages.home.hero.src}
               alt={siteImages.home.hero.alt}
               caption={siteImages.home.hero.caption}
               captionLocation={siteImages.home.hero.captionLocation}
               badge={siteImages.home.hero.badge}
-              variant="featured"
-              offsetColor="careBlue"
-              aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
-              objectPosition={siteImages.home.hero.objectPosition}
               priority={true}
-              sizes="(max-width: 1024px) 100vw, 42vw"
             />
           </div>
         </div>
       </div>
 
-      {/* Bottom edge editorial line */}
-      <div className="relative z-10 h-2 bg-warm-yellow" />
+      {/* Refined Care Blue bottom runner line */}
+      <div className="h-1.5 bg-[#1565D8] w-full border-crossing-strip" />
     </section>
   );
 }
 
 // ═══════════════════════════════════════════════
-// SECTION — INTRO WITH QUICK NAV
+// 2. BRAND STATEMENT SECTION (VERY PALE BLUE)
 // ═══════════════════════════════════════════════
-function IntroSection() {
-  const introLinks = [
-    { name: "Emergency Ambulance", href: "/services/emergency-ambulance", icon: "emergency" },
-    { name: "ICU Ambulance", href: "/services/icu-ambulance", icon: "monitor_heart" },
-    { name: "Ventilator Ambulance", href: "/services/ventilator-ambulance", icon: "pulmonology" },
-    { name: "BLS Ambulance", href: "/services/bls-ambulance", icon: "local_hospital" },
-    { name: "Patient Transfer Ambulance", href: "/services/patient-transfer-ambulance", icon: "transfer_within_a_station" },
-    { name: "Oxygen Ambulance", href: "/services/oxygen-ambulance", icon: "air" },
-    { name: "NICU / Neonatal Ambulance", href: "/services/nicu-neonatal-ambulance", icon: "child_care" },
-    { name: "Outstation Ambulance", href: "/services/outstation-ambulance", icon: "route" },
-  ];
-
+function BrandStatementSection() {
   return (
-    <section className="w-full bg-white py-14 sm:py-16 border-b-2 border-navy/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-        <div className="max-w-3xl mb-8">
-          <span className="inline-block px-3 py-1 bg-clinic-mist border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-3 shadow-brutal-sm">
-            Hyderabad Ambulance Transportation
-          </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-navy leading-tight mb-3">
-            Ambulance care for every kind of journey.
-          </h2>
-          <p className="text-sm sm:text-base font-medium text-navy/75 leading-relaxed">
-            From urgent hospital transport to planned patient transfers, Vidhya Sri Ambulance Services helps families, caregivers and hospitals arrange suitable ambulance transportation in Hyderabad and beyond.
-          </p>
-        </div>
-
-        {/* Quick Link Chips */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
-          {introLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="flex items-center gap-2.5 p-3 bg-paper border border-navy/20 hover:border-navy hover:bg-clinic-mist hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-brutal-sm transition-all"
-            >
-              <span className="material-symbols-outlined text-[18px] text-care-blue">
-                {link.icon}
-              </span>
-              <span className="text-[11px] font-extrabold uppercase text-navy truncate">
-                {link.name}
-              </span>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ═══════════════════════════════════════════════
-// SECTION — HOME BRAND STORY (EDITORIAL ASYMMETRICAL MOMENT)
-// ═══════════════════════════════════════════════
-function BrandStorySection() {
-  return (
-    <section className="w-full bg-paper py-16 sm:py-20 border-b-2 border-navy/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* Large Editorial Photograph (5 cols) */}
-          <div className="lg:col-span-5">
+    <section className="w-full bg-[#F3F7FC] py-20 lg:py-24 border-b-[3px] border-[#0A2A5E]">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left Column — Framed Image with Pale Blue offset */}
+          <div className="lg:col-span-5 relative pr-4 pb-4">
             <ImageFrame
               src={siteImages.home.brandStory.src}
               alt={siteImages.home.brandStory.alt}
@@ -182,60 +148,41 @@ function BrandStorySection() {
               badge={siteImages.home.brandStory.badge}
               variant="offset"
               offsetColor="lavender"
-              aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
+              aspectRatio="aspect-[5/6] sm:aspect-[4/3] lg:aspect-[5/6]"
               objectPosition={siteImages.home.brandStory.objectPosition}
-              sizes="(max-width: 1024px) 100vw, 40vw"
+              decorativeCircle={true}
+              sizes="(max-width: 1024px) 100vw, 42vw"
             />
           </div>
 
-          {/* Statement + Copy + Color Blocks (7 cols) */}
+          {/* Right Column — Editorial Statement */}
           <div className="lg:col-span-7 space-y-6">
-            <div>
-              <span className="inline-block px-3 py-1 bg-warm-yellow border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-3 shadow-brutal-sm">
-                Operational Dispatch & Fleet Base
+            <div className="inline-flex items-center gap-2.5">
+              <span className="w-3 h-3 bg-[#1565D8] border border-[#0A2A5E] inline-block" />
+              <span className="text-[11px] font-black uppercase tracking-[.18em] px-2.5 py-1 border border-[#DDE7F2] bg-white text-[#0A2A5E] rounded-[2px]">
+                01 / Our Story
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-navy leading-tight">
-                An active fleet stationed for immediate Hyderabad response.
-              </h2>
             </div>
 
-            <div className="space-y-4 text-sm font-medium text-navy/75 leading-relaxed">
-              <p>
-                Headquartered in Somajiguda, Hyderabad, Vidhya Sri Ambulance operates a multi-vehicle fleet configured for critical emergency dispatch, routine patient transit, and specialized life support across the twin cities.
-              </p>
-              <p>
-                Every vehicle is maintained with dedicated medical oxygen systems, secure immobilization stretchers, and direct driver communication to ensure smooth coordination between residences, clinics, and major hospitals.
-              </p>
-            </div>
+            <h2 className="text-[clamp(34px,5.2vw,56px)] font-extrabold uppercase tracking-tight leading-[0.98] text-[#0A2A5E]">
+              Care does not stop{" "}
+              <span className="bg-[#EAF2FC] text-[#1565D8] px-2.5 py-0.5 inline-block rotate-1 border border-[#1565D8]/30 shadow-[3px_3px_0_#DDE7F2] rounded-[2px]">
+                at the hospital door.
+              </span>
+            </h2>
 
-            {/* Small colored status blocks */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-              <div className="p-3.5 bg-white border-2 border-navy shadow-brutal-sm">
-                <span className="text-[10px] font-black uppercase tracking-wider text-care-blue block mb-1">
-                  Availability
-                </span>
-                <p className="text-xs font-extrabold uppercase text-navy">
-                  24 Hours / 7 Days Continuous Dispatch
-                </p>
-              </div>
+            <p className="text-[16.5px] font-medium text-[#536B86] leading-[1.6] max-w-xl">
+              Vidhya Sri is healthcare mobility — monitored, staffed and coordinated from the first call to the final handover. Headquartered in Somajiguda, Hyderabad, our team stands ready 24 hours a day, 365 days a year.
+            </p>
 
-              <div className="p-3.5 bg-white border-2 border-navy shadow-brutal-sm">
-                <span className="text-[10px] font-black uppercase tracking-wider text-care-blue block mb-1">
-                  Central Base
-                </span>
-                <p className="text-xs font-extrabold uppercase text-navy">
-                  Somajiguda, Hyderabad 500082
-                </p>
-              </div>
-
-              <div className="p-3.5 bg-white border-2 border-navy shadow-brutal-sm">
-                <span className="text-[10px] font-black uppercase tracking-wider text-care-blue block mb-1">
-                  Fleet Scope
-                </span>
-                <p className="text-xs font-extrabold uppercase text-navy">
-                  ALS · BLS · ICU · Outstation
-                </p>
-              </div>
+            <div className="pt-2">
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#0A2A5E] border-[3px] border-[#0A2A5E] text-white text-[13px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[5px_5px_0_#1565D8] hover:bg-[#1565D8] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#1565D8] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all"
+              >
+                About Vidhya Sri
+                <span className="material-symbols-outlined text-[19px]">arrow_forward</span>
+              </Link>
             </div>
           </div>
         </div>
@@ -245,176 +192,243 @@ function BrandStorySection() {
 }
 
 // ═══════════════════════════════════════════════
-// SECTION — SERVICES (EDITORIAL GRID WITH 1 FEATURED VISUAL)
+// 3. SERVICES SECTION (WHITE DOMINANT WITH PALE BACKING)
 // ═══════════════════════════════════════════════
-const accentBgMap: Record<string, string> = {
-  coral: "bg-coral-light",
-  lavender: "bg-lavender-light",
-  peach: "bg-peach-light",
-  aqua: "bg-clinic-mist",
-  warmYellow: "bg-warm-yellow-light",
-  mint: "bg-mint-light",
-  softGreen: "bg-mint-light",
-  purple: "bg-lavender-light",
-  mist: "bg-clinic-mist",
-};
 
-const accentBorderMap: Record<string, string> = {
-  coral: "border-coral",
-  lavender: "border-lavender",
-  peach: "border-peach",
-  aqua: "border-aqua",
-  warmYellow: "border-warm-yellow",
-  mint: "border-mint",
-  softGreen: "border-soft-green",
-  purple: "border-purple-accent",
-  mist: "border-clinic-mist",
-};
-
-function ServicesSection() {
-  // We feature Emergency & ICU at top alongside 1 large featured image
-  const featuredServices = services.slice(0, 4);
-  const remainingServices = services.slice(4);
-
+function ServicesGridSection() {
   return (
-    <section className="w-full bg-white py-18 sm:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+    <section
+      id="services"
+      className="w-full bg-white py-20 lg:py-24 border-b-[3px] border-[#0A2A5E]"
+    >
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <span className="inline-block px-3 py-1 bg-coral border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-3 shadow-brutal-sm">
-              Our Services
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-navy">
-              Dedicated Medical <span className="text-care-blue">Transport.</span>
+            <div className="inline-flex items-center gap-2.5 mb-3">
+              <span className="w-3 h-3 bg-[#1565D8] border border-[#0A2A5E] inline-block" />
+              <span className="text-[11px] font-black uppercase tracking-[.18em] px-2.5 py-1 border border-[#DDE7F2] bg-[#EAF2FC] text-[#0A2A5E] rounded-[2px]">
+                02 / Services
+              </span>
+            </div>
+            <h2 className="text-[clamp(34px,5.2vw,56px)] font-extrabold uppercase tracking-tight leading-[0.98] text-[#0A2A5E]">
+              Every emergency,
+              <br />
+              <span className="text-[#1565D8]">covered.</span>
             </h2>
           </div>
+
           <Link
             href="/services"
-            className="text-[12px] font-bold uppercase tracking-wider text-care-blue hover:text-navy transition-colors self-start sm:self-auto"
+            className="inline-flex items-center gap-2 px-5 py-3.5 bg-white border-[3px] border-[#0A2A5E] text-[#0A2A5E] text-[12.5px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[4px_4px_0_#DDE7F2] hover:border-[#1565D8] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#DDE7F2] transition-all self-start sm:self-auto"
           >
-            Explore All 11 Services →
+            All 11 Services
+            <span className="material-symbols-outlined text-[19px]">arrow_forward</span>
           </Link>
         </div>
 
-        {/* ── EDITORIAL FEATURED BLOCK: 1 Large Image (45%) + 4 Top Cards (55%) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch mb-8">
-          {/* Featured Visual Block (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col">
+        {/* 11 Services Grid: 3D Spatial Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
+          {services.map((service, idx) => (
+            <SpatialServiceCard key={service.slug} service={service} index={idx} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════
+// 4. HOW IT WORKS SECTION (CLINIC MIST, §3.6)
+// ═══════════════════════════════════════════════
+
+function HowItWorksSection() {
+  return (
+    <section className="w-full bg-[#EAF2FC] py-20 lg:py-24 border-b-[3px] border-[#0A2A5E]">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
+        {/* Left-aligned header */}
+        <div className="mb-14">
+          <div className="inline-flex items-center gap-2.5 mb-3">
+            <span className="w-3 h-3 bg-[#1565D8] border border-[#0A2A5E] inline-block" />
+            <span className="text-[11px] font-black uppercase tracking-[.18em] px-2.5 py-1 border border-[#DDE7F2] bg-white text-[#0A2A5E] rounded-[2px]">
+              03 / Dispatch Process
+            </span>
+          </div>
+          <h2 className="text-[clamp(34px,5.2vw,56px)] font-extrabold uppercase tracking-tight leading-[0.98] text-[#0A2A5E]">
+            Four steps to <span className="text-[#1565D8]">dispatch.</span>
+          </h2>
+        </div>
+
+        {/* Spatial 3D connected step progression */}
+        <SpatialHowItWorks />
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════
+// 5. COVERAGE SECTION (WHITE DOMINANT, §3.7)
+// ═══════════════════════════════════════════════
+const coverageAreas = [
+  { name: "Somajiguda", slug: "somajiguda", rot: "-1deg" },
+  { name: "Banjara Hills", slug: "banjara-hills", rot: "1.2deg" },
+  { name: "Jubilee Hills", slug: "jubilee-hills", rot: "-0.8deg" },
+  { name: "Punjagutta", slug: "punjagutta", rot: "1deg" },
+  { name: "Begumpet", slug: "begumpet", rot: "-1.5deg" },
+  { name: "Secunderabad", slug: "secunderabad", rot: "0.5deg" },
+  { name: "Madhapur", slug: "madhapur", rot: "-1deg" },
+  { name: "Hitech City", slug: "hitech-city", rot: "1.4deg" },
+  { name: "Gachibowli", slug: "gachibowli", rot: "-1.2deg" },
+  { name: "Kondapur", slug: "kondapur", rot: "0.8deg" },
+  { name: "Kukatpally", slug: "kukatpally", rot: "-1.1deg" },
+  { name: "Mehdipatnam", slug: "mehdipatnam", rot: "1deg" },
+  { name: "LB Nagar", slug: "lb-nagar", rot: "-0.5deg" },
+  { name: "Hyderabad Central", slug: "hyderabad", rot: "1.2deg" },
+];
+
+function CoverageSection() {
+  return (
+    <section className="relative w-full bg-white py-20 lg:py-24 border-b-[3px] border-[#0A2A5E] overflow-hidden">
+      <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+          <div>
+            <div className="inline-flex items-center gap-2.5 mb-3">
+              <span className="w-3 h-3 bg-[#1565D8] border border-[#0A2A5E] inline-block" />
+              <span className="text-[11px] font-black uppercase tracking-[.18em] px-2.5 py-1 border border-[#DDE7F2] bg-[#EAF2FC] text-[#0A2A5E] rounded-[2px]">
+                04 / Hyderabad Coverage
+              </span>
+            </div>
+            <h2 className="text-[clamp(34px,5.2vw,56px)] font-extrabold uppercase tracking-tight leading-[0.98] text-[#0A2A5E]">
+              Across greater
+              <br />
+              <span className="text-[#1565D8]">Hyderabad.</span>
+            </h2>
+          </div>
+
+          <Link
+            href="/coverage"
+            className="inline-flex items-center gap-2 px-5 py-3.5 bg-[#1565D8] border-[3px] border-[#0A2A5E] text-white text-[12.5px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[4px_4px_0_#0A2A5E] hover:bg-[#0B3F9E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#0A2A5E] transition-all self-start sm:self-auto"
+          >
+            Coverage Hub
+            <span className="material-symbols-outlined text-[19px]">arrow_forward</span>
+          </Link>
+        </div>
+
+        {/* 3D Spatial Coverage Radar Stage */}
+        <div className="mb-10">
+          <SpatialCoverageMap />
+        </div>
+
+        {/* Clean white healthcare area tags */}
+        <div className="flex flex-wrap gap-3.5 sm:gap-4 pt-2">
+          {coverageAreas.map((area) => (
+            <Link
+              key={area.slug}
+              href={`/coverage/${area.slug}`}
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-[#0A2A5E] text-[12.5px] font-black uppercase tracking-[.06em] rounded-[4px] border-2 border-[#DDE7F2] shadow-[3px_3px_0_#EAF2FC] hover:border-[#1565D8] hover:bg-[#EAF2FC] hover:shadow-[3px_3px_0_#1565D8] transition-all hover:rotate-0 hover:-translate-y-0.5"
+              style={{
+                transform: `rotate(${area.rot})`,
+              }}
+            >
+              <span
+                className="material-symbols-outlined text-[19px] leading-none text-[#1565D8]"
+                style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}
+              >
+                location_on
+              </span>
+              {area.name}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════
+// 6. FEATURE SERVICE: ICU ON WHEELS (CARE BLUE FEATURE SECTION, §3.5)
+// ═══════════════════════════════════════════════
+function FeatureIcuSection() {
+  const icuChecks = [
+    "Continuous multipara invasive & non-invasive vitals",
+    "In-transit dual-channel infusion pump capability",
+    "Advanced emergency transport ventilator with PEEP",
+    "Certified emergency clinical escort on board",
+  ];
+
+  return (
+    <section className="relative w-full bg-feature-gradient py-20 lg:py-24 border-b-[3px] border-[#0A2A5E] overflow-hidden">
+      {/* Subtle background glow */}
+      <div
+        className="absolute -left-20 top-10 w-[300px] h-[300px] rounded-full bg-[#38A3F7] opacity-20 pointer-events-none"
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left: Copy + Checklist */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="inline-flex items-center gap-2.5">
+              <span className="w-3 h-3 bg-[#38A3F7] border border-white inline-block" />
+              <span className="text-[11px] font-black uppercase tracking-[.18em] px-2.5 py-1 border border-white/30 bg-white/10 text-white rounded-[2px]">
+                05 / Critical Care Transport
+              </span>
+            </div>
+
+            <h2 className="text-[clamp(34px,5.2vw,56px)] font-extrabold uppercase tracking-tight leading-[0.98] text-white">
+              A hospital ICU,
+              <br />
+              <span className="text-[#38A3F7]">on wheels.</span>
+            </h2>
+
+            <p className="text-[16.5px] font-medium text-white/95 leading-[1.6] max-w-xl">
+              Equipped for critically unstable patients who cannot tolerate a standard transfer. Dedicated telemetry, ventilator integration and physician escort for hospital-to-hospital transitions.
+            </p>
+
+            <ul className="space-y-3 pt-1">
+              {icuChecks.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-3 text-[14.5px] font-bold text-white"
+                >
+                  <span className="w-[26px] h-[26px] bg-white/15 border border-white/40 flex items-center justify-center shrink-0 rounded-[2px]">
+                    <span
+                      className="material-symbols-outlined text-[18px] text-[#38A3F7]"
+                      style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}
+                    >
+                      check
+                    </span>
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="pt-2">
+              <a
+                href={siteConfig.phone.href}
+                className="inline-flex items-center gap-2.5 px-6 py-4 bg-white border-[3px] border-[#0A2A5E] text-[#0A2A5E] text-[13.5px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[5px_5px_0_#0A2A5E] hover:bg-[#EAF2FC] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#0A2A5E] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all"
+              >
+                Book ICU Ambulance
+                <span className="material-symbols-outlined text-[19px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Right: Framed Real ICU Vehicle Image */}
+          <div className="lg:col-span-5 pr-4 pb-4">
             <ImageFrame
               src={siteImages.home.featuredService.src}
               alt={siteImages.home.featuredService.alt}
               caption={siteImages.home.featuredService.caption}
               captionLocation={siteImages.home.featuredService.captionLocation}
               badge={siteImages.home.featuredService.badge}
-              variant="featured"
-              offsetColor="warmYellow"
+              variant="offset"
+              offsetColor="careBlue"
               aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
               objectPosition={siteImages.home.featuredService.objectPosition}
               sizes="(max-width: 1024px) 100vw, 42vw"
-              className="flex-1"
             />
-            {/* Quick Helper Box below image */}
-            <div className="mt-4 p-4 bg-clinic-mist border-2 border-navy flex items-center justify-between gap-3 shadow-brutal-sm">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-wider text-navy/60">
-                  Critical Life Support
-                </p>
-                <p className="text-xs font-extrabold uppercase text-navy">
-                  Ventilator & ICU Setup Available
-                </p>
-              </div>
-              <Link
-                href="/services/icu-ambulance"
-                className="px-3 py-1.5 bg-navy text-white text-[10px] font-black uppercase tracking-wider hover:bg-care-blue transition-colors shrink-0"
-              >
-                View ICU Unit →
-              </Link>
-            </div>
-          </div>
-
-          {/* 4 Top Priority Service Cards (7 cols) */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {featuredServices.map((service) => (
-              <Link
-                key={service.slug}
-                href={`/services/${service.slug}`}
-                className={`group flex flex-col p-5 border-2 border-navy ${accentBgMap[service.accent] || "bg-clinic-mist"} hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutal-navy transition-all duration-200`}
-              >
-                {/* Category & Icon */}
-                <div className="flex items-center gap-2.5 mb-3">
-                  <span
-                    className={`inline-flex items-center justify-center w-9 h-9 border-2 border-navy ${accentBorderMap[service.accent] || "border-clinic-mist"} bg-white`}
-                  >
-                    <span className="material-symbols-outlined text-[18px] text-navy">
-                      {service.icon}
-                    </span>
-                  </span>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-navy/60 truncate">
-                    {service.category}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h3 className="text-sm font-extrabold uppercase tracking-tight text-navy mb-1.5 group-hover:text-care-blue transition-colors">
-                  {service.name}
-                </h3>
-
-                {/* Description */}
-                <p className="text-[12px] font-medium text-navy/70 leading-relaxed flex-1">
-                  {service.shortDescription}
-                </p>
-
-                {/* Specific Anchor Text */}
-                <div className="mt-3 text-navy/60 group-hover:text-care-blue transition-colors">
-                  <span className="text-[10px] font-extrabold uppercase tracking-wide">
-                    {service.cardAnchor}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* ── Remaining Specialized Services (Typography + Accent Grid) ── */}
-        <div className="border-t-2 border-navy/10 pt-8">
-          <div className="mb-4">
-            <span className="text-[10px] font-black uppercase tracking-widest text-navy/50">
-              Specialized & Planned Mobility Services
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {remainingServices.map((service) => (
-              <Link
-                key={service.slug}
-                href={`/services/${service.slug}`}
-                className={`group flex flex-col p-4 border-2 border-navy ${accentBgMap[service.accent] || "bg-clinic-mist"} hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutal-sm transition-all duration-200`}
-              >
-                <div className="flex items-center gap-2.5 mb-2.5">
-                  <span
-                    className={`inline-flex items-center justify-center w-8 h-8 border-2 border-navy bg-white`}
-                  >
-                    <span className="material-symbols-outlined text-[16px] text-navy">
-                      {service.icon}
-                    </span>
-                  </span>
-                  <h3 className="text-xs font-extrabold uppercase tracking-tight text-navy group-hover:text-care-blue transition-colors">
-                    {service.name}
-                  </h3>
-                </div>
-
-                <p className="text-[11px] font-medium text-navy/65 leading-relaxed flex-1">
-                  {service.shortDescription}
-                </p>
-
-                <div className="mt-3 text-navy/50 group-hover:text-care-blue transition-colors">
-                  <span className="text-[10px] font-bold uppercase tracking-wider">
-                    {service.cardAnchor}
-                  </span>
-                </div>
-              </Link>
-            ))}
           </div>
         </div>
       </div>
@@ -423,65 +437,63 @@ function ServicesSection() {
 }
 
 // ═══════════════════════════════════════════════
-// SECTION — HOW IT WORKS (STRICTLY TYPOGRAPHY + NUMBERS)
+// 7. TRUST SECTION (WHITE DOMINANT, §3.8)
 // ═══════════════════════════════════════════════
-const steps = [
+const trustStats = [
   {
-    step: "01",
-    title: "Call or WhatsApp",
-    description: "Contact Vidhya Sri Ambulance Services directly on our 24×7 helpline.",
-    color: "bg-coral",
+    icon: "schedule",
+    value: "24×7",
+    label: "Always Operational",
   },
   {
-    step: "02",
-    title: "Share the journey details",
-    description: "Provide pickup address, destination medical facility and patient transport requirements.",
-    color: "bg-warm-yellow",
+    icon: "airport_shuttle",
+    value: "11+",
+    label: "Ambulance Types",
   },
   {
-    step: "03",
-    title: "Confirm the ambulance",
-    description: "Our coordination desk confirms vehicle type, immediate availability and dispatch route.",
-    color: "bg-response-sky",
+    icon: "map",
+    value: "All India",
+    label: "Interstate Transit",
   },
   {
-    step: "04",
-    title: "Begin the transfer",
-    description: "The vehicle is deployed for safe, respectful, and appropriately monitored transportation.",
-    color: "bg-mint",
+    icon: "monitor_heart",
+    value: "ICU Grade",
+    label: "Monitoring Equipment",
   },
 ];
 
-function HowItWorksSection() {
+function TrustSection() {
   return (
-    <section className="w-full bg-clinic-mist py-18 sm:py-22 border-y-2 border-navy/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-        <div className="text-center mb-12">
-          <span className="inline-block px-3 py-1 bg-coral border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-3 shadow-brutal-sm">
-            Simple Process
+    <section className="w-full bg-white py-20 lg:py-24 border-b-[3px] border-[#0A2A5E]">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="inline-flex items-center gap-2.5 mb-10">
+          <span className="w-3 h-3 bg-[#1565D8] border border-[#0A2A5E] inline-block" />
+          <span className="text-[11px] font-black uppercase tracking-[.18em] px-2.5 py-1 border border-[#DDE7F2] bg-[#EAF2FC] text-[#0A2A5E] rounded-[2px]">
+            06 / Why Vidhya Sri
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-navy">
-            Getting an ambulance should be simple.
-          </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {steps.map((step) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pr-2">
+          {trustStats.map((st) => (
             <div
-              key={step.step}
-              className="flex flex-col bg-white border-2 border-navy p-6 shadow-brutal-navy hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all duration-200"
+              key={st.label}
+              className="p-7 bg-[#F8FAFD] text-[#0A2A5E] border-[3px] border-[#0A2A5E] rounded-[4px] transition-transform hover:-translate-y-1"
+              style={{
+                boxShadow: "6px 6px 0 #EAF2FC, 6px 6px 0 2px #0A2A5E",
+              }}
             >
               <span
-                className={`inline-flex items-center justify-center w-12 h-12 ${step.color} border-2 border-navy text-navy text-lg font-extrabold mb-4`}
+                className="material-symbols-outlined text-[40px] text-[#1565D8]"
+                style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}
               >
-                {step.step}
+                {st.icon}
               </span>
-              <h3 className="text-sm font-extrabold uppercase tracking-tight text-navy mb-2">
-                {step.title}
-              </h3>
-              <p className="text-[13px] font-medium text-navy/65 leading-relaxed">
-                {step.description}
-              </p>
+              <div className="mt-4 text-[clamp(32px,3.8vw,42px)] font-black uppercase tracking-[-0.03em] leading-none text-[#0A2A5E]">
+                {st.value}
+              </div>
+              <div className="mt-2 text-[11.5px] font-black uppercase tracking-[.14em] text-[#536B86]">
+                {st.label}
+              </div>
             </div>
           ))}
         </div>
@@ -491,106 +503,189 @@ function HowItWorksSection() {
 }
 
 // ═══════════════════════════════════════════════
-// SECTION — EMERGENCY CTA BANNER
+// 8. CONTACT / EMERGENCY CTA SECTION (NAVY CTA, §3.9)
 // ═══════════════════════════════════════════════
-function EmergencyCTA() {
-  return (
-    <section className="w-full bg-coral py-14 sm:py-18 border-b-2 border-navy">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-        <div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-navy">
-            Need An Ambulance{" "}
-            <span className="underline decoration-navy decoration-4 underline-offset-4">
-              Right Now?
-            </span>
-          </h2>
-          <p className="mt-3 text-base font-semibold text-navy/80">
-            For urgent ambulance requirements in Hyderabad, contact our 24×7 dispatch team.
-          </p>
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
-          <a
-            href={siteConfig.phone.href}
-            className="inline-flex items-center gap-2.5 px-7 py-4 bg-navy border-2 border-navy text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-navy-dark transition-all shadow-brutal-white hover:translate-x-[2px] hover:translate-y-[2px]"
-          >
-            <span className="material-symbols-outlined text-[18px]">call</span>
-            Call 24×7 · {siteConfig.phone.display}
-          </a>
-          <a
-            href={siteConfig.whatsapp.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-7 py-4 bg-white border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-gray-50 transition-all shadow-brutal-navy hover:translate-x-[2px] hover:translate-y-[2px]"
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-            WhatsApp Us
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
+function ContactSection() {
+  const [formName, setFormName] = useState("");
+  const [formPhone, setFormPhone] = useState("");
+  const [formRoute, setFormRoute] = useState("");
+  const [sent, setSent] = useState(false);
 
-// ═══════════════════════════════════════════════
-// SECTION — HYDERABAD COVERAGE
-// ═══════════════════════════════════════════════
-const coverageLocalities = [
-  { name: "Hyderabad", slug: "hyderabad" },
-  { name: "Somajiguda", slug: "somajiguda" },
-  { name: "Banjara Hills", slug: "banjara-hills" },
-  { name: "Jubilee Hills", slug: "jubilee-hills" },
-  { name: "Punjagutta", slug: "punjagutta" },
-  { name: "Begumpet", slug: "begumpet" },
-  { name: "Secunderabad", slug: "secunderabad" },
-  { name: "Madhapur", slug: "madhapur" },
-  { name: "Hitech City", slug: "hitech-city" },
-  { name: "Gachibowli", slug: "gachibowli" },
-  { name: "Kondapur", slug: "kondapur" },
-  { name: "Kukatpally", slug: "kukatpally" },
-  { name: "Mehdipatnam", slug: "mehdipatnam" },
-  { name: "LB Nagar", slug: "lb-nagar" },
-];
+  function handleFormSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const phone = formPhone.trim();
+    if (!phone) return;
 
-function CoverageSection() {
+    const message = encodeURIComponent(
+      `🚨 *Urgent Ambulance Booking Request*\n` +
+      `• *Name:* ${formName.trim() || "Immediate Emergency"}\n` +
+      `• *Contact Number:* ${phone}\n` +
+      (formRoute.trim() ? `• *Pickup & Destination:* ${formRoute.trim()}\n` : "") +
+      `\n_Please confirm vehicle availability and dispatch ETA immediately._`
+    );
+
+    window.open(`${siteConfig.whatsapp.href}?text=${message}`, "_blank", "noopener,noreferrer");
+    setSent(true);
+  }
+
   return (
-    <section className="w-full bg-paper py-16 sm:py-20 border-b-2 border-navy/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-          <div className="max-w-3xl">
-            <span className="inline-block px-3 py-1 bg-lavender border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-3 shadow-brutal-sm">
-              Coverage Areas
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-navy">
-              Ambulance service across Hyderabad.
+    <section
+      id="contact"
+      className="relative w-full bg-[#0A2A5E] py-20 lg:py-24 border-b-[3px] border-[#0A2A5E] overflow-hidden"
+    >
+      <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left: Headline & Direct Helpline CTAs */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="inline-flex items-center gap-2.5">
+              <span className="w-3 h-3 bg-[#38A3F7] border border-white inline-block" />
+              <span className="text-[11px] font-black uppercase tracking-[.18em] px-2.5 py-1 border border-white/30 bg-white/10 text-white rounded-[2px]">
+                07 / Immediate Response
+              </span>
+            </div>
+
+            <h2 className="text-[clamp(38px,5.8vw,66px)] font-extrabold uppercase tracking-tight leading-[0.95] text-white">
+              Need an ambulance
+              <br />
+              <span className="text-[#38A3F7]">right now?</span>
             </h2>
-            <p className="mt-2 text-sm font-medium text-navy/70 leading-relaxed">
-              Vidhya Sri Ambulance Services serves customers across Hyderabad and nearby areas. The website provides dedicated pages for key local search areas.
-            </p>
-          </div>
-          <Link
-            href="/coverage"
-            className="text-[12px] font-bold uppercase tracking-wider text-care-blue hover:text-navy transition-colors shrink-0"
-          >
-            View Coverage Hub →
-          </Link>
-        </div>
 
-        <div className="flex flex-wrap gap-2.5">
-          {coverageLocalities.map((loc) => (
-            <Link
-              key={loc.slug}
-              href={`/coverage/${loc.slug}`}
-              className="px-4 py-2.5 bg-white border-2 border-navy text-navy text-[11px] font-bold uppercase tracking-wider hover:bg-clinic-mist hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-brutal-sm transition-all"
+            <p className="text-[16.5px] font-medium text-white/90 leading-[1.55] max-w-xl">
+              Call our Somajiguda dispatch controller directly for an immediate unit, or send your location on WhatsApp.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+              {/* Call: Care Blue */}
+              <a
+                href={siteConfig.phone.href}
+                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-[#1565D8] border-[3px] border-white text-white text-[15px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[6px_6px_0_#061A3D] hover:bg-[#0B3F9E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0_#061A3D] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all"
+              >
+                <span
+                  className="material-symbols-outlined text-[22px]"
+                  style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}
+                >
+                  call
+                </span>
+                Call 24×7 · {siteConfig.phone.display}
+              </a>
+
+              {/* WhatsApp: WhatsApp Green */}
+              <a
+                href={siteConfig.whatsapp.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-[#25D366] border-[3px] border-white text-white text-[15px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[6px_6px_0_#061A3D] hover:bg-[#1EBE5D] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0_#061A3D] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all"
+              >
+                <span
+                  className="material-symbols-outlined text-[22px]"
+                  style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}
+                >
+                  chat
+                </span>
+                WhatsApp
+              </a>
+            </div>
+          </div>
+
+          {/* Right: Booking Form Card */}
+          <div className="lg:col-span-5 pr-3 pb-3">
+            <div
+              className="bg-white border-[3px] border-white rounded-[4px] p-7 text-[#0A2A5E]"
+              style={{
+                boxShadow: "10px 10px 0 #1565D8",
+              }}
             >
-              {loc.name}
-            </Link>
-          ))}
-          <Link
-            href="/coverage"
-            className="px-4 py-2.5 bg-care-blue border-2 border-navy text-white text-[11px] font-bold uppercase tracking-wider hover:bg-blue-700 transition-all shadow-brutal-sm"
-          >
-            + All Greater Hyderabad Areas
-          </Link>
+              <div className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[.16em] mb-4 text-[#0A2A5E]">
+                <span className="w-2.5 h-2.5 bg-[#1565D8] inline-block" />
+                Book an Ambulance
+              </div>
+
+              {sent ? (
+                <div className="py-6 text-center bg-[#EAF2FC] border-2 border-[#1565D8] p-4 rounded-[4px]">
+                  <span
+                    className="material-symbols-outlined text-4xl text-[#1565D8] mb-2 inline-block"
+                    style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}
+                  >
+                    check_circle
+                  </span>
+                  <p className="text-base font-extrabold uppercase text-[#0A2A5E]">
+                    Dispatch Request Prepared
+                  </p>
+                  <p className="text-xs text-[#536B86] mt-1 font-medium">
+                    WhatsApp is opening with your details. For instant support:
+                  </p>
+                  <a
+                    href={siteConfig.phone.href}
+                    className="inline-flex items-center justify-center gap-2 mt-4 w-full py-2.5 bg-[#1565D8] text-white border-2 border-[#0A2A5E] text-xs font-black uppercase rounded-[2px]"
+                  >
+                    Call {siteConfig.phone.display}
+                  </a>
+                </div>
+              ) : (
+                <form onSubmit={handleFormSubmit} className="space-y-3.5">
+                  <div>
+                    <label
+                      htmlFor="home-name"
+                      className="block text-[11px] font-black uppercase tracking-[.12em] text-[#0A2A5E] mb-1"
+                    >
+                      Name
+                    </label>
+                    <input
+                      id="home-name"
+                      type="text"
+                      placeholder="Patient / caller"
+                      value={formName}
+                      onChange={(e) => setFormName(e.target.value)}
+                      className="w-full px-3.5 py-2.5 bg-[#F8FAFD] border-2 border-[#DDE7F2] rounded-[4px] text-[#0A2A5E] font-bold text-[14px] placeholder:text-[#536B86]/60 focus:outline-none focus:bg-white focus:border-[#1565D8] focus:shadow-[2px_2px_0_#1565D8] transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="home-phone"
+                      className="block text-[11px] font-black uppercase tracking-[.12em] text-[#0A2A5E] mb-1"
+                    >
+                      Phone <span className="text-[#1565D8]">*</span>
+                    </label>
+                    <input
+                      id="home-phone"
+                      type="tel"
+                      required
+                      placeholder="+91 Mobile number"
+                      value={formPhone}
+                      onChange={(e) => setFormPhone(e.target.value)}
+                      className="w-full px-3.5 py-2.5 bg-[#F8FAFD] border-2 border-[#DDE7F2] rounded-[4px] text-[#0A2A5E] font-bold text-[14px] placeholder:text-[#536B86]/60 focus:outline-none focus:bg-white focus:border-[#1565D8] focus:shadow-[2px_2px_0_#1565D8] transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="home-route"
+                      className="block text-[11px] font-black uppercase tracking-[.12em] text-[#0A2A5E] mb-1"
+                    >
+                      Pickup & Destination
+                    </label>
+                    <input
+                      id="home-route"
+                      type="text"
+                      placeholder="e.g. Somajiguda → Yashoda Hospital"
+                      value={formRoute}
+                      onChange={(e) => setFormRoute(e.target.value)}
+                      className="w-full px-3.5 py-2.5 bg-[#F8FAFD] border-2 border-[#DDE7F2] rounded-[4px] text-[#0A2A5E] font-bold text-[14px] placeholder:text-[#536B86]/60 focus:outline-none focus:bg-white focus:border-[#1565D8] focus:shadow-[2px_2px_0_#1565D8] transition-all"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-[#1565D8] border-[3px] border-[#0A2A5E] text-white text-[13px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[4px_4px_0_#0A2A5E] hover:bg-[#0B3F9E] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#0A2A5E] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer mt-2"
+                  >
+                    Request Callback
+                    <span className="material-symbols-outlined text-[19px]">arrow_forward</span>
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -604,12 +699,13 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <IntroSection />
-      <BrandStorySection />
-      <ServicesSection />
+      <BrandStatementSection />
+      <ServicesGridSection />
       <HowItWorksSection />
-      <EmergencyCTA />
       <CoverageSection />
+      <FeatureIcuSection />
+      <TrustSection />
+      <ContactSection />
     </>
   );
 }

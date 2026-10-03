@@ -37,8 +37,8 @@ export const services: ServiceData[] = [
     description:
       "When urgent medical transport is required, an ambulance provides a purpose-built way to move a patient to a hospital or other healthcare facility. Vidhya Sri Ambulance Services provides emergency ambulance support in Hyderabad and surrounding areas.",
     cardAnchor: "Explore Emergency Ambulance →",
-    accent: "coral",
-    accentHex: "#FF7468",
+    accent: "careBlue",
+    accentHex: "#1565D8",
     icon: "emergency",
     features: [
       "Immediate 24×7 dispatch coordination",
@@ -89,7 +89,7 @@ export const services: ServiceData[] = [
       "An ICU ambulance is intended for patients who require a higher level of support during transportation than a standard patient-transfer vehicle. Vidhya Sri Ambulance Services coordinates ICU ambulance transfers across Hyderabad healthcare institutions.",
     cardAnchor: "View ICU Ambulance Services →",
     accent: "lavender",
-    accentHex: "#DCCBFF",
+    accentHex: "#CBB5FF",
     icon: "monitor_heart",
     features: [
       "Continuous multipara vitals monitoring",
@@ -138,8 +138,8 @@ export const services: ServiceData[] = [
     description:
       "Ventilator-supported transport may be required for patients who depend on ventilatory support during transfer. Vidhya Sri Ambulance Services arranges ventilator-equipped ambulances with appropriate clinical coordination across Hyderabad.",
     cardAnchor: "See Ventilator Ambulance Options →",
-    accent: "peach",
-    accentHex: "#FFC48A",
+    accent: "coral",
+    accentHex: "#FF6B5F",
     icon: "pulmonology",
     features: [
       "Transport mechanical ventilator compatibility",
@@ -188,8 +188,8 @@ export const services: ServiceData[] = [
     description:
       "Basic Life Support ambulance services are generally used for patients who need ambulance transportation with basic medical support during the journey. Vidhya Sri Ambulance Services provides BLS transfers throughout Hyderabad.",
     cardAnchor: "Explore BLS Ambulance →",
-    accent: "aqua",
-    accentHex: "#B9E7ED",
+    accent: "mint",
+    accentHex: "#9FE0C5",
     icon: "local_hospital",
     features: [
       "Standard ambulance stretcher & wheelchair",
@@ -239,7 +239,7 @@ export const services: ServiceData[] = [
       "For non-emergency medical journeys including hospital-to-hospital transfers, hospital discharges, planned diagnostic appointments, and mobility-limited patients, Vidhya Sri Ambulance Services provides dependable patient transfer services across Hyderabad.",
     cardAnchor: "Explore Patient Transfer Ambulance →",
     accent: "warmYellow",
-    accentHex: "#F4D46A",
+    accentHex: "#F5D84A",
     icon: "transfer_within_a_station",
     features: [
       "Pre-scheduled booking options",
@@ -287,8 +287,8 @@ export const services: ServiceData[] = [
     description:
       "Some patients require uninterrupted oxygen support during transport. Vidhya Sri Ambulance Services provides oxygen-equipped ambulances in Hyderabad, ensuring continuous oxygenation throughout the journey.",
     cardAnchor: "View Oxygen Ambulance Services →",
-    accent: "mint",
-    accentHex: "#BFE8D5",
+    accent: "aqua",
+    accentHex: "#8DD8E5",
     icon: "air",
     features: [
       "Continuous medical-grade oxygen supply",
@@ -337,8 +337,8 @@ export const services: ServiceData[] = [
     description:
       "Transport for newborns and infants can require specialized arrangements and coordination with the treating healthcare team. Vidhya Sri Ambulance Services helps arrange neonatal ambulance support in Hyderabad with appropriate medical coordination.",
     cardAnchor: "See NICU / Neonatal Transport →",
-    accent: "softGreen",
-    accentHex: "#B9D9C6",
+    accent: "lavender",
+    accentHex: "#CBB5FF",
     icon: "child_care",
     features: [
       "Transport incubator accommodation",
@@ -386,8 +386,8 @@ export const services: ServiceData[] = [
     description:
       "Vidhya Sri Ambulance Services arranges outstation patient transportation from Hyderabad for journeys within Telangana, Andhra Pradesh and other destinations, subject to availability and the requirements of the journey.",
     cardAnchor: "Explore Outstation Ambulance →",
-    accent: "coral",
-    accentHex: "#FF7468",
+    accent: "peach",
+    accentHex: "#FFB36B",
     icon: "route",
     features: [
       "Interstate road transport permits",
@@ -436,8 +436,8 @@ export const services: ServiceData[] = [
     description:
       "Event organizers can contact Vidhya Sri Ambulance Services to discuss standby ambulance requirements, location, duration, and expected attendance for public and private events in Hyderabad.",
     cardAnchor: "View Event Standby Options →",
-    accent: "purple",
-    accentHex: "#B9A4E8",
+    accent: "coral",
+    accentHex: "#FF6B5F",
     icon: "stadium",
     features: [
       "On-site stationary ambulance positioning",
@@ -485,8 +485,8 @@ export const services: ServiceData[] = [
     description:
       "Organizations can discuss workplace and campus medical transport support with Vidhya Sri Ambulance Services for tech parks, industrial facilities, and corporate office parks in Hyderabad.",
     cardAnchor: "Discuss Corporate Ambulance →",
-    accent: "lavender",
-    accentHex: "#DCCBFF",
+    accent: "mint",
+    accentHex: "#9FE0C5",
     icon: "corporate_fare",
     features: [
       "Campus standby or priority emergency callout arrangements",
@@ -534,8 +534,8 @@ export const services: ServiceData[] = [
     description:
       "Vidhya Sri Ambulance Services provides dignified mortuary and deceased patient transportation in Hyderabad, assisting families with respectful transfer between hospitals, residences, and outstation destinations.",
     cardAnchor: "View Mortuary Transportation →",
-    accent: "mist",
-    accentHex: "#EAF2FC",
+    accent: "navy",
+    accentHex: "#0A2A5E",
     icon: "church",
     features: [
       "Dignified and respectful handling protocols",

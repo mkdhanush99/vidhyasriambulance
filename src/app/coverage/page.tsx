@@ -150,59 +150,59 @@ export default function CoveragePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
-      {/* Hero */}
-      <section className="w-full bg-brand-gradient py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      {/* ── Hero: Light Premium Healthcare ── */}
+      <section className="w-full bg-[#F8FAFD] py-16 sm:py-24 relative overflow-hidden border-b-[3px] border-[#0A2A5E]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/60 mb-6"
+            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#536B86] mb-6"
           >
-            <Link href="/" className="hover:text-white transition-colors">
+            <Link href="/" className="hover:text-[#0A2A5E] transition-colors">
               Home
             </Link>
             <span>/</span>
-            <span className="text-white">Coverage</span>
+            <span className="text-[#0A2A5E]">Coverage</span>
           </nav>
 
-          <span className="inline-block px-3 py-1 bg-white/10 border border-white/25 text-white text-[10px] font-black uppercase tracking-widest mb-4">
+          <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
             Coverage Network
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white leading-[0.95]">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#0A2A5E] leading-[0.95]">
             Across Greater
             <br />
-            <span className="text-warm-yellow">Hyderabad.</span>
+            <span className="text-[#1565D8]">Hyderabad.</span>
           </h1>
-          <p className="mt-4 text-base font-medium text-white/75 max-w-xl">
+          <p className="mt-4 text-base sm:text-lg font-medium text-[#536B86] max-w-xl leading-relaxed">
             Our fleet covers all major metropolitan zones, suburban healthcare belts, and interstate highways with rapid triage and dispatch.
           </p>
 
           <div className="mt-6">
             <Link
               href="/coverage/hyderabad"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-warm-yellow text-navy font-black text-xs uppercase tracking-wider border-2 border-navy shadow-brutal-sm hover:translate-x-[1px] hover:translate-y-[1px]"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#1565D8] text-white font-black text-xs uppercase tracking-wider border-2 border-[#0A2A5E] shadow-sm hover:bg-[#0A2A5E] hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
             >
               <span className="material-symbols-outlined text-[18px]">location_city</span>
               View Greater Hyderabad Metropolitan Overview →
             </Link>
           </div>
         </div>
-        <div className="h-2 bg-warm-yellow mt-12" />
+        <div className="h-1.5 bg-[#1565D8] relative z-10 mt-12 w-full" />
       </section>
 
-      {/* Zone Grid */}
-      <section className="w-full bg-paper py-16 sm:py-20">
+      {/* ── Zone Grid (White Dominant Surfaces) ── */}
+      <section className="w-full bg-white py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {zones.map((zone) => (
               <div
                 key={zone.name}
-                className="bg-white border-2 border-navy p-6 shadow-brutal-sm flex flex-col justify-between"
+                className="bg-white border-2 border-[#DDE7F2] p-6 shadow-sm rounded-[2px] flex flex-col justify-between"
               >
                 <div>
-                  <h2 className="text-sm font-extrabold uppercase tracking-tight text-navy mb-4 pb-3 border-b-2 border-navy/10 flex items-center justify-between">
+                  <h2 className="text-sm font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-4 pb-3 border-b border-[#DDE7F2] flex items-center justify-between">
                     <span>
-                      <span className="material-symbols-outlined text-[16px] text-care-blue mr-2 align-middle">
+                      <span className="material-symbols-outlined text-[16px] text-[#1565D8] mr-2 align-middle">
                         location_on
                       </span>
                       {zone.name}
@@ -215,14 +215,14 @@ export default function CoveragePage() {
                         <Link
                           key={area.name}
                           href={`/coverage/${slug}`}
-                          className="text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 bg-clinic-mist border border-navy/30 text-navy hover:bg-care-blue hover:text-white hover:border-navy transition-all"
+                          className="text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 bg-[#EAF2FC] border border-[#DDE7F2] text-[#0A2A5E] hover:bg-[#1565D8] hover:text-white hover:border-[#1565D8] transition-all rounded-[2px]"
                         >
                           {area.name} →
                         </Link>
                       ) : (
                         <span
                           key={area.name}
-                          className="text-[11px] font-semibold tracking-wider px-2.5 py-1.5 bg-paper border border-navy/10 text-navy/60"
+                          className="text-[11px] font-semibold tracking-wider px-2.5 py-1.5 bg-[#F8FAFD] border border-[#DDE7F2] text-[#536B86] rounded-[2px]"
                         >
                           {area.name}
                         </span>
@@ -236,20 +236,20 @@ export default function CoveragePage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="w-full bg-coral py-14 border-y-2 border-navy">
+      {/* ── Emergency CTA (Navy CTA) ── */}
+      <section className="w-full bg-[#0A2A5E] py-14 border-t-2 border-[#1565D8] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy">
+            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white">
               Not Seeing Your Specific Area?
             </h2>
-            <p className="text-sm font-semibold text-navy/70 mt-1">
+            <p className="text-sm font-medium text-white/80 mt-1">
               Call us immediately — our dispatch coordinators can route the closest available unit to your location.
             </p>
           </div>
           <a
             href={siteConfig.phone.href}
-            className="inline-flex items-center gap-2.5 px-7 py-4 bg-navy border-2 border-navy text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-navy-dark transition-all shadow-brutal-white shrink-0"
+            className="inline-flex items-center gap-2.5 px-7 py-4 bg-[#1565D8] border-2 border-white text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-white hover:text-[#0A2A5E] transition-all shadow-sm shrink-0"
           >
             <span className="material-symbols-outlined text-[18px]">call</span>
             Call {siteConfig.phone.display}

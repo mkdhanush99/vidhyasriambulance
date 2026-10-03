@@ -2,6 +2,7 @@
 
 /* ═══════════════════════════════════════════════
    VIDHYA SRI AMBULANCE — DESIGN TOKENS
+   Target: Saturated UI accents per CLAUDE_DESIGN_UPGRADE
    ═══════════════════════════════════════════════ */
 
 @theme {
@@ -11,38 +12,41 @@
   --color-care-blue: #1565D8;
   --color-response-sky: #38A3F7;
   --color-clinic-mist: #EAF2FC;
-  --color-paper: #FBFBF9;
+  
+  /* ── Neutral Surfaces & Borders (Light Premium Healthcare) ── */
+  --color-pure-white: #FFFFFF;
+  --color-soft-white: #F8FAFD;
+  --color-pale-blue: #F3F7FC;
+  --color-soft-border: #DDE7F2;
+  --color-muted-text: #536B86;
 
-  /* ── Editorial Accents ── */
-  --color-coral: #FF7468;
-  --color-coral-light: #FFEBE9;
-  --color-peach: #FFC48A;
-  --color-peach-light: #FFF3E8;
-  --color-warm-yellow: #F4D46A;
-  --color-warm-yellow-light: #FDF8E2;
-  --color-lavender: #DCCBFF;
-  --color-lavender-light: #F4EFFF;
-  --color-purple-accent: #B9A4E8;
-  --color-mint: #BFE8D5;
-  --color-mint-light: #EFFBF5;
-  --color-aqua: #B9E7ED;
-  --color-soft-green: #B9D9C6;
+  /* ── Supporting Tones ── */
+  --color-whatsapp-green: #25D366;
+  --color-status-green: #0F8F5F;
 
   /* ── Typography ── */
   --font-sans: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
-  /* ── Shadows (editorial brutal offset) ── */
+  /* ── Shadows (crisp healthcare elevation) ── */
   --shadow-brutal-navy: 4px 4px 0px #0A2A5E;
-  --shadow-brutal-navy-lg: 7px 7px 0px #0A2A5E;
-  --shadow-brutal-coral: 4px 4px 0px #FF7468;
-  --shadow-brutal-yellow: 5px 5px 0px #F4D46A;
-  --shadow-brutal-white: 5px 5px 0px #FFFFFF;
+  --shadow-brutal-navy-lg: 8px 8px 0px #0A2A5E;
+  --shadow-brutal-blue: 6px 6px 0px #1565D8;
+  --shadow-brutal-mist: 6px 6px 0px #DDE7F2;
   --shadow-brutal-sm: 2px 2px 0px #0A2A5E;
+  --shadow-card-subtle: 0 4px 20px -2px rgba(10, 42, 94, 0.05);
 }
 
 /* ═══════════════════════════════════════════════
-   BASE STYLES
+   EMIL KOWALSKI MOTION TOKENS & CURVES
+   Strictly hardware-accelerated: transform & opacity
    ═══════════════════════════════════════════════ */
+
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
 html {
   scroll-behavior: smooth;
@@ -53,21 +57,274 @@ html {
 body {
   font-family: var(--font-sans);
   overscroll-behavior: none;
+  background-color: #FFFFFF;
+  color: #0A2A5E;
 }
 
 /* Selection style */
 ::selection {
-  background: #F4D46A;
+  background: #EAF2FC;
   color: #0A2A5E;
 }
 
 /* Focus visible */
 :focus-visible {
-  outline: 2px solid #38A3F7;
+  outline: 2px solid #1565D8;
   outline-offset: 2px;
 }
 
-/* Reduced motion */
+/* Heavy filled icon style matching §9 */
+.ms {
+  font-family: "Material Symbols Outlined", sans-serif;
+  font-variation-settings: "FILL" 1, "wght" 700, "opsz" 24;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  display: inline-block;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════════
+   ANIMATION KEYFRAMES & UTILITIES
+   ═══════════════════════════════════════════════ */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drift {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(8px, -8px);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Border Crossing Runner: energetic beam crossing along border lines */
+@keyframes border-cross-h {
+  0% {
+    transform: translateX(-100%);
+  }
+  60%, 100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes border-cross-reverse {
+  0% {
+    transform: translateX(200%);
+  }
+  60%, 100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes border-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Drawer slide-up with iOS physics */
+@keyframes drawer-slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0.96;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Backdrop fade */
+@keyframes backdrop-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.anim-rise {
+  animation: rise 0.7s var(--ease-out) both;
+}
+
+.anim-drift {
+  animation: drift 7s ease-in-out infinite;
+}
+
+.anim-dot {
+  animation: pulse-subtle 1.6s infinite;
+}
+
+.anim-drawer-up {
+  animation: drawer-slide-up 320ms var(--ease-drawer) both;
+}
+
+.anim-fade-in {
+  animation: backdrop-fade 200ms var(--ease-out) both;
+}
+
+/* ═══════════════════════════════════════════════
+   3D SPATIAL & PERSPECTIVE UTILITIES
+   Hardware-accelerated CSS 3D: transform & opacity
+   ═══════════════════════════════════════════════ */
+
+.perspective-800 {
+  perspective: 800px;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-1200 {
+  perspective: 1200px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.transform-gpu {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Spatial depth shadows */
+.shadow-spatial-sm {
+  box-shadow: 0 4px 16px -2px rgba(10, 42, 94, 0.06), 0 1px 3px rgba(10, 42, 94, 0.04);
+}
+
+.shadow-spatial {
+  box-shadow: 0 12px 32px -4px rgba(10, 42, 94, 0.08), 0 4px 12px -2px rgba(10, 42, 94, 0.04);
+}
+
+.shadow-spatial-lg {
+  box-shadow: 0 24px 50px -8px rgba(10, 42, 94, 0.12), 0 8px 20px -4px rgba(21, 101, 216, 0.08);
+}
+
+.shadow-spatial-hover {
+  box-shadow: 0 20px 40px -6px rgba(10, 42, 94, 0.12), 0 8px 16px -4px rgba(21, 101, 216, 0.1);
+}
+
+/* Floating spatial animation */
+@keyframes spatial-float {
+  0%, 100% {
+    transform: translateY(0px) translateZ(20px);
+  }
+  50% {
+    transform: translateY(-8px) translateZ(30px);
+  }
+}
+
+@keyframes spatial-float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(2deg);
+  }
+}
+
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.anim-spatial-float {
+  animation: spatial-float 6s ease-in-out infinite;
+}
+
+.anim-spatial-float-slow {
+  animation: spatial-float-slow 8s ease-in-out infinite;
+}
+
+.anim-radar-pulse {
+  animation: radar-pulse 3s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+/* Border crossing line container */
+.border-crossing-strip {
+  position: relative;
+  overflow: hidden;
+}
+
+.border-crossing-strip::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 180px;
+  background: linear-gradient(90deg, transparent, rgba(56, 163, 247, 0.35), #ffffff, rgba(56, 163, 247, 0.35), transparent);
+  animation: border-cross-h 4s var(--ease-in-out) infinite;
+  pointer-events: none;
+}
+
+.border-crossing-reverse::after {
+  animation: border-cross-reverse 4.5s var(--ease-in-out) infinite;
+}
+
+/* Crosshair registration rotation on hover */
+.crosshair-spin {
+  transition: transform 300ms var(--ease-out);
+}
+.group:hover .crosshair-spin {
+  transform: rotate(90deg);
+}
+
+/* Tactile press button */
+.btn-tactile {
+  transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-tactile:hover {
+    transform: translate(-3px, -3px);
+  }
+}
+.btn-tactile:active {
+  transform: translate(2px, 2px);
+  transition-duration: 80ms;
+}
+
+/* Reduced motion per §7 */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -76,6 +333,16 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .border-crossing-strip::after {
+    display: none !important;
+  }
+  .preserve-3d,
+  .perspective-800,
+  .perspective-1000,
+  .perspective-1200 {
+    transform: none !important;
+    perspective: none !important;
   }
 }
 
@@ -92,20 +359,24 @@ body {
    UTILITY CLASSES
    ═══════════════════════════════════════════════ */
 
-/* Brand gradient background */
-.bg-brand-gradient {
-  background: linear-gradient(35deg, #0B3F9E 0%, #38A3F7 100%);
+/* Light subtle header/section gradient */
+.bg-soft-gradient {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFD 100%);
 }
 
-/* Brand gradient text */
-.text-brand-gradient {
-  background: linear-gradient(35deg, #0B3F9E 0%, #38A3F7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Featured Service Blue Gradient (§3.5) */
+.bg-feature-gradient {
+  background: linear-gradient(135deg, #0A2A5E 0%, #1565D8 100%);
 }
 
-/* Mobile safe area bottom padding */
+/* Clinic Mist Ground for How It Works / Process */
+.bg-clinic-mist-ground {
+  background-color: #EAF2FC;
+  background-image: radial-gradient(#DDE7F2 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+
+/* Mobile safe area */
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }

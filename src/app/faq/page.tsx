@@ -77,55 +77,57 @@ export default function FAQPage() {
       />
 
       {/* ── Hero ── */}
-      <section className="w-full bg-brand-gradient py-20 sm:py-28 relative overflow-hidden">
+      <section className="w-full bg-[#F8FAFD] py-16 sm:py-24 relative overflow-hidden border-b-[3px] border-[#0A2A5E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/60 mb-6"
+            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#536B86] mb-6"
           >
-            <Link href="/" className="hover:text-white transition-colors">
+            <Link href="/" className="hover:text-[#0A2A5E] transition-colors">
               Home
             </Link>
             <span>/</span>
-            <span className="text-white">FAQ</span>
+            <span className="text-[#0A2A5E]">FAQ</span>
           </nav>
 
-          <span className="inline-block px-3 py-1 bg-white/10 border border-white/25 text-warm-yellow text-[10px] font-black uppercase tracking-widest mb-4">
+          <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
             Help & Answers
           </span>
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white leading-[0.95] mb-4">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#0A2A5E] leading-[0.95] mb-4">
             Frequently Asked Questions
           </h1>
-          <p className="text-base sm:text-lg font-medium text-white/85 max-w-2xl leading-relaxed">
+          <p className="text-base sm:text-lg font-medium text-[#536B86] max-w-2xl leading-relaxed">
             Helpful information on booking ambulances in Hyderabad, patient transfer details, and outstation medical travel.
           </p>
         </div>
-        <div className="h-2 bg-warm-yellow relative z-10 mt-12" />
+        <div className="h-1.5 bg-[#1565D8] relative z-10 mt-12 w-full" />
       </section>
 
       {/* ── General FAQs ── */}
-      <section className="w-full bg-paper py-16 sm:py-20">
+      <section className="w-full bg-white py-16 sm:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
-          <span className="inline-block px-3 py-1 bg-coral border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-4 shadow-brutal-sm">
+          <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
             General Booking
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-8">
+          <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-8">
             Booking & Service Questions
           </h2>
 
-          <div className="space-y-3 mb-16">
+          <div className="space-y-4 mb-16">
             {generalFaqs.map((faq, idx) => (
               <details
                 key={idx}
-                className="group bg-white border-2 border-navy p-5 shadow-brutal-sm open:shadow-brutal-navy transition-all"
+                className="group bg-white border-[3px] border-[#0A2A5E] rounded-[4px] p-5 shadow-[4px_4px_0_#DDE7F2] open:bg-[#F8FAFD] open:shadow-[6px_6px_0_#DDE7F2] transition-all duration-200"
               >
-                <summary className="flex items-center justify-between cursor-pointer text-sm font-extrabold uppercase tracking-tight text-navy list-none">
-                  {faq.question}
-                  <span className="material-symbols-outlined text-[20px] text-navy/40 group-open:rotate-180 transition-transform shrink-0 ml-4">
-                    expand_more
+                <summary className="flex items-center justify-between cursor-pointer text-[15px] font-extrabold uppercase tracking-tight text-[#0A2A5E] list-none gap-4">
+                  <span>{faq.question}</span>
+                  <span className="w-8 h-8 rounded-[2px] bg-white border-2 border-[#0A2A5E] text-[#0A2A5E] flex items-center justify-center shrink-0 group-open:rotate-45 group-open:bg-[#0A2A5E] group-open:text-white transition-all duration-200">
+                    <span className="material-symbols-outlined text-[20px] leading-none" style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}>
+                      add
+                    </span>
                   </span>
                 </summary>
-                <p className="mt-3 text-xs sm:text-sm font-medium text-navy/70 leading-relaxed border-t border-navy/10 pt-3">
+                <p className="mt-3.5 text-sm font-medium text-[#536B86] leading-relaxed border-t-2 border-[#DDE7F2] pt-3.5">
                   {faq.answer}
                 </p>
               </details>
@@ -133,37 +135,39 @@ export default function FAQPage() {
           </div>
 
           {/* ── Service Specific FAQs ── */}
-          <span className="inline-block px-3 py-1 bg-warm-yellow border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-4 shadow-brutal-sm">
+          <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10.5px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
             Service Specific
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-8">
+          <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-8">
             Questions by Ambulance Type
           </h2>
 
-          <div className="space-y-3">
+          <div className="space-y-4">
             {serviceFaqs.map((faq, idx) => (
               <details
                 key={idx}
-                className="group bg-white border-2 border-navy p-5 shadow-brutal-sm open:shadow-brutal-navy transition-all"
+                className="group bg-white border-[3px] border-[#0A2A5E] rounded-[4px] p-5 shadow-[4px_4px_0_#DDE7F2] open:bg-[#F8FAFD] open:shadow-[6px_6px_0_#DDE7F2] transition-all duration-200"
               >
-                <summary className="flex items-center justify-between cursor-pointer text-sm font-extrabold uppercase tracking-tight text-navy list-none">
+                <summary className="flex items-center justify-between cursor-pointer text-[15px] font-extrabold uppercase tracking-tight text-[#0A2A5E] list-none gap-4">
                   <div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-care-blue block mb-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-[#1565D8] block mb-1">
                       {faq.serviceName}
                     </span>
                     <span>{faq.question}</span>
                   </div>
-                  <span className="material-symbols-outlined text-[20px] text-navy/40 group-open:rotate-180 transition-transform shrink-0 ml-4">
-                    expand_more
+                  <span className="w-8 h-8 rounded-[2px] bg-white border-2 border-[#0A2A5E] text-[#0A2A5E] flex items-center justify-center shrink-0 group-open:rotate-45 group-open:bg-[#0A2A5E] group-open:text-white transition-all duration-200">
+                    <span className="material-symbols-outlined text-[20px] leading-none" style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}>
+                      add
+                    </span>
                   </span>
                 </summary>
-                <div className="mt-3 border-t border-navy/10 pt-3">
-                  <p className="text-xs sm:text-sm font-medium text-navy/70 leading-relaxed">
+                <div className="mt-3.5 border-t-2 border-[#0A2A5E]/15 pt-3.5">
+                  <p className="text-sm font-medium text-[#0A2A5E]/85 leading-relaxed">
                     {faq.answer}
                   </p>
                   <Link
                     href={`/services/${faq.serviceSlug}`}
-                    className="inline-block mt-3 text-xs font-bold text-care-blue hover:underline"
+                    className="inline-block mt-3 text-xs font-black uppercase tracking-wider text-[#1565D8] hover:text-[#0A2A5E] transition-colors"
                   >
                     View {faq.serviceName} Page →
                   </Link>

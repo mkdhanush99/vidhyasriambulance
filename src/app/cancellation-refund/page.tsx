@@ -28,33 +28,33 @@ export const metadata: Metadata = {
 export default function CancellationRefundPage() {
   return (
     <>
-      <section className="w-full bg-navy py-16 sm:py-20">
+      <section className="w-full bg-[#F8FAFD] py-16 sm:py-20 border-b-[3px] border-[#0A2A5E]">
         <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/60 mb-4"
+            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#536B86] mb-4"
           >
-            <Link href="/" className="hover:text-white transition-colors">
+            <Link href="/" className="hover:text-[#0A2A5E] transition-colors">
               Home
             </Link>
             <span>/</span>
-            <span className="text-white">Cancellation & Refund</span>
+            <span className="text-[#0A2A5E]">Cancellation & Refund</span>
           </nav>
-          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-[#0A2A5E]">
             Cancellation & Refund Policy
           </h1>
-          <p className="mt-3 text-sm font-medium text-white/60">
+          <p className="mt-3 text-sm font-medium text-[#536B86]">
             Transparent operational standards for emergency dispatches and scheduled transfers
           </p>
         </div>
-        <div className="h-2 bg-warm-yellow mt-8" />
+        <div className="h-1.5 bg-[#1565D8] mt-8 w-full" />
       </section>
 
-      <section className="w-full bg-paper py-12 sm:py-16">
-        <article className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 space-y-8 text-sm font-medium text-navy/75 leading-relaxed">
-          <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-sm">
-            <h2 className="text-base font-extrabold uppercase tracking-tight text-navy mb-3">
+      <section className="w-full bg-white py-12 sm:py-16">
+        <article className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 space-y-8 text-sm font-medium text-[#536B86] leading-relaxed">
+          <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-8 shadow-sm rounded-[2px]">
+            <h2 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
               1. Emergency Ambulance Cancellation
             </h2>
             <p>
@@ -62,14 +62,14 @@ export default function CancellationRefundPage() {
             </p>
           </div>
 
-          <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-sm">
-            <h2 className="text-base font-extrabold uppercase tracking-tight text-navy mb-3">
+          <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-8 shadow-sm rounded-[2px]">
+            <h2 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
               2. Pre-Scheduled Patient Transfers (Dialysis, Chemo, Post-Op)
             </h2>
             <p>
               For non-emergency scheduled transfers:
             </p>
-            <ul className="list-disc pl-5 mt-2 space-y-1 text-xs sm:text-sm font-bold text-navy/70">
+            <ul className="list-disc pl-5 mt-2 space-y-1 text-xs sm:text-sm font-semibold text-[#0A2A5E]">
               <li>
                 <strong>Cancellations made 2 or more hours prior to scheduled pickup:</strong> 100% full refund with zero cancellation fee.
               </li>
@@ -82,8 +82,8 @@ export default function CancellationRefundPage() {
             </ul>
           </div>
 
-          <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-sm">
-            <h2 className="text-base font-extrabold uppercase tracking-tight text-navy mb-3">
+          <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-8 shadow-sm rounded-[2px]">
+            <h2 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
               3. Outstation & Interstate Bookings
             </h2>
             <p>
@@ -91,8 +91,8 @@ export default function CancellationRefundPage() {
             </p>
           </div>
 
-          <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-sm">
-            <h2 className="text-base font-extrabold uppercase tracking-tight text-navy mb-3">
+          <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-8 shadow-sm rounded-[2px]">
+            <h2 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
               4. Refund Processing Timeline
             </h2>
             <p>
@@ -100,17 +100,17 @@ export default function CancellationRefundPage() {
             </p>
           </div>
 
-          <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-sm">
-            <h2 className="text-base font-extrabold uppercase tracking-tight text-navy mb-3">
+          <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-8 shadow-sm rounded-[2px]">
+            <h2 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
               5. How to Initiate a Cancellation or Refund Request
             </h2>
             <p>
               To request a cancellation or review a billing discrepancy, contact our 24×7 helpdesk immediately:
             </p>
-            <div className="mt-3 flex flex-wrap gap-4 text-xs font-bold">
+            <div className="mt-4 flex flex-wrap gap-3 text-xs font-bold">
               <a
                 href={siteConfig.phone.href}
-                className="px-4 py-2 bg-care-blue text-white border border-navy hover:bg-blue-700 transition-colors"
+                className="px-5 py-2.5 bg-[#1565D8] text-white border-2 border-[#0A2A5E] hover:bg-[#0A2A5E] transition-colors rounded-[2px] shadow-sm"
               >
                 Call {siteConfig.phone.display}
               </a>
@@ -118,7 +118,7 @@ export default function CancellationRefundPage() {
                 href={siteConfig.whatsapp.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-mint text-navy border border-navy hover:bg-emerald-200 transition-colors"
+                className="px-5 py-2.5 bg-white text-[#0A2A5E] border-2 border-[#0A2A5E] hover:bg-[#EAF2FC] transition-colors rounded-[2px]"
               >
                 WhatsApp Support
               </a>

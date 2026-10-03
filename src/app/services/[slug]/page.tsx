@@ -157,8 +157,8 @@ export default async function ServiceDetailPage({ params }: Props) {
         />
       )}
 
-      {/* ── Hero (Editorial 55% Content / 45% Image Composition) ── */}
-      <section className="w-full bg-brand-gradient py-16 sm:py-24 relative overflow-hidden">
+      {/* ── Hero: Light Premium Healthcare ── */}
+      <section className="w-full bg-[#F8FAFD] py-16 sm:py-24 relative overflow-hidden border-b-[3px] border-[#0A2A5E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left: 55% content (7 cols) */}
@@ -166,29 +166,29 @@ export default async function ServiceDetailPage({ params }: Props) {
               {/* Breadcrumb */}
               <nav
                 aria-label="Breadcrumb"
-                className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/60 mb-6"
+                className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#536B86] mb-6"
               >
-                <Link href="/" className="hover:text-white transition-colors">
+                <Link href="/" className="hover:text-[#0A2A5E] transition-colors">
                   Home
                 </Link>
                 <span>/</span>
-                <Link href="/services" className="hover:text-white transition-colors">
+                <Link href="/services" className="hover:text-[#0A2A5E] transition-colors">
                   Services
                 </Link>
                 <span>/</span>
-                <span className="text-white">{service.name}</span>
+                <span className="text-[#0A2A5E]">{service.name}</span>
               </nav>
 
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 text-warm-yellow text-[10px] font-black uppercase tracking-widest mb-4">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 {service.category} · 24×7 Available
               </div>
 
               {/* Exact H1 Title */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white leading-[0.95] mb-4">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#0A2A5E] leading-[0.95] mb-4">
                 {service.h1Title}
               </h1>
-              <p className="text-base sm:text-lg font-medium text-white/85 max-w-xl leading-relaxed">
+              <p className="text-base sm:text-lg font-medium text-[#536B86] max-w-xl leading-relaxed">
                 {service.description}
               </p>
 
@@ -196,7 +196,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               <div className="flex flex-wrap items-center gap-3 mt-8">
                 <a
                   href={siteConfig.phone.href}
-                  className="inline-flex items-center gap-2.5 px-7 py-4 bg-coral border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-coral/90 transition-all shadow-[5px_5px_0px_rgba(0,0,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px]"
+                  className="inline-flex items-center gap-2.5 px-7 py-4 bg-[#1565D8] border-2 border-[#0A2A5E] text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#0A2A5E] transition-all shadow-sm hover:translate-x-[2px] hover:translate-y-[2px]"
                 >
                   <span className="material-symbols-outlined text-[18px]">call</span>
                   Call 24×7 · {siteConfig.phone.display}
@@ -205,9 +205,9 @@ export default async function ServiceDetailPage({ params }: Props) {
                   href={siteConfig.whatsapp.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 px-7 py-4 bg-white/10 border-2 border-white text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-white/20 transition-all"
+                  className="inline-flex items-center gap-2.5 px-7 py-4 bg-white border-2 border-[#0A2A5E] text-[#0A2A5E] text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#EAF2FC] transition-all"
                 >
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   WhatsApp Us
                 </a>
               </div>
@@ -222,7 +222,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                 captionLocation={getServiceImage(service.slug).captionLocation}
                 badge={getServiceImage(service.slug).badge}
                 variant="featured"
-                offsetColor="warmYellow"
+                offsetColor="mint"
                 aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
                 objectPosition={getServiceImage(service.slug).objectPosition}
                 priority={true}
@@ -231,28 +231,28 @@ export default async function ServiceDetailPage({ params }: Props) {
             </div>
           </div>
         </div>
-        <div className="h-2 bg-warm-yellow relative z-10 mt-12" />
+        <div className="h-1.5 bg-[#1565D8] relative z-10 mt-12 w-full" />
       </section>
 
       {/* ── Booking Information Checklist & Service Specifications ── */}
-      <section className="w-full bg-white py-14 sm:py-18 border-b-2 border-navy/10">
+      <section className="w-full bg-white py-14 sm:py-18 border-b border-[#DDE7F2]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Checklist */}
-            <div className="p-6 sm:p-8 bg-clinic-mist border-2 border-navy shadow-brutal-sm">
-              <span className="inline-block px-2.5 py-0.5 bg-warm-yellow text-navy text-[10px] font-black uppercase tracking-wider border border-navy mb-3">
+            <div className="p-6 sm:p-8 bg-[#EAF2FC] border-2 border-[#DDE7F2] rounded-[2px]">
+              <span className="inline-block px-2.5 py-0.5 bg-white text-[#1565D8] text-[10px] font-black uppercase tracking-wider border border-[#1565D8]/30 mb-3 rounded-[2px]">
                 Pre-Booking Checklist
               </span>
-              <h2 className="text-lg font-extrabold uppercase tracking-tight text-navy mb-3">
+              <h2 className="text-lg font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
                 Information to Share When Booking
               </h2>
-              <p className="text-xs text-navy/70 mb-4 font-medium">
+              <p className="text-xs text-[#536B86] mb-4 font-medium">
                 To help our dispatch coordinators arrange the right unit quickly, please share the following details:
               </p>
-              <ul className="space-y-2.5 text-xs font-bold text-navy/80">
+              <ul className="space-y-2.5 text-xs font-bold text-[#0A2A5E]">
                 {service.bookingChecklist.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[16px] text-care-blue mt-0.5 shrink-0">
+                    <span className="material-symbols-outlined text-[16px] text-[#1565D8] mt-0.5 shrink-0">
                       check_circle
                     </span>
                     <span>{item}</span>
@@ -262,20 +262,20 @@ export default async function ServiceDetailPage({ params }: Props) {
             </div>
 
             {/* Core Features */}
-            <div className="p-6 sm:p-8 bg-paper border-2 border-navy shadow-brutal-sm">
-              <span className="inline-block px-2.5 py-0.5 bg-lavender text-navy text-[10px] font-black uppercase tracking-wider border border-navy mb-3">
+            <div className="p-6 sm:p-8 bg-white border-2 border-[#DDE7F2] rounded-[2px] shadow-sm">
+              <span className="inline-block px-2.5 py-0.5 bg-[#EAF2FC] text-[#1565D8] text-[10px] font-black uppercase tracking-wider border border-[#1565D8]/30 mb-3 rounded-[2px]">
                 Service Capabilities
               </span>
-              <h2 className="text-lg font-extrabold uppercase tracking-tight text-navy mb-3">
+              <h2 className="text-lg font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
                 Key Support Features
               </h2>
-              <p className="text-xs text-navy/70 mb-4 font-medium">
+              <p className="text-xs text-[#536B86] mb-4 font-medium">
                 Standard equipment and operational capabilities arranged for this service category:
               </p>
-              <ul className="space-y-2.5 text-xs font-bold text-navy/80">
+              <ul className="space-y-2.5 text-xs font-bold text-[#0A2A5E]">
                 {service.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-[16px] text-care-blue mt-0.5 shrink-0">
+                    <span className="material-symbols-outlined text-[16px] text-[#1565D8] mt-0.5 shrink-0">
                       verified
                     </span>
                     <span>{feature}</span>
@@ -288,23 +288,23 @@ export default async function ServiceDetailPage({ params }: Props) {
       </section>
 
       {/* ── Related Services & Coverage Internal Links ── */}
-      <section className="w-full bg-paper py-14 sm:py-18 border-b-2 border-navy/10">
+      <section className="w-full bg-[#F8FAFD] py-14 sm:py-18 border-b border-[#DDE7F2]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
           {/* Related Services */}
           {related.length > 0 && (
             <div className="mb-14">
               <div className="flex items-end justify-between gap-4 mb-6">
                 <div>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-navy/50">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[#536B86]">
                     Related Services
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-navy">
+                  <h2 className="text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-[#0A2A5E]">
                     Explore Other Medical Transport Options
                   </h2>
                 </div>
                 <Link
                   href="/services"
-                  className="text-xs font-bold uppercase text-care-blue hover:text-navy transition-colors shrink-0"
+                  className="text-xs font-bold uppercase text-[#1565D8] hover:text-[#0A2A5E] transition-colors shrink-0"
                 >
                   All Services →
                 </Link>
@@ -315,20 +315,20 @@ export default async function ServiceDetailPage({ params }: Props) {
                   <Link
                     key={rel.slug}
                     href={`/services/${rel.slug}`}
-                    className={`p-5 border-2 border-navy ${accentBgMap[rel.accent] || "bg-clinic-mist"} hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutal-navy transition-all`}
+                    className="p-5 border-2 border-[#DDE7F2] bg-white hover:border-[#0A2A5E] hover:translate-x-[-2px] hover:translate-y-[-2px] shadow-sm hover:shadow-md transition-all group"
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="material-symbols-outlined text-[18px] text-navy">
+                      <span className="material-symbols-outlined text-[18px] text-[#1565D8] group-hover:scale-110 transition-transform">
                         {rel.icon}
                       </span>
-                      <h3 className="text-sm font-extrabold uppercase text-navy">
+                      <h3 className="text-sm font-extrabold uppercase text-[#0A2A5E]">
                         {rel.name}
                       </h3>
                     </div>
-                    <p className="text-xs text-navy/70 line-clamp-2 font-medium">
+                    <p className="text-xs text-[#536B86] line-clamp-2 font-medium">
                       {rel.shortDescription}
                     </p>
-                    <span className="text-[10px] font-extrabold uppercase text-care-blue mt-3 inline-block">
+                    <span className="text-[10px] font-extrabold uppercase text-[#1565D8] mt-3 inline-block">
                       {rel.cardAnchor}
                     </span>
                   </Link>
@@ -341,27 +341,27 @@ export default async function ServiceDetailPage({ params }: Props) {
           <div>
             <div className="flex items-end justify-between gap-4 mb-4">
               <div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-navy/50">
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#536B86]">
                   Service Coverage
                 </span>
-                <h2 className="text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-navy">
+                <h2 className="text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-[#0A2A5E]">
                   Available Across Hyderabad Localities
                 </h2>
               </div>
               <Link
                 href="/coverage"
-                className="text-xs font-bold uppercase text-care-blue hover:text-navy transition-colors shrink-0"
+                className="text-xs font-bold uppercase text-[#1565D8] hover:text-[#0A2A5E] transition-colors shrink-0"
               >
                 All Coverage Hubs →
               </Link>
             </div>
-            <p className="text-xs text-navy/70 mb-4 font-medium">
+            <p className="text-xs text-[#536B86] mb-4 font-medium">
               Vidhya Sri Ambulance provides {service.name.toLowerCase()} support across all major hubs in Greater Hyderabad:
             </p>
             <div className="flex flex-wrap gap-2">
               <Link
                 href="/coverage/hyderabad"
-                className="px-3 py-1.5 bg-navy text-white text-[11px] font-bold uppercase tracking-wider hover:bg-navy-dark transition-all"
+                className="px-3 py-1.5 bg-[#0A2A5E] text-white text-[11px] font-bold uppercase tracking-wider hover:bg-[#1565D8] transition-all"
               >
                 Hyderabad Metropolitan Area
               </Link>
@@ -369,7 +369,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                 <Link
                   key={loc.slug}
                   href={`/coverage/${loc.slug}`}
-                  className="px-3 py-1.5 bg-white border border-navy text-navy text-[11px] font-bold uppercase tracking-wider hover:bg-clinic-mist transition-all"
+                  className="px-3 py-1.5 bg-white border border-[#DDE7F2] text-[#0A2A5E] text-[11px] font-bold uppercase tracking-wider hover:border-[#0A2A5E] hover:bg-[#EAF2FC] transition-all"
                 >
                   {loc.name}
                 </Link>
@@ -381,12 +381,12 @@ export default async function ServiceDetailPage({ params }: Props) {
 
       {/* ── FAQ Section ── */}
       {service.faqs.length > 0 && (
-        <section className="w-full bg-white py-14 sm:py-18 border-b-2 border-navy/10">
+        <section className="w-full bg-white py-14 sm:py-18 border-b border-[#DDE7F2]">
           <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
-            <span className="inline-block px-3 py-1 bg-warm-yellow border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-3 shadow-brutal-sm">
+            <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-3 rounded-[2px]">
               Questions & Answers
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-8">
               Frequently Asked Questions About {service.name}
             </h2>
 
@@ -394,15 +394,15 @@ export default async function ServiceDetailPage({ params }: Props) {
               {service.faqs.map((faq, idx) => (
                 <details
                   key={idx}
-                  className="group bg-paper border-2 border-navy p-5 shadow-brutal-sm open:shadow-brutal-navy transition-all"
+                  className="group bg-white border-2 border-[#DDE7F2] p-5 shadow-sm open:border-[#0A2A5E] transition-all rounded-[2px]"
                 >
-                  <summary className="flex items-center justify-between cursor-pointer text-sm font-extrabold uppercase tracking-tight text-navy list-none">
+                  <summary className="flex items-center justify-between cursor-pointer text-sm font-extrabold uppercase tracking-tight text-[#0A2A5E] list-none">
                     {faq.question}
-                    <span className="material-symbols-outlined text-[20px] text-navy/40 group-open:rotate-180 transition-transform shrink-0 ml-4">
+                    <span className="material-symbols-outlined text-[20px] text-[#536B86] group-open:rotate-180 transition-transform shrink-0 ml-4">
                       expand_more
                     </span>
                   </summary>
-                  <p className="mt-3 text-xs sm:text-sm font-medium text-navy/70 leading-relaxed border-t border-navy/10 pt-3">
+                  <p className="mt-3 text-xs sm:text-sm font-medium text-[#536B86] leading-relaxed border-t border-[#DDE7F2] pt-3">
                     {faq.answer}
                   </p>
                 </details>
@@ -412,28 +412,28 @@ export default async function ServiceDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* ── Emergency Action Strip ── */}
-      <section className="w-full bg-coral py-14 border-y-2 border-navy">
+      {/* ── Emergency Action Strip (Navy CTA) ── */}
+      <section className="w-full bg-[#0A2A5E] py-14 border-t-2 border-[#1565D8] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy">
+            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white">
               Book {service.name}
             </h2>
-            <p className="text-sm font-semibold text-navy/70 mt-1">
+            <p className="text-sm font-medium text-white/80 mt-1">
               Contact our 24×7 dispatch team directly by phone or WhatsApp to coordinate your journey.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <a
               href={siteConfig.phone.href}
-              className="inline-flex items-center gap-2.5 px-7 py-4 bg-navy border-2 border-navy text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-navy-dark transition-all shadow-brutal-white shrink-0"
+              className="inline-flex items-center gap-2.5 px-7 py-4 bg-[#1565D8] border-2 border-white text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-white hover:text-[#0A2A5E] transition-all shadow-sm shrink-0"
             >
               <span className="material-symbols-outlined text-[18px]">call</span>
               Call {siteConfig.phone.display}
             </a>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2.5 px-6 py-4 bg-white border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-clinic-mist transition-all shadow-brutal-navy shrink-0"
+              className="inline-flex items-center gap-2.5 px-6 py-4 bg-white border-2 border-white text-[#0A2A5E] text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#EAF2FC] transition-all shrink-0"
             >
               Contact Details
             </Link>

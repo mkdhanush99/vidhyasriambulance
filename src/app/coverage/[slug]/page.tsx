@@ -185,38 +185,38 @@ export default async function LocalityCoveragePage({ params }: Props) {
         />
       )}
 
-      {/* ── Hero Section ── */}
-      <section className="w-full bg-brand-gradient py-20 sm:py-28 relative overflow-hidden">
+      {/* ── Hero Section: Light Premium Healthcare ── */}
+      <section className="w-full bg-[#F8FAFD] py-16 sm:py-24 relative overflow-hidden border-b-[3px] border-[#0A2A5E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
           {/* Breadcrumb Navigation */}
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/60 mb-6"
+            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#536B86] mb-6"
           >
-            <Link href="/" className="hover:text-white transition-colors">
+            <Link href="/" className="hover:text-[#0A2A5E] transition-colors">
               Home
             </Link>
             <span>/</span>
             <Link
               href="/coverage"
-              className="hover:text-white transition-colors"
+              className="hover:text-[#0A2A5E] transition-colors"
             >
               Coverage
             </Link>
             <span>/</span>
-            <span className="text-white">{isPrimaryCityHub ? "Hyderabad" : loc.name}</span>
+            <span className="text-[#0A2A5E]">{isPrimaryCityHub ? "Hyderabad" : loc.name}</span>
           </nav>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 text-warm-yellow text-[10px] font-black uppercase tracking-widest mb-4">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             {loc.zone} · 24×7 Local Dispatch
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white leading-[0.95] mb-4">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#0A2A5E] leading-[0.95] mb-4">
             {h1Title}
           </h1>
 
-          <p className="text-base sm:text-lg font-medium text-white/85 max-w-3xl leading-relaxed">
+          <p className="text-base sm:text-lg font-medium text-[#536B86] max-w-3xl leading-relaxed">
             {introText}
           </p>
 
@@ -224,7 +224,7 @@ export default async function LocalityCoveragePage({ params }: Props) {
           <div className="flex flex-wrap items-center gap-3 mt-8">
             <a
               href={siteConfig.phone.href}
-              className="inline-flex items-center gap-2.5 px-7 py-4 bg-coral border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-coral/90 transition-all shadow-[5px_5px_0px_rgba(0,0,0,0.3)] hover:translate-x-[2px] hover:translate-y-[2px]"
+              className="inline-flex items-center gap-2.5 px-7 py-4 bg-[#1565D8] border-2 border-[#0A2A5E] text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#0A2A5E] transition-all shadow-sm hover:translate-x-[2px] hover:translate-y-[2px]"
             >
               <span className="material-symbols-outlined text-[18px]">call</span>
               Call 24×7 · {siteConfig.phone.display}
@@ -233,34 +233,34 @@ export default async function LocalityCoveragePage({ params }: Props) {
               href={siteConfig.whatsapp.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-7 py-4 bg-white/10 border-2 border-white text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-white/20 transition-all"
+              className="inline-flex items-center gap-2.5 px-7 py-4 bg-white border-2 border-[#0A2A5E] text-[#0A2A5E] text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#EAF2FC] transition-all"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               WhatsApp Dispatch
             </a>
           </div>
         </div>
-        <div className="h-2 bg-warm-yellow relative z-10 mt-12" />
+        <div className="h-1.5 bg-[#1565D8] relative z-10 mt-12 w-full" />
       </section>
 
       {/* ── Key Corridors, Nearby Hospitals & Dispatch Visual ── */}
-      <section className="w-full bg-paper py-14 sm:py-18 border-b-2 border-navy/10">
+      <section className="w-full bg-white py-14 sm:py-18 border-b border-[#DDE7F2]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Corridors and Hospitals (7 cols) */}
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* Primary Corridors */}
-              <div className="p-6 bg-white border-2 border-navy shadow-brutal-sm">
-                <span className="inline-block px-2.5 py-0.5 bg-warm-yellow text-navy text-[10px] font-black uppercase tracking-wider border border-navy mb-3">
+              <div className="p-6 bg-white border-2 border-[#DDE7F2] rounded-[2px] shadow-sm">
+                <span className="inline-block px-2.5 py-0.5 bg-[#EAF2FC] text-[#1565D8] text-[10px] font-black uppercase tracking-wider border border-[#1565D8]/30 mb-3 rounded-[2px]">
                   Key Road Links
                 </span>
-                <h2 className="text-lg font-extrabold uppercase tracking-tight text-navy mb-3">
+                <h2 className="text-lg font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
                   {loc.name} Transit Corridors
                 </h2>
-                <ul className="space-y-2 text-xs font-bold text-navy/70">
+                <ul className="space-y-2 text-xs font-bold text-[#0A2A5E]">
                   {loc.landmarkCorridors.map((corridor) => (
                     <li key={corridor} className="flex items-center gap-2">
-                      <span className="material-symbols-outlined text-[16px] text-care-blue">
+                      <span className="material-symbols-outlined text-[16px] text-[#1565D8]">
                         route
                       </span>
                       {corridor}
@@ -270,14 +270,14 @@ export default async function LocalityCoveragePage({ params }: Props) {
               </div>
 
               {/* Nearby Hospital Clusters */}
-              <div className="p-6 bg-white border-2 border-navy shadow-brutal-sm">
-                <span className="inline-block px-2.5 py-0.5 bg-lavender text-navy text-[10px] font-black uppercase tracking-wider border border-navy mb-3">
+              <div className="p-6 bg-white border-2 border-[#DDE7F2] rounded-[2px] shadow-sm">
+                <span className="inline-block px-2.5 py-0.5 bg-[#EAF2FC] text-[#1565D8] text-[10px] font-black uppercase tracking-wider border border-[#1565D8]/30 mb-3 rounded-[2px]">
                   Nearby Medical Facilities
                 </span>
-                <h2 className="text-lg font-extrabold uppercase tracking-tight text-navy mb-3">
+                <h2 className="text-lg font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
                   Key Healthcare Destinations
                 </h2>
-                <ul className="space-y-2 text-xs font-bold text-navy/70">
+                <ul className="space-y-2 text-xs font-bold text-[#0A2A5E]">
                   {loc.nearbyHospitalClusters.map((hosp) => (
                     <li key={hosp} className="flex items-center gap-2">
                       <span className="material-symbols-outlined text-[16px] text-emerald-600">
@@ -310,12 +310,12 @@ export default async function LocalityCoveragePage({ params }: Props) {
       </section>
 
       {/* ── Common Journey Scenarios ── */}
-      <section className="w-full bg-clinic-mist py-16 sm:py-20 border-b-2 border-navy/10">
+      <section className="w-full bg-[#EAF2FC] py-16 sm:py-20 border-b border-[#DDE7F2]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-          <span className="inline-block px-3 py-1 bg-coral border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-4 shadow-brutal-sm">
+          <span className="inline-block px-3 py-1 bg-white border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
             Local Scenarios
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-8">
+          <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-8">
             Common Patient Transit Scenarios in {loc.name}
           </h2>
 
@@ -323,18 +323,18 @@ export default async function LocalityCoveragePage({ params }: Props) {
             {loc.scenarios.map((scen, idx) => (
               <div
                 key={scen.title}
-                className="p-6 bg-white border-2 border-navy shadow-brutal-sm flex flex-col justify-between"
+                className="p-6 bg-white border-2 border-[#DDE7F2] rounded-[2px] shadow-sm flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="w-6 h-6 rounded-full bg-navy text-white text-[11px] font-black flex items-center justify-center">
+                    <span className="w-6 h-6 rounded-full bg-[#0A2A5E] text-white text-[11px] font-black flex items-center justify-center">
                       0{idx + 1}
                     </span>
-                    <h3 className="text-base font-extrabold uppercase tracking-tight text-navy">
+                    <h3 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E]">
                       {scen.title}
                     </h3>
                   </div>
-                  <p className="text-xs sm:text-sm font-medium text-navy/70 leading-relaxed">
+                  <p className="text-xs sm:text-sm font-medium text-[#536B86] leading-relaxed">
                     {scen.description}
                   </p>
                 </div>
@@ -345,12 +345,12 @@ export default async function LocalityCoveragePage({ params }: Props) {
       </section>
 
       {/* ── Recommended Services for this Area ── */}
-      <section className="w-full bg-paper py-16 sm:py-20">
+      <section className="w-full bg-white py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-          <span className="inline-block px-3 py-1 bg-warm-yellow border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-4 shadow-brutal-sm">
+          <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
             Service Options
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-8">
+          <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-8">
             Available Ambulance Services in {loc.name}
           </h2>
 
@@ -359,22 +359,22 @@ export default async function LocalityCoveragePage({ params }: Props) {
               <Link
                 key={service.slug}
                 href={`/services/${service.slug}`}
-                className="group flex flex-col p-6 bg-white border-2 border-navy hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutal-navy transition-all duration-200"
+                className="group flex flex-col p-6 bg-white border-2 border-[#DDE7F2] hover:border-[#0A2A5E] hover:translate-x-[-2px] hover:translate-y-[-2px] shadow-sm hover:shadow-md transition-all duration-200 rounded-[2px]"
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="inline-flex items-center justify-center w-10 h-10 border-2 border-navy bg-clinic-mist text-navy">
+                  <span className="inline-flex items-center justify-center w-10 h-10 border border-[#DDE7F2] bg-[#EAF2FC] text-[#1565D8] rounded-[2px]">
                     <span className="material-symbols-outlined text-[20px]">
                       {service.icon}
                     </span>
                   </span>
-                  <h3 className="text-sm font-extrabold uppercase tracking-tight text-navy group-hover:text-care-blue transition-colors">
+                  <h3 className="text-sm font-extrabold uppercase tracking-tight text-[#0A2A5E] group-hover:text-[#1565D8] transition-colors">
                     {service.name}
                   </h3>
                 </div>
-                <p className="text-xs font-medium text-navy/65 leading-relaxed flex-1">
+                <p className="text-xs font-medium text-[#536B86] leading-relaxed flex-1">
                   {service.shortDescription}
                 </p>
-                <div className="mt-4 pt-3 border-t border-navy/10 flex items-center justify-between text-navy/50 group-hover:text-care-blue transition-colors">
+                <div className="mt-4 pt-3 border-t border-[#DDE7F2] flex items-center justify-between text-[#536B86] group-hover:text-[#1565D8] transition-colors">
                   <span className="text-[10px] font-black uppercase tracking-wider">
                     {service.cardAnchor}
                   </span>
@@ -387,21 +387,21 @@ export default async function LocalityCoveragePage({ params }: Props) {
       </section>
 
       {/* ── Pickup Guidance & Preparation ── */}
-      <section className="w-full bg-clinic-mist py-16 sm:py-20 border-t-2 border-navy/10">
+      <section className="w-full bg-[#F8FAFD] py-16 sm:py-20 border-t border-[#DDE7F2]">
         <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
-          <span className="inline-block px-3 py-1 bg-mint border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-4 shadow-brutal-sm">
+          <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
             Caller Guidance
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-6">
+          <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-6">
             Helpful Advice for Callers in {loc.name}
           </h2>
-          <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-navy space-y-4">
+          <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-8 shadow-sm space-y-4 rounded-[2px]">
             {loc.pickupGuidance.map((tip, idx) => (
               <div key={idx} className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-[20px] text-care-blue shrink-0 mt-0.5">
+                <span className="material-symbols-outlined text-[20px] text-[#1565D8] shrink-0 mt-0.5">
                   info
                 </span>
-                <p className="text-xs sm:text-sm font-semibold text-navy/80 leading-relaxed">
+                <p className="text-xs sm:text-sm font-semibold text-[#0A2A5E] leading-relaxed">
                   {tip}
                 </p>
               </div>
@@ -412,12 +412,12 @@ export default async function LocalityCoveragePage({ params }: Props) {
 
       {/* ── Local FAQs ── */}
       {loc.faqs.length > 0 && (
-        <section className="w-full bg-paper py-16 sm:py-20">
+        <section className="w-full bg-white py-16 sm:py-20 border-t border-[#DDE7F2]">
           <div className="max-w-3xl mx-auto px-4 sm:px-8 lg:px-12">
-            <span className="inline-block px-3 py-1 bg-lavender border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-4 shadow-brutal-sm">
+            <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
               Local FAQ
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy mb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-8">
               Frequently Asked Questions in {loc.name}
             </h2>
 
@@ -425,15 +425,15 @@ export default async function LocalityCoveragePage({ params }: Props) {
               {loc.faqs.map((faq, i) => (
                 <details
                   key={i}
-                  className="group bg-white border-2 border-navy p-5 shadow-brutal-sm open:shadow-brutal-navy transition-all"
+                  className="group bg-white border-2 border-[#DDE7F2] p-5 shadow-sm open:border-[#0A2A5E] transition-all rounded-[2px]"
                 >
-                  <summary className="flex items-center justify-between cursor-pointer text-sm font-extrabold uppercase tracking-tight text-navy list-none">
+                  <summary className="flex items-center justify-between cursor-pointer text-sm font-extrabold uppercase tracking-tight text-[#0A2A5E] list-none">
                     {faq.question}
-                    <span className="material-symbols-outlined text-[20px] text-navy/40 group-open:rotate-180 transition-transform">
+                    <span className="material-symbols-outlined text-[20px] text-[#536B86] group-open:rotate-180 transition-transform">
                       expand_more
                     </span>
                   </summary>
-                  <p className="mt-4 text-[13px] font-medium text-navy/70 leading-relaxed">
+                  <p className="mt-4 text-[13px] font-medium text-[#536B86] leading-relaxed">
                     {faq.answer}
                   </p>
                 </details>
@@ -444,22 +444,22 @@ export default async function LocalityCoveragePage({ params }: Props) {
       )}
 
       {/* ── Nearby Coverage Hubs & Navigation ── */}
-      <section className="w-full bg-clinic-mist py-14 border-t-2 border-navy/10">
+      <section className="w-full bg-[#EAF2FC] py-14 border-t border-[#DDE7F2]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <h2 className="text-xl font-extrabold uppercase tracking-tight text-navy">
+            <h2 className="text-xl font-extrabold uppercase tracking-tight text-[#0A2A5E]">
               Related Coverage Areas & Links
             </h2>
             <div className="flex items-center gap-3">
               <Link
                 href="/coverage"
-                className="text-xs font-bold uppercase tracking-wider text-care-blue hover:text-navy transition-colors"
+                className="text-xs font-bold uppercase tracking-wider text-[#1565D8] hover:text-[#0A2A5E] transition-colors"
               >
                 Coverage Hub →
               </Link>
               <Link
                 href="/contact"
-                className="text-xs font-bold uppercase tracking-wider text-care-blue hover:text-navy transition-colors"
+                className="text-xs font-bold uppercase tracking-wider text-[#1565D8] hover:text-[#0A2A5E] transition-colors"
               >
                 Contact Page →
               </Link>
@@ -471,9 +471,9 @@ export default async function LocalityCoveragePage({ params }: Props) {
               <Link
                 key={nearby.slug}
                 href={`/coverage/${nearby.slug}`}
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border-2 border-navy text-xs font-extrabold uppercase text-navy hover:bg-warm-yellow transition-colors shadow-brutal-sm"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-[#DDE7F2] text-xs font-extrabold uppercase text-[#0A2A5E] hover:border-[#0A2A5E] hover:bg-white shadow-sm transition-colors rounded-[2px]"
               >
-                <span className="material-symbols-outlined text-[16px] text-care-blue">
+                <span className="material-symbols-outlined text-[16px] text-[#1565D8]">
                   near_me
                 </span>
                 {nearby.name}
@@ -482,7 +482,7 @@ export default async function LocalityCoveragePage({ params }: Props) {
             {!isPrimaryCityHub && (
               <Link
                 href="/coverage/hyderabad"
-                className="inline-flex items-center gap-1.5 px-4 py-2 bg-navy text-white text-xs font-extrabold uppercase border-2 border-navy hover:bg-navy-dark transition-colors shadow-brutal-sm"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#0A2A5E] text-white text-xs font-extrabold uppercase border border-[#0A2A5E] hover:bg-[#1565D8] transition-colors shadow-sm rounded-[2px]"
               >
                 Hyderabad Central Hub
               </Link>
@@ -491,28 +491,28 @@ export default async function LocalityCoveragePage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── Emergency CTA ── */}
-      <section className="w-full bg-coral py-14 border-y-2 border-navy">
+      {/* ── Emergency CTA (Navy CTA) ── */}
+      <section className="w-full bg-[#0A2A5E] py-14 border-t-2 border-[#1565D8] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy">
+            <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white">
               Need An Ambulance in {loc.name}?
             </h2>
-            <p className="text-sm font-semibold text-navy/70 mt-1">
+            <p className="text-sm font-medium text-white/80 mt-1">
               Contact our 24×7 dispatch team for emergency or planned patient transportation.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <a
               href={siteConfig.phone.href}
-              className="inline-flex items-center gap-2.5 px-7 py-4 bg-navy border-2 border-navy text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-navy-dark transition-all shadow-brutal-white shrink-0"
+              className="inline-flex items-center gap-2.5 px-7 py-4 bg-[#1565D8] border-2 border-white text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-white hover:text-[#0A2A5E] transition-all shadow-sm shrink-0"
             >
               <span className="material-symbols-outlined text-[18px]">call</span>
               Call {siteConfig.phone.display}
             </a>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2.5 px-6 py-4 bg-white border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-clinic-mist transition-all shadow-brutal-navy shrink-0"
+              className="inline-flex items-center gap-2.5 px-6 py-4 bg-white border-2 border-white text-[#0A2A5E] text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#EAF2FC] transition-all shrink-0"
             >
               Contact Us
             </Link>

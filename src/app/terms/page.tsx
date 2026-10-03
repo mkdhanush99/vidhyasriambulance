@@ -28,33 +28,33 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <>
-      <section className="w-full bg-navy py-16 sm:py-20">
+      <section className="w-full bg-[#F8FAFD] py-16 sm:py-20 border-b-[3px] border-[#0A2A5E]">
         <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/60 mb-4"
+            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#536B86] mb-4"
           >
-            <Link href="/" className="hover:text-white transition-colors">
+            <Link href="/" className="hover:text-[#0A2A5E] transition-colors">
               Home
             </Link>
             <span>/</span>
-            <span className="text-white">Terms of Service</span>
+            <span className="text-[#0A2A5E]">Terms of Service</span>
           </nav>
-          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">
+          <h1 className="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-[#0A2A5E]">
             Terms of Service
           </h1>
-          <p className="mt-3 text-sm font-medium text-white/60">
+          <p className="mt-3 text-sm font-medium text-[#536B86]">
             Effective Date: October 2024 · Governs all emergency dispatch and medical transport services
           </p>
         </div>
-        <div className="h-2 bg-warm-yellow mt-8" />
+        <div className="h-1.5 bg-[#1565D8] mt-8 w-full" />
       </section>
 
-      <section className="w-full bg-paper py-12 sm:py-16">
-        <article className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 space-y-8 text-sm font-medium text-navy/75 leading-relaxed">
-          <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-sm">
-            <h2 className="text-base font-extrabold uppercase tracking-tight text-navy mb-3">
+      <section className="w-full bg-white py-12 sm:py-16">
+        <article className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 space-y-8 text-sm font-medium text-[#536B86] leading-relaxed">
+          <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-8 shadow-sm rounded-[2px]">
+            <h2 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
               1. Nature of Emergency Medical Transport
             </h2>
             <p>
@@ -62,7 +62,7 @@ export default function TermsPage() {
             </p>
           </div>
 
-          <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-sm">
+          <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-8 shadow-sm rounded-[2px]">
             <h2 className="text-base font-extrabold uppercase tracking-tight text-navy mb-3">
               2. Dispatch & Response Time Scope
             </h2>
@@ -71,8 +71,8 @@ export default function TermsPage() {
             </p>
           </div>
 
-          <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-sm">
-            <h2 className="text-base font-extrabold uppercase tracking-tight text-navy mb-3">
+          <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-8 shadow-sm rounded-[2px]">
+            <h2 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
               3. Clinical Information & Handover Responsibility
             </h2>
             <p>
@@ -80,8 +80,8 @@ export default function TermsPage() {
             </p>
           </div>
 
-          <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-sm">
-            <h2 className="text-base font-extrabold uppercase tracking-tight text-navy mb-3">
+          <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-8 shadow-sm rounded-[2px]">
+            <h2 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
               4. Payment & Billing Policies
             </h2>
             <p>
@@ -89,8 +89,8 @@ export default function TermsPage() {
             </p>
           </div>
 
-          <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-sm">
-            <h2 className="text-base font-extrabold uppercase tracking-tight text-navy mb-3">
+          <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-8 shadow-sm rounded-[2px]">
+            <h2 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
               5. Limitation of Liability
             </h2>
             <p>
@@ -98,13 +98,13 @@ export default function TermsPage() {
             </p>
           </div>
 
-          <div className="bg-white border-2 border-navy p-6 sm:p-8 shadow-brutal-sm">
-            <h2 className="text-base font-extrabold uppercase tracking-tight text-navy mb-3">
+          <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-8 shadow-sm rounded-[2px]">
+            <h2 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
               6. Contact for Legal Notices
             </h2>
             <p>
               For formal inquiries regarding our terms, please contact dispatch management at{" "}
-              <a href={`mailto:${siteConfig.email}`} className="text-care-blue font-bold underline">
+              <a href={`mailto:${siteConfig.email}`} className="text-[#1565D8] font-bold underline">
                 {siteConfig.email}
               </a>{" "}
               or via telephone at {siteConfig.phone.display}.

@@ -18,49 +18,25 @@ const categories = [
   {
     name: "EMERGENCY & CRITICAL CARE",
     description: "Urgent medical transportation, trauma dispatch, and intensive life support in transit.",
-    badgeBg: "bg-coral",
+    badgeBg: "bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8]",
   },
   {
     name: "PATIENT TRANSPORT",
     description: "Planned patient transfers, respiratory oxygen support, and specialized neonatal care journeys.",
-    badgeBg: "bg-warm-yellow",
+    badgeBg: "bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8]",
   },
   {
     name: "SPECIALIZED & PLANNED TRANSPORT",
     description: "Long-distance interstate journeys, event standby positioning, corporate workplace coverage, and mortuary transport.",
-    badgeBg: "bg-lavender",
+    badgeBg: "bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8]",
   },
 ] as const;
-
-const accentBgMap: Record<string, string> = {
-  coral: "bg-coral-light",
-  lavender: "bg-lavender-light",
-  peach: "bg-peach-light",
-  aqua: "bg-clinic-mist",
-  warmYellow: "bg-warm-yellow-light",
-  mint: "bg-mint-light",
-  softGreen: "bg-mint-light",
-  purple: "bg-lavender-light",
-  mist: "bg-clinic-mist",
-};
-
-const accentBorderMap: Record<string, string> = {
-  coral: "border-coral",
-  lavender: "border-lavender",
-  peach: "border-peach",
-  aqua: "border-aqua",
-  warmYellow: "border-warm-yellow",
-  mint: "border-mint",
-  softGreen: "border-soft-green",
-  purple: "border-purple-accent",
-  mist: "border-clinic-mist",
-};
 
 // Services that receive an editorial visual feature on the overview page
 const visualServiceSlugs: Record<string, { image: typeof siteImages.servicesOverview.emergencyFeatured; offsetColor: "warmYellow" | "careBlue" | "coral" | "mint" }> = {
   "emergency-ambulance": {
     image: siteImages.servicesOverview.emergencyFeatured,
-    offsetColor: "coral",
+    offsetColor: "careBlue",
   },
   "icu-ambulance": {
     image: siteImages.servicesOverview.icuSecondary,
@@ -88,53 +64,53 @@ const visualServiceSlugs: Record<string, { image: typeof siteImages.servicesOver
 export default function ServicesPage() {
   return (
     <>
-      {/* ── Hero ── */}
-      <section className="w-full bg-brand-gradient py-20 sm:py-28 relative overflow-hidden">
+      {/* ── Hero: Light Premium Healthcare ── */}
+      <section className="w-full bg-[#F8FAFD] py-16 sm:py-24 relative overflow-hidden border-b-[3px] border-[#0A2A5E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/60 mb-6"
+            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#536B86] mb-6"
           >
-            <Link href="/" className="hover:text-white transition-colors">
+            <Link href="/" className="hover:text-[#0A2A5E] transition-colors">
               Home
             </Link>
             <span>/</span>
-            <span className="text-white">Services</span>
+            <span className="text-[#0A2A5E]">Services</span>
           </nav>
 
-          <span className="inline-block px-3 py-1 bg-white/10 border border-white/25 text-warm-yellow text-[10px] font-black uppercase tracking-widest mb-4">
+          <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
             Service Overview
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white leading-[0.95] mb-4">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#0A2A5E] leading-[0.95] mb-4">
             Ambulance Services
           </h1>
-          <p className="mt-3 text-base sm:text-lg font-medium text-white/85 max-w-2xl leading-relaxed">
+          <p className="mt-3 text-base sm:text-lg font-medium text-[#536B86] max-w-2xl leading-relaxed">
             Choose the ambulance service based on the patient&apos;s transport requirements and the nature of the journey.
           </p>
         </div>
-        <div className="h-2 bg-warm-yellow relative z-10 mt-12" />
+        <div className="h-1.5 bg-[#1565D8] relative z-10 mt-12 w-full" />
       </section>
 
-      {/* ── Categorized Services (Editorial Mixed Grid) ── */}
-      <section className="w-full bg-paper py-16 sm:py-20">
+      {/* ── Categorized Services (White Dominant Surfaces) ── */}
+      <section className="w-full bg-white py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 space-y-16">
           {categories.map((cat) => {
             const catServices = services.filter((s) => s.category === cat.name);
             return (
               <div key={cat.name} className="space-y-8">
                 {/* Category Header */}
-                <div className="border-b-2 border-navy/15 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                <div className="border-b-2 border-[#DDE7F2] pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                   <div>
                     <span
-                      className={`inline-block px-3 py-1 ${cat.badgeBg} border-2 border-navy text-navy text-[10px] font-black uppercase tracking-widest mb-2 shadow-brutal-sm`}
+                      className={`inline-block px-3 py-1 ${cat.badgeBg} text-[10px] font-black uppercase tracking-widest mb-2 rounded-[2px]`}
                     >
                       Category
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-navy">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E]">
                       {cat.name}
                     </h2>
                   </div>
-                  <p className="text-sm font-medium text-navy/70 max-w-md">
+                  <p className="text-sm font-medium text-[#536B86] max-w-md">
                     {cat.description}
                   </p>
                 </div>
@@ -149,7 +125,7 @@ export default function ServicesPage() {
                       return (
                         <div
                           key={service.slug}
-                          className="flex flex-col bg-white border-2 border-navy p-5 shadow-brutal-navy"
+                          className="flex flex-col bg-white border-2 border-[#DDE7F2] rounded-[4px] p-5 shadow-[4px_4px_0_#EAF2FC, 4px_4px_0_2px_#DDE7F2]"
                         >
                           {/* Image frame */}
                           <div className="mb-4">
@@ -168,68 +144,67 @@ export default function ServicesPage() {
 
                           {/* Content */}
                           <div className="flex items-center gap-2.5 mb-2">
-                            <span
-                              className={`inline-flex items-center justify-center w-8 h-8 border-2 border-navy ${accentBorderMap[service.accent] || "border-clinic-mist"} bg-white`}
-                            >
-                              <span className="material-symbols-outlined text-[16px] text-navy">
+                            <span className="inline-flex items-center justify-center w-8 h-8 border border-[#1565D8]/20 bg-[#EAF2FC] rounded-[2px]">
+                              <span className="material-symbols-outlined text-[16px] text-[#1565D8]">
                                 {service.icon}
                               </span>
                             </span>
-                            <span className="text-[9px] font-black uppercase tracking-widest text-navy/50">
+                            <span className="text-[9px] font-black uppercase tracking-widest text-[#536B86]">
                               {service.category}
                             </span>
                           </div>
 
-                          <h3 className="text-base font-extrabold uppercase tracking-tight text-navy mb-2">
+                          <h3 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-2">
                             {service.name}
                           </h3>
 
-                          <p className="text-xs font-medium text-navy/70 leading-relaxed mb-4 flex-1">
+                          <p className="text-xs font-medium text-[#536B86] leading-relaxed mb-4 flex-1">
                             {service.shortDescription}
                           </p>
 
                           <Link
                             href={`/services/${service.slug}`}
-                            className="inline-flex items-center justify-between px-4 py-2.5 bg-paper hover:bg-clinic-mist border-2 border-navy text-navy text-[11px] font-extrabold uppercase tracking-wider transition-colors"
+                            className="inline-flex items-center justify-between px-4 py-2.5 bg-[#F8FAFD] hover:bg-[#EAF2FC] border border-[#DDE7F2] text-[#0A2A5E] text-[11px] font-extrabold uppercase tracking-wider rounded-[2px] transition-colors"
                           >
                             <span>{service.cardAnchor}</span>
-                            <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                            <span className="material-symbols-outlined text-[14px] text-[#1565D8]">arrow_forward</span>
                           </Link>
                         </div>
                       );
                     }
 
-                    // Non-visual typography + colour + icon card
+                    // Non-visual clean card
                     return (
                       <Link
                         key={service.slug}
                         href={`/services/${service.slug}`}
-                        className={`group flex flex-col p-6 border-2 border-navy ${accentBgMap[service.accent] || "bg-clinic-mist"} hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-brutal-navy transition-all duration-200`}
+                        className="group flex flex-col p-6 bg-[#F8FAFD] border-2 border-[#DDE7F2] rounded-[4px] shadow-[4px_4px_0_#EAF2FC, 4px_4px_0_2px_#DDE7F2] hover:border-[#1565D8] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0_#1565D8] transition-all duration-200"
                       >
                         <div className="flex items-center gap-3 mb-4">
-                          <span
-                            className={`inline-flex items-center justify-center w-10 h-10 border-2 border-navy ${accentBorderMap[service.accent] || "border-clinic-mist"} bg-white`}
-                          >
-                            <span className="material-symbols-outlined text-[20px] text-navy">
+                          <span className="inline-flex items-center justify-center w-10 h-10 border border-[#1565D8]/20 bg-[#EAF2FC] rounded-[2px]">
+                            <span className="material-symbols-outlined text-[20px] text-[#1565D8]">
                               {service.icon}
                             </span>
                           </span>
-                          <span className="text-[10px] font-black uppercase tracking-widest text-navy/50">
+                          <span className="text-[10px] font-black uppercase tracking-widest text-[#536B86]">
                             {service.category}
                           </span>
                         </div>
 
-                        <h3 className="text-base font-extrabold uppercase tracking-tight text-navy mb-2 group-hover:text-care-blue transition-colors">
+                        <h3 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-2 group-hover:text-[#1565D8] transition-colors">
                           {service.name}
                         </h3>
 
-                        <p className="text-[13px] font-medium text-navy/65 leading-relaxed flex-1">
+                        <p className="text-[13px] font-medium text-[#536B86] leading-relaxed flex-1">
                           {service.shortDescription}
                         </p>
 
-                        <div className="mt-4 text-navy/60 group-hover:text-care-blue transition-colors">
+                        <div className="mt-4 text-[#1565D8] flex items-center justify-between">
                           <span className="text-[11px] font-bold uppercase tracking-wide">
                             {service.cardAnchor}
+                          </span>
+                          <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">
+                            arrow_forward
                           </span>
                         </div>
                       </Link>
@@ -242,23 +217,23 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ── Direct Dispatch CTA ── */}
-      <section className="w-full bg-navy text-white py-16 sm:py-20 border-t-2 border-navy">
+      {/* ── Direct Dispatch CTA (Navy CTA) ── */}
+      <section className="w-full bg-[#0A2A5E] text-white py-16 sm:py-20 border-t-2 border-[#0A2A5E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <div>
-            <span className="inline-block px-3 py-1 bg-white/10 border border-white/20 text-warm-yellow text-[10px] font-black uppercase tracking-widest mb-3">
+            <span className="inline-block px-3 py-1 bg-white/10 border border-white/20 text-[#38A3F7] text-[10px] font-black uppercase tracking-widest mb-3 rounded-[2px]">
               Need Assistance Selecting?
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight">
               Speak with our dispatch team.
             </h2>
-            <p className="mt-2 text-sm text-white/70 max-w-xl">
+            <p className="mt-2 text-sm text-white/80 max-w-xl">
               If you are unsure whether Basic Life Support, ICU, or Oxygen transport is required, our coordinators will help assess the journey.
             </p>
           </div>
           <a
             href={siteConfig.phone.href}
-            className="inline-flex items-center gap-2 px-6 py-4 bg-coral border-2 border-navy text-navy text-[13px] font-extrabold uppercase tracking-wider hover:bg-coral/90 transition-all shrink-0 shadow-brutal-sm"
+            className="inline-flex items-center gap-2 px-6 py-4 bg-[#1565D8] border-[3px] border-white text-white text-[13px] font-black uppercase tracking-wider hover:bg-[#0B3F9E] transition-all shrink-0 shadow-[4px_4px_0_#061A3D] rounded-[4px]"
           >
             <span className="material-symbols-outlined text-[18px]">call</span>
             Call 24×7 · {siteConfig.phone.display}

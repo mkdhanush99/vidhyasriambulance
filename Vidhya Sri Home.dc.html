@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100..700,0..1,0&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Manrope',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#fff;color:#0A2A5E}
+*{box-sizing:border-box}
+a{color:#1565D8;text-decoration:none}a:hover{color:#0A2A5E}
+::selection{background:#F5D84A;color:#0A2A5E}
+.ms{font-family:'Material Symbols Outlined';font-variation-settings:'FILL' 1,'wght' 700,'opsz' 24;font-weight:normal;font-style:normal;line-height:1;display:inline-block;letter-spacing:normal;text-transform:none;white-space:nowrap;-webkit-font-smoothing:antialiased}
+.nav{display:none}.mobbar{display:flex}.wa-h{display:none}.f2{grid-column:auto}.cd{display:none}
+@media(min-width:640px){.wa-h{display:inline-flex}}
+@media(min-width:1024px){.nav{display:flex}.menu{display:none!important}}
+@media(min-width:768px){.mobbar{display:none}.cd{display:inline}.sp{padding-bottom:0!important}}
+@media(min-width:900px){.f2{grid-column:span 2}}
+@keyframes pulse{50%{opacity:.35}}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes drift{50%{transform:translate(8px,-8px)}}
+.rv{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.dr{animation:drift 7s ease-in-out infinite}
+.dot{animation:pulse 1.6s infinite}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div class="sp" style="padding-bottom:58px;overflow-x:hidden">
+
+<!-- HEADER -->
+<header style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:3px solid #0A2A5E">
+  <div style="max-width:1280px;margin:0 auto;height:78px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:14px">
+    <a href="#top" style="display:flex;align-items:center;flex-shrink:0"><img src="public/brand/svg/logo/logo-horizontal-gradient.svg" alt="Vidhya Sri Ambulance" style="height:44px;width:auto;display:block"></a>
+    <nav class="nav" style="gap:26px;align-items:center">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6"><a href="{{ n.href }}" style="font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#0A2A5E;padding:6px 0;border-bottom:3px solid transparent" style-hover="border-bottom:3px solid #F5D84A">{{ n.label }}</a></sc-for>
+    </nav>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a class="wa-h" href="#contact" style="align-items:center;gap:8px;padding:11px 16px;background:#9FE0C5;border:2px solid #0A2A5E;color:#0A2A5E;font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;border-radius:4px;box-shadow:4px 4px 0 #0A2A5E;transition:all .15s" style-hover="transform:translate(2px,2px);box-shadow:2px 2px 0 #0A2A5E;color:#0A2A5E"><span class="dot" style="width:9px;height:9px;border-radius:50%;background:#0F8F5F;display:inline-block"></span>WhatsApp</a>
+      <a href="tel:+914049998888" style="display:inline-flex;align-items:center;gap:8px;padding:11px 18px;background:#1565D8;border:2px solid #0A2A5E;color:#fff;font-size:12.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;border-radius:4px;box-shadow:4px 4px 0 #0A2A5E;transition:all .15s" style-hover="transform:translate(2px,2px);box-shadow:2px 2px 0 #0A2A5E;background:#0B3F9E;color:#fff"><span class="ms" style="font-size:19px">call</span>Call 24×7<span class="cd">· (040) 4999-8888</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" style="position:relative;background:linear-gradient(35deg,#0A2A5E 0%,#0B3F9E 45%,#1565D8 100%);overflow:hidden;border-bottom:8px solid #F5D84A">
+  <div class="dr" style="position:absolute;right:-140px;top:-160px;width:520px;height:520px;border-radius:50%;background:#38A3F7;opacity:.45"></div>
+  <div style="position:absolute;left:-60px;bottom:-90px;width:240px;height:240px;background:#FF6B5F;transform:rotate(18deg);opacity:.9;border:3px solid #0A2A5E"></div>
+  <div style="position:relative;max-width:1280px;margin:0 auto;padding:64px 20px 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px;align-items:center">
+    <div class="rv">
+      <div style="display:inline-flex;align-items:center;gap:10px;padding:8px 14px;background:#fff;border:2px solid #0A2A5E;box-shadow:4px 4px 0 #F5D84A;margin-bottom:26px">
+        <span style="width:10px;height:10px;background:#FF6B5F;border:2px solid #0A2A5E;display:inline-block"></span>
+        <span style="font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#0A2A5E">Dispatch active · Hyderabad</span>
+      </div>
+      <h1 style="margin:0;font-size:clamp(46px,7.4vw,76px);font-weight:800;line-height:.95;letter-spacing:-.025em;text-transform:uppercase;color:#fff">Care,<br>moving when<br>it <span style="color:#0A2A5E;background:#F5D84A;padding:0 .12em;display:inline-block;transform:rotate(-1.5deg);border:3px solid #0A2A5E;box-shadow:6px 6px 0 #0A2A5E;margin-top:8px">matters.</span></h1>
+      <p style="margin:28px 0 0;max-width:480px;font-size:16.5px;line-height:1.55;font-weight:500;color:#fff">24×7 emergency ambulance and advanced patient transportation across Hyderabad and Telangana — ICU, ventilator, neonatal and bed-to-bed clinical continuity.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:32px">
+        <a href="tel:+914049998888" style="display:inline-flex;align-items:center;gap:10px;padding:17px 26px;background:#FF6B5F;border:3px solid #0A2A5E;color:#0A2A5E;font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;box-shadow:6px 6px 0 #0A2A5E;transition:all .15s" style-hover="transform:translate(3px,3px);box-shadow:3px 3px 0 #0A2A5E;background:#FF8176;color:#0A2A5E"><span class="ms" style="font-size:22px">call</span>Call 24×7<span class="ms" style="font-size:20px">arrow_forward</span></a>
+        <a href="#contact" style="display:inline-flex;align-items:center;gap:10px;padding:17px 26px;background:#9FE0C5;border:3px solid #0A2A5E;color:#0A2A5E;font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;box-shadow:6px 6px 0 #0A2A5E;transition:all .15s" style-hover="transform:translate(3px,3px);box-shadow:3px 3px 0 #0A2A5E;color:#0A2A5E"><span class="ms" style="font-size:22px">chat</span>WhatsApp</a>
+        <a href="#services" style="display:inline-flex;align-items:center;gap:10px;padding:17px 26px;background:#F5D84A;border:3px solid #0A2A5E;color:#0A2A5E;font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;box-shadow:6px 6px 0 #0A2A5E;transition:all .15s" style-hover="transform:translate(3px,3px);box-shadow:3px 3px 0 #0A2A5E;color:#0A2A5E">View services</a>
+      </div>
+    </div>
+    <div class="rv" style="position:relative;padding:0 14px 18px 0;animation-delay:.15s">
+      <div style="position:absolute;right:-6px;top:-22px;width:120px;height:120px;border-radius:50%;background:#CBB5FF;border:3px solid #0A2A5E"></div>
+      <div style="position:relative;background:#fff;border:3px solid #0A2A5E;padding:12px;box-shadow:14px 14px 0 #F5D84A,14px 14px 0 3px #0A2A5E">
+        <div style="position:relative;aspect-ratio:4/3;border:3px solid #0A2A5E;background:repeating-linear-gradient(45deg,#CFE0F7 0 14px,#E3EEFB 14px 28px);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px">
+          <span style="font:600 12px/1.5 ui-monospace,Menlo,monospace;color:#0A2A5E;letter-spacing:.04em">[ AMBULANCE PHOTO · 4:3<br>drop hero image here ]</span>
+          <span style="position:absolute;left:-3px;top:-3px;padding:7px 12px;background:#0A2A5E;color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase">Fig. 01 · ALS Unit</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 4px 2px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#0A2A5E"><span>Hyderabad, Telangana</span><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:9px;height:9px;background:#FF6B5F;display:inline-block"></span>24×7</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND STATEMENT -->
+<section style="background:#fff;padding:96px 20px;position:relative;overflow:hidden">
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:56px;align-items:center">
+    <div style="position:relative;padding:0 18px 18px 0">
+      <div style="position:absolute;inset:26px 0 0 26px;background:#CBB5FF;border:3px solid #0A2A5E"></div>
+      <div style="position:relative;background:#fff;border:3px solid #0A2A5E;padding:10px;transform:translate(-14px,-14px)">
+        <div style="aspect-ratio:5/6;background:repeating-linear-gradient(-45deg,#EAF2FC 0 14px,#fff 14px 28px);border:2px solid #0A2A5E;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px"><span style="font:600 12px/1.5 ui-monospace,Menlo,monospace;color:#0A2A5E">[ CREW / HANDOVER PHOTO<br>5:6 portrait ]</span></div>
+      </div>
+      <div class="dr" style="position:absolute;right:-6px;bottom:-6px;width:92px;height:92px;border-radius:50%;background:#F5D84A;border:3px solid #0A2A5E;display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:44px;color:#0A2A5E">add</span></div>
+    </div>
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:22px"><span style="width:14px;height:14px;background:#FF6B5F;border:2px solid #0A2A5E;display:inline-block"></span><span style="font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;border:2px solid #0A2A5E">01 / Our story</span></div>
+      <h2 style="margin:0;font-size:clamp(38px,5.6vw,58px);font-weight:800;line-height:.98;letter-spacing:-.025em;text-transform:uppercase">Care does not stop <span style="background:#1565D8;color:#fff;padding:0 .14em;display:inline-block;transform:rotate(1deg)">at the hospital door.</span></h2>
+      <p style="margin:26px 0 0;max-width:500px;font-size:16.5px;line-height:1.6;font-weight:500;color:#0A2A5E">Vidhya Sri is healthcare mobility — monitored, staffed and coordinated from the first call to the final handover.</p>
+      <a href="#services" style="display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:14px 22px;background:#0A2A5E;border:3px solid #0A2A5E;color:#fff;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;box-shadow:6px 6px 0 #F5D84A;transition:all .15s" style-hover="transform:translate(3px,3px);box-shadow:3px 3px 0 #F5D84A;color:#fff">About Vidhya Sri<span class="ms" style="font-size:20px">arrow_forward</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="background:#FBFBF9;padding:96px 20px;border-top:3px solid #0A2A5E;border-bottom:3px solid #0A2A5E">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:48px">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:18px"><span style="width:14px;height:14px;background:#1565D8;border:2px solid #0A2A5E;display:inline-block"></span><span style="font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;border:2px solid #0A2A5E;background:#F5D84A">02 / Services</span></div>
+        <h2 style="margin:0;font-size:clamp(38px,5.6vw,58px);font-weight:800;line-height:.98;letter-spacing:-.025em;text-transform:uppercase">Every emergency,<br><span style="color:#1565D8">covered.</span></h2>
+      </div>
+      <a href="#services" style="display:inline-flex;align-items:center;gap:8px;padding:13px 20px;background:#fff;border:3px solid #0A2A5E;color:#0A2A5E;font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;box-shadow:5px 5px 0 #0A2A5E;transition:all .15s" style-hover="transform:translate(2px,2px);box-shadow:3px 3px 0 #0A2A5E;color:#0A2A5E">All 11 services<span class="ms" style="font-size:19px">arrow_forward</span></a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:26px 22px;padding-right:8px">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+        <a class="{{ s.cls }}" href="#contact" style="display:flex;flex-direction:column;gap:14px;padding:24px;background:{{ s.bg }};color:{{ s.fg }};border:3px solid #0A2A5E;border-radius:4px;box-shadow:8px 8px 0 {{ s.shadow }},8px 8px 0 3px #0A2A5E;transition:transform .18s,box-shadow .18s;min-height:{{ s.h }}" style-hover="transform:translate(-3px,-3px);box-shadow:12px 12px 0 {{ s.shadow }},12px 12px 0 3px #0A2A5E;color:{{ s.fg }}">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <span style="width:{{ s.ib }};height:{{ s.ib }};background:{{ s.ibg }};border:3px solid #0A2A5E;display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:{{ s.is }};color:{{ s.icol }}">{{ s.icon }}</span></span>
+            <span style="font-size:11px;font-weight:800;letter-spacing:.14em;opacity:1">{{ s.num }}</span>
+          </div>
+          <div style="margin-top:auto">
+            <h3 style="margin:0 0 8px;font-size:{{ s.ts }};font-weight:800;line-height:1.1;letter-spacing:-.01em;text-transform:uppercase">{{ s.name }}</h3>
+            <p style="margin:0;font-size:13.5px;line-height:1.5;font-weight:500">{{ s.desc }}</p>
+          </div>
+          <span style="display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase">Details<span class="ms" style="font-size:18px">arrow_forward</span></span>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE: ICU -->
+<section style="background:linear-gradient(35deg,#0B3F9E,#1565D8 70%,#38A3F7);padding:96px 20px;position:relative;overflow:hidden">
+  <div style="position:absolute;left:-80px;top:40px;width:200px;height:200px;border-radius:50%;background:#9F82DE;opacity:.8"></div>
+  <div style="position:relative;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:56px;align-items:center">
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:20px"><span style="width:14px;height:14px;background:#F5D84A;border:2px solid #fff;display:inline-block"></span><span style="font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;border:2px solid #fff;color:#fff">03 / Patient transport</span></div>
+      <h2 style="margin:0;font-size:clamp(38px,5.6vw,58px);font-weight:800;line-height:.98;letter-spacing:-.025em;text-transform:uppercase;color:#fff">A hospital ICU,<br><span style="color:#F5D84A">on wheels.</span></h2>
+      <p style="margin:24px 0 0;max-width:480px;font-size:16.5px;line-height:1.6;font-weight:500;color:#fff">Continuous invasive monitoring, multi-channel infusion pumps and a critical care physician escort for safe inter-facility transfers.</p>
+      <ul style="list-style:none;margin:28px 0 0;padding:0;display:grid;gap:10px;max-width:480px">
+        <sc-for list="{{ icuFeatures }}" as="f" hint-placeholder-count="4"><li style="display:flex;align-items:center;gap:12px;font-size:14.5px;font-weight:700;color:#fff"><span style="width:26px;height:26px;background:#9FE0C5;border:2px solid #0A2A5E;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="ms" style="font-size:18px;color:#0A2A5E">check</span></span>{{ f }}</li></sc-for>
+      </ul>
+      <a href="tel:+914049998888" style="display:inline-flex;align-items:center;gap:10px;margin-top:32px;padding:16px 24px;background:#F5D84A;border:3px solid #0A2A5E;color:#0A2A5E;font-size:13.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;box-shadow:6px 6px 0 #0A2A5E;transition:all .15s" style-hover="transform:translate(3px,3px);box-shadow:3px 3px 0 #0A2A5E;color:#0A2A5E">Book ICU ambulance<span class="ms" style="font-size:20px">arrow_forward</span></a>
+    </div>
+    <div style="position:relative;padding:0 20px 20px 0">
+      <div style="position:absolute;inset:20px 0 0 20px;background:#FF6B5F;border:3px solid #0A2A5E"></div>
+      <div style="position:relative;background:#fff;border:3px solid #0A2A5E;padding:10px;transform:translate(-8px,-8px)">
+        <div style="position:relative;aspect-ratio:4/3;background:repeating-linear-gradient(45deg,#CFE0F7 0 14px,#E3EEFB 14px 28px);border:2px solid #0A2A5E;display:flex;align-items:center;justify-content:center;text-align:center"><span style="font:600 12px/1.5 ui-monospace,Menlo,monospace;color:#0A2A5E">[ ICU INTERIOR PHOTO · 4:3 ]</span><span style="position:absolute;right:-2px;bottom:-2px;padding:7px 12px;background:#F5D84A;border:2px solid #0A2A5E;font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#0A2A5E">Fig. 02 · ICU</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section style="background:#EFFBF5;background-image:radial-gradient(#9FE0C5 2px,transparent 2px);background-size:26px 26px;padding:96px 20px;border-bottom:3px solid #0A2A5E">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="margin-bottom:56px">
+      <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:18px"><span style="width:14px;height:14px;background:#FF6B5F;border:2px solid #0A2A5E;display:inline-block"></span><span style="font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;border:2px solid #0A2A5E;background:#fff">04 / How it works</span></div>
+      <h2 style="margin:0;font-size:clamp(38px,5.6vw,58px);font-weight:800;line-height:.98;letter-spacing:-.025em;text-transform:uppercase">From call to care,<br>in <span style="color:#1565D8">four steps.</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:26px 22px;align-items:start;padding-right:8px">
+      <sc-for list="{{ steps }}" as="p" hint-placeholder-count="4">
+        <div style="position:relative;margin-top:{{ p.mt }};background:#fff;border:3px solid #0A2A5E;border-radius:4px;box-shadow:8px 8px 0 {{ p.c }},8px 8px 0 3px #0A2A5E;padding:22px;transition:transform .18s" style-hover="transform:translate(-3px,-3px)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <span style="font-size:72px;font-weight:800;line-height:.8;letter-spacing:-.05em;color:#0A2A5E">{{ p.n }}</span>
+            <span style="width:48px;height:48px;background:{{ p.c }};border:3px solid #0A2A5E;display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:26px;color:#0A2A5E">{{ p.icon }}</span></span>
+          </div>
+          <div style="margin:22px 0 10px;height:3px;background:#0A2A5E"></div>
+          <h3 style="margin:0 0 8px;font-size:19px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em">{{ p.t }}</h3>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;font-weight:500">{{ p.d }}</p>
+          <span class="ms" style="position:absolute;right:-22px;top:50%;font-size:30px;color:#0A2A5E;background:#EFFBF5;display:{{ p.arrow }}">arrow_forward</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- COVERAGE -->
+<section style="background:#0A2A5E;padding:96px 20px;position:relative;overflow:hidden">
+  <div style="position:absolute;right:-120px;bottom:-120px;width:420px;height:420px;border-radius:50%;border:3px solid #38A3F7;opacity:.6"></div>
+  <div style="position:absolute;right:-60px;bottom:-60px;width:300px;height:300px;border-radius:50%;border:3px solid #38A3F7;opacity:.6"></div>
+  <div style="position:relative;max-width:1280px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:44px">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:18px"><span style="width:14px;height:14px;background:#9FE0C5;border:2px solid #fff;display:inline-block"></span><span style="font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;border:2px solid #fff;color:#fff">05 / Hyderabad coverage</span></div>
+        <h2 style="margin:0;font-size:clamp(38px,5.6vw,58px);font-weight:800;line-height:.98;letter-spacing:-.025em;text-transform:uppercase;color:#fff">Across greater<br><span style="color:#F5D84A">Hyderabad.</span></h2>
+      </div>
+      <a href="#coverage" style="display:inline-flex;align-items:center;gap:8px;padding:13px 20px;background:#38A3F7;border:3px solid #fff;color:#0A2A5E;font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;box-shadow:5px 5px 0 #1565D8;transition:all .15s" style-hover="transform:translate(2px,2px);box-shadow:3px 3px 0 #1565D8;color:#0A2A5E">Coverage map<span class="ms" style="font-size:19px">arrow_forward</span></a>
+    </div>
+    <div id="coverage" style="display:flex;flex-wrap:wrap;gap:16px 14px;padding-right:6px">
+      <sc-for list="{{ areas }}" as="a" hint-placeholder-count="12">
+        <a href="#coverage" style="display:inline-flex;align-items:center;gap:9px;padding:12px 16px;background:{{ a.c }};border:3px solid #fff;color:#0A2A5E;font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;box-shadow:5px 5px 0 #061A3D,5px 5px 0 3px #fff;transform:rotate({{ a.r }});transition:transform .15s" style-hover="transform:rotate(0) translate(-2px,-2px);color:#0A2A5E"><span class="ms" style="font-size:19px">location_on</span>{{ a.n }}</a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section style="background:#fff;padding:96px 20px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:34px"><span style="width:14px;height:14px;background:#9F82DE;border:2px solid #0A2A5E;display:inline-block"></span><span style="font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;border:2px solid #0A2A5E">06 / Why Vidhya Sri</span></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:26px 22px;padding-right:8px">
+      <sc-for list="{{ stats }}" as="t" hint-placeholder-count="4">
+        <div style="padding:26px;background:{{ t.bg }};color:{{ t.fg }};border:3px solid #0A2A5E;border-radius:4px;box-shadow:8px 8px 0 {{ t.sh }},8px 8px 0 3px #0A2A5E">
+          <span class="ms" style="font-size:40px;color:{{ t.ic }}">{{ t.icon }}</span>
+          <div style="margin-top:18px;font-size:clamp(34px,4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1;text-transform:uppercase">{{ t.v }}</div>
+          <div style="margin-top:8px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase">{{ t.l }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:#1565D8;padding:96px 20px;border-top:3px solid #0A2A5E;position:relative;overflow:hidden">
+  <div style="position:absolute;left:-100px;top:-100px;width:300px;height:300px;border-radius:50%;background:#0B3F9E"></div>
+  <div style="position:relative;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:56px;align-items:center">
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:20px"><span style="width:14px;height:14px;background:#FF6B5F;border:2px solid #fff;display:inline-block"></span><span style="font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;border:2px solid #fff;color:#fff">07 / Contact</span></div>
+      <h2 style="margin:0;font-size:clamp(42px,6.4vw,68px);font-weight:800;line-height:.95;letter-spacing:-.03em;text-transform:uppercase;color:#fff">Need an ambulance <span style="color:#F5D84A">right now?</span></h2>
+      <p style="margin:24px 0 0;max-width:440px;font-size:16.5px;line-height:1.55;font-weight:500;color:#fff">Call straight through to dispatch, or share your location on WhatsApp.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:30px">
+        <a href="tel:+914049998888" style="display:inline-flex;align-items:center;gap:10px;padding:18px 28px;background:#FF6B5F;border:3px solid #0A2A5E;color:#0A2A5E;font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;box-shadow:7px 7px 0 #0A2A5E;transition:all .15s" style-hover="transform:translate(3px,3px);box-shadow:4px 4px 0 #0A2A5E;color:#0A2A5E"><span class="ms" style="font-size:24px">call</span>Call 24×7</a>
+        <a href="https://wa.me/919988776655" style="display:inline-flex;align-items:center;gap:10px;padding:18px 28px;background:#9FE0C5;border:3px solid #0A2A5E;color:#0A2A5E;font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;box-shadow:7px 7px 0 #0A2A5E;transition:all .15s" style-hover="transform:translate(3px,3px);box-shadow:4px 4px 0 #0A2A5E;color:#0A2A5E"><span class="ms" style="font-size:24px">chat</span>WhatsApp</a>
+      </div>
+    </div>
+    <div style="position:relative;padding:0 14px 14px 0">
+      <div style="background:#fff;border:3px solid #0A2A5E;border-radius:4px;box-shadow:14px 14px 0 #F5D84A,14px 14px 0 3px #0A2A5E;padding:28px;color:#0A2A5E">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;background:#FF6B5F;display:inline-block"></span>Book an ambulance</div>
+        <div style="display:grid;gap:14px">
+          <label style="display:grid;gap:6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase">Name<input type="text" placeholder="Patient / caller" style="font:600 15px Manrope,sans-serif;padding:13px 14px;border:3px solid #0A2A5E;border-radius:4px;background:#EAF2FC;color:#0A2A5E;outline:none" style-focus="background:#fff;box-shadow:4px 4px 0 #38A3F7"></label>
+          <label style="display:grid;gap:6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase">Phone<input type="tel" placeholder="+91" style="font:600 15px Manrope,sans-serif;padding:13px 14px;border:3px solid #0A2A5E;border-radius:4px;background:#EAF2FC;color:#0A2A5E;outline:none" style-focus="background:#fff;box-shadow:4px 4px 0 #38A3F7"></label>
+          <label style="display:grid;gap:6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase">Pickup &amp; drop<input type="text" placeholder="From → To" style="font:600 15px Manrope,sans-serif;padding:13px 14px;border:3px solid #0A2A5E;border-radius:4px;background:#EAF2FC;color:#0A2A5E;outline:none" style-focus="background:#fff;box-shadow:4px 4px 0 #38A3F7"></label>
+          <button type="button" style="cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:#0A2A5E;border:3px solid #0A2A5E;color:#fff;font:800 13.5px Manrope,sans-serif;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;box-shadow:6px 6px 0 #1565D8;transition:all .15s" style-hover="transform:translate(3px,3px);box-shadow:3px 3px 0 #1565D8" style-active="transform:translate(6px,6px);box-shadow:0 0 0 #1565D8">Request callback<span class="ms" style="font-size:20px">arrow_forward</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#0A2A5E;color:#fff;padding:80px 20px 36px;border-top:8px solid #F5D84A">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:28px;padding-bottom:48px;border-bottom:3px solid #1565D8">
+      <div>
+        <img src="public/brand/svg/logo/logo-horizontal-reverse.svg" alt="Vidhya Sri Ambulance" style="height:46px;width:auto;display:block">
+        <div style="margin-top:26px;font-size:clamp(38px,6vw,64px);font-weight:800;line-height:.95;letter-spacing:-.03em;text-transform:uppercase">Care, moving <span style="color:#F5D84A">forward.</span></div>
+      </div>
+      <div style="padding:18px 20px;border:3px solid #fff;box-shadow:6px 6px 0 #FF6B5F;max-width:300px">
+        <div style="font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#9FE0C5;display:flex;align-items:center;gap:8px"><span class="dot" style="width:9px;height:9px;background:#9FE0C5;display:inline-block"></span>Dispatch ready 24×7</div>
+        <div style="margin-top:10px;font-size:22px;font-weight:800">(040) 4999-8888</div>
+        <div style="margin-top:4px;font-size:13px;font-weight:600">dispatch@vidhyasri.in</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:36px;padding:48px 0">
+      <sc-for list="{{ footCols }}" as="c" hint-placeholder-count="3">
+        <div>
+          <div style="display:inline-block;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#0A2A5E;background:{{ c.c }};padding:5px 10px;margin-bottom:18px">{{ c.t }}</div>
+          <div style="display:grid;gap:10px">
+            <sc-for list="{{ c.links }}" as="l" hint-placeholder-count="5"><a href="#top" style="font-size:14px;font-weight:700;color:#fff" style-hover="color:#F5D84A">{{ l }}</a></sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:24px;border-top:3px solid #1565D8;font-size:12px;font-weight:600;color:#fff">
+      <span>Rd No. 1, Banjara Hills, Hyderabad, Telangana 500034</span><span>© 2026 Vidhya Sri Healthcare Mobility</span>
+    </div>
+  </div>
+</footer>
+
+<!-- MOBILE BAR -->
+<div class="mobbar" style="position:fixed;left:0;right:0;bottom:0;z-index:60;border-top:3px solid #0A2A5E">
+  <a href="tel:+914049998888" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:15px;background:#1565D8;color:#fff;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-right:3px solid #0A2A5E"><span class="ms" style="font-size:21px">call</span>Call 24×7</a>
+  <a href="https://wa.me/919988776655" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:15px;background:#9FE0C5;color:#0A2A5E;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase"><span class="ms" style="font-size:21px">chat</span>WhatsApp</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const N = '#0A2A5E', W = '#fff';
+    const S = [
+      ['Emergency Ambulance (ALS)', 'Advanced Life Support for acute trauma, cardiac arrests and respiratory crises.', 'emergency', '#1565D8', W, '#F5D84A', 'f2'],
+      ['ICU Ambulance', 'Hospital ICU on wheels for critically ill patients needing continuous monitoring.', 'monitor_heart', '#CBB5FF', N, N],
+      ['Ventilator Ambulance', 'Dedicated ventilator support with pneumatic backups and continuous oxygen.', 'pulmonology', '#FF6B5F', N, N],
+      ['Basic Life Support (BLS)', 'Stabilized non-critical emergency transfers with oxygen and basic monitoring.', 'local_hospital', '#9FE0C5', N, '#1565D8'],
+      ['Patient Transfer', 'Pre-scheduled comfort transit for dialysis, chemotherapy and post-operative care.', 'transfer_within_a_station', '#F5D84A', N, '#1565D8'],
+      ['Oxygen Ambulance', 'Dedicated oxygen supply for patients requiring continuous O₂ therapy.', 'air', '#8DD8E5', N, N],
+      ['NICU / Neonatal', 'Thermoregulated neonatal transport with specialized infant respiratory support.', 'child_care', '#CBB5FF', N, '#F5D84A'],
+      ['Outstation Ambulance', 'Long-distance medical transfers across Telangana and neighbouring states.', 'route', '#FFB36B', N, N],
+      ['Event Standby', 'Dedicated stationing for corporate events, sports and conventions.', 'stadium', '#FF6B5F', N, '#F5D84A'],
+      ['Corporate Ambulance', 'Dedicated service for tech parks, factories and corporate campuses.', 'corporate_fare', '#9FE0C5', N, '#9F82DE'],
+      ['Mortuary Transportation', 'Dignified, temperature-regulated deceased transfer for city and nationwide transit.', 'church', N, W, '#38A3F7'],
+    ];
+    const services = S.map((s, i) => {
+      const big = s[6] === 'f2', dark = s[3] === N || s[3] === '#1565D8';
+      return { name: s[0], desc: s[1], icon: s[2], bg: s[3], fg: s[4], shadow: s[5], cls: big ? 'f2' : '',
+        num: String(i + 1).padStart(2, '0'), h: big ? '250px' : '230px', ts: big ? '26px' : '19px',
+        ib: big ? '68px' : '56px', is: big ? '38px' : '32px',
+        ibg: dark ? '#fff' : N, icol: dark ? N : s[3] === '#FFB36B' ? '#FFB36B' : '#fff' };
+    });
+    services.forEach(s => { if (s.ibg === N) s.icol = '#fff'; });
+    const stp = [['01','Call or WhatsApp','Reach dispatch instantly by phone or WhatsApp.','#FF6B5F','call'],['02','Share location','Drop a pin or describe where you are.','#F5D84A','pin_drop'],['03','Ambulance en route','A crewed unit is dispatched to your location.','#38A3F7','local_shipping'],['04','Care in transit','Monitored transport and coordinated hospital handover.','#9FE0C5','monitor_heart']];
+    const steps = stp.map((p, i) => ({ n: p[0], t: p[1], d: p[2], c: p[3], icon: p[4], mt: ['0','34px','8px','42px'][i], arrow: i < 3 ? 'none' : 'none' }));
+    const cols = ['#F5D84A','#FF6B5F','#9FE0C5','#8DD8E5','#CBB5FF','#FFB36B'];
+    const areas = ['Banjara Hills','Jubilee Hills','Hitec City','Gachibowli','Secunderabad','Kondapur','Kukatpally','Begumpet','Mehdipatnam','LB Nagar','Madhapur','Ameerpet'].map((n, i) => ({ n, c: cols[i % 6], r: ['-1.5deg','1deg','-.5deg','1.5deg'][i % 4] }));
+    const stats = [
+      { v: '24×7', l: 'Emergency availability', icon: 'schedule', bg: '#F5D84A', fg: N, sh: N, ic: N },
+      { v: '11+', l: 'Ambulance types', icon: 'local_shipping', bg: '#1565D8', fg: W, sh: '#FF6B5F', ic: '#F5D84A' },
+      { v: 'All India', l: 'Outstation coverage', icon: 'map', bg: '#CBB5FF', fg: N, sh: '#1565D8', ic: N },
+      { v: 'ICU grade', l: 'Equipment standard', icon: 'health_and_safety', bg: '#9FE0C5', fg: N, sh: N, ic: N },
+    ];
+    return {
+      services, steps, areas, stats,
+      icuFeatures: ['Invasive arterial pressure monitoring','Multi-channel infusion pumps','Critical care physician escort','Continuous vitals telemetry'],
+      nav: ['Services','Coverage','About','How it works','FAQ','Contact'].map(l => ({ label: l, href: l === 'Services' ? '#services' : l === 'Contact' ? '#contact' : l === 'Coverage' ? '#coverage' : '#top' })),
+      footCols: [
+        { t: 'Services', c: '#F5D84A', links: ['Emergency (ALS)','ICU Ambulance','Ventilator','BLS','Patient Transfer','NICU'] },
+        { t: 'Coverage hubs', c: '#9FE0C5', links: ['Banjara Hills','Jubilee Hills','Hitec City','Gachibowli','Secunderabad','Kondapur'] },
+        { t: 'Company', c: '#CBB5FF', links: ['About Vidhya Sri','How it works','FAQ','Privacy policy','Terms of service','Cancellation & refund'] },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
