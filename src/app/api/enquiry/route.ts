@@ -23,6 +23,306 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
+/**
+ * Renders the HTML email template matching the custom Vidhya Sri editorial brutalist design
+ * (derived from "Vidhya Sri Admin Email.html").
+ */
+function renderEmailTemplate({
+  variant,
+  cleanName,
+  cleanPhone,
+  cleanEmail,
+  cleanService,
+  cleanRoute,
+  cleanTiming,
+  cleanNotes,
+}: {
+  variant: "admin" | "customer";
+  cleanName: string;
+  cleanPhone: string;
+  cleanEmail: string;
+  cleanService: string;
+  cleanRoute: string;
+  cleanTiming: string;
+  cleanNotes: string;
+}): string {
+  const isAdmin = variant === "admin";
+  const label = isAdmin ? "New enquiry" : "Enquiry received";
+  const whoLabel = isAdmin ? "Customer" : "Your contact details";
+  const headline = isAdmin
+    ? "New ambulance enquiry received"
+    : "We've received your enquiry.";
+  const intro = isAdmin
+    ? "A visitor submitted a request through the website. Details are below."
+    : `Thank you, ${cleanName}. Your request has been received by the Vidhya Sri dispatch team. Here is what you submitted.`;
+  const footnote = isAdmin
+    ? "Sent automatically from the vidhyasriambulance.com enquiry form. Replying goes to the customer."
+    : "You received this email because an enquiry was submitted on vidhyasriambulance.com with this address.";
+
+  const baseUrl = "https://vidhyasriambulance.com";
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${headline}</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; background-color: #E3EAF4; font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #0A2A5E; -webkit-font-smoothing: antialiased; }
+    a { color: #1565D8; text-decoration: none; }
+    a:hover { color: #0B3F9E; }
+    @media only screen and (max-width: 600px) {
+      .email-container { width: 100% !important; }
+      .email-pad { padding-left: 20px !important; padding-right: 20px !important; }
+      .action-btn { min-width: 100% !important; display: block !important; margin-bottom: 10px !important; }
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #E3EAF4; font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+  <div style="background-color: #E3EAF4; padding: 32px 16px 48px; min-height: 100%;">
+    <div class="email-container" style="max-width: 640px; margin: 0 auto; background-color: #FFFFFF; border: 1px solid #DDE7F2; color: #0A2A5E;">
+      
+      <!-- HEADER -->
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #FFFFFF; border-bottom: 3px solid #0A2A5E;">
+        <tr>
+          <td class="email-pad" style="padding: 16px 32px; text-align: left;">
+            <img src="${baseUrl}/email/logo-header.png" alt="Vidhya Sri Ambulance" height="38" style="display: block; height: 38px; width: auto; border: 0;" />
+          </td>
+          <td class="email-pad" style="padding: 16px 32px; text-align: right;">
+            <span style="display: inline-block; padding: 6px 10px; background-color: #EAF2FC; border: 1px solid #1565D8; color: #1565D8; font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; white-space: nowrap;">
+              ${label}
+            </span>
+          </td>
+        </tr>
+      </table>
+
+      <!-- ACCENT STRIP -->
+      <div class="email-pad" style="padding: 20px 32px 0;">
+        <img src="${baseUrl}/email/accent-strip.gif" alt="" width="560" style="display: block; width: 100%; height: auto; border: 0;" />
+      </div>
+
+      <!-- HERO INTRO -->
+      <div class="email-pad" style="padding: 16px 32px 28px;">
+        <h1 style="margin: 0 0 12px; font-size: 28px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; color: #0A2A5E;">
+          ${headline}
+        </h1>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; font-weight: 500; color: #3F5873;">
+          ${intro}
+        </p>
+      </div>
+
+      <!-- SUMMARY CARD -->
+      <div class="email-pad" style="padding: 0 32px 32px;">
+        <div style="border: 2px solid #0A2A5E; box-shadow: 6px 6px 0 #DDE7F2; background-color: #FFFFFF;">
+          
+          <!-- SERVICE TITLE BAR -->
+          <div style="background-color: #0A2A5E; padding: 16px 20px;">
+            <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #BBD5F7;">
+              Service Required
+            </div>
+            <div style="margin-top: 4px; font-size: 22px; line-height: 1.2; font-weight: 800; color: #FFFFFF;">
+              ${cleanService}
+            </div>
+          </div>
+
+          <!-- CALLER / CONTACT DETAILS -->
+          <div style="padding: 18px 20px; border-bottom: 1px solid #DDE7F2;">
+            <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
+              ${whoLabel}
+            </div>
+            <div style="margin-top: 4px; font-size: 18px; font-weight: 800; color: #0A2A5E;">
+              ${cleanName}
+            </div>
+            <div style="margin-top: 6px; font-size: 15px; font-weight: 700;">
+              <a href="tel:+91${cleanPhone}" style="color: #1565D8; text-decoration: none; margin-right: 18px; display: inline-block;">
+                📞 +91 ${cleanPhone}
+              </a>
+              ${
+                cleanEmail
+                  ? `<a href="mailto:${cleanEmail}" style="color: #0A2A5E; text-decoration: none; font-weight: 600; word-break: break-all; display: inline-block;">
+                      ✉️ ${cleanEmail}
+                    </a>`
+                  : ""
+              }
+            </div>
+          </div>
+
+          <!-- JOURNEY / ROUTE -->
+          <div style="padding: 20px; background-color: #EAF2FC; border-bottom: 1px solid #DDE7F2;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td width="24" valign="top" style="padding-top: 2px;">
+                  <div style="width: 14px; height: 14px; border: 4px solid #0A2A5E; background-color: #FFFFFF; border-radius: 50%;"></div>
+                  <div style="width: 3px; height: 32px; background-color: #1565D8; margin: 3px 0 3px 5px;"></div>
+                  <div style="width: 14px; height: 14px; background-color: #1565D8; border: 2px solid #0A2A5E;"></div>
+                </td>
+                <td valign="top" style="padding-left: 12px;">
+                  <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
+                    Pickup &amp; Destination / Route
+                  </div>
+                  <div style="margin-top: 4px; font-size: 16px; line-height: 1.4; font-weight: 800; color: #0A2A5E;">
+                    ${cleanRoute}
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- TIMING -->
+          <div style="padding: 16px 20px; border-bottom: 1px solid #DDE7F2;">
+            <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
+              Preferred Timing
+            </div>
+            <div style="margin-top: 4px; font-size: 16px; font-weight: 800; color: #0A2A5E;">
+              ${cleanTiming}
+            </div>
+          </div>
+
+          <!-- MESSAGE / NOTES (if provided) -->
+          ${
+            cleanNotes
+              ? `<div style="padding: 16px 20px; background-color: #F8FAFD;">
+                  <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
+                    Message / Additional Details
+                  </div>
+                  <div style="margin-top: 6px; font-size: 14px; line-height: 1.6; font-weight: 500; color: #0A2A5E;">
+                    ${cleanNotes}
+                  </div>
+                </div>`
+              : ""
+          }
+
+        </div>
+      </div>
+
+      <!-- CONDITIONAL SECTION: ADMIN vs CUSTOMER -->
+      ${
+        isAdmin
+          ? `
+      <!-- ADMIN ACTIONS -->
+      <div class="email-pad" style="padding: 0 32px 36px;">
+        <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
+          Next Action
+        </div>
+        <p style="margin: 6px 0 16px; font-size: 15px; line-height: 1.55; font-weight: 600; color: #0A2A5E;">
+          Call the customer immediately to confirm the vehicle, route and dispatch timing.
+        </p>
+        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+          <tr>
+            <td style="padding-bottom: 10px;">
+              <a class="action-btn" href="tel:+91${cleanPhone}" style="display: block; text-align: center; padding: 14px 22px; background-color: #1565D8; border: 2px solid #0A2A5E; box-shadow: 4px 4px 0 #0A2A5E; color: #FFFFFF; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; text-decoration: none;">
+                📞 Call Customer (+91 ${cleanPhone})
+              </a>
+            </td>
+          </tr>
+          ${
+            cleanEmail
+              ? `<tr>
+                  <td>
+                    <a class="action-btn" href="mailto:${cleanEmail}" style="display: block; text-align: center; padding: 14px 22px; background-color: #FFFFFF; border: 2px solid #0A2A5E; box-shadow: 4px 4px 0 #0A2A5E; color: #0A2A5E; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; text-decoration: none;">
+                      ✉️ Reply to Customer (${cleanEmail})
+                    </a>
+                  </td>
+                </tr>`
+              : ""
+          }
+        </table>
+      </div>
+      `
+          : `
+      <!-- CUSTOMER REASSURANCE -->
+      <div class="email-pad" style="padding: 0 32px 28px;">
+        <div style="background-color: #EAF2FC; border: 1px solid #1565D8; padding: 22px 20px;">
+          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tr>
+              <td width="40" valign="top">
+                <div style="width: 32px; height: 32px; background-color: #0A2A5E; color: #FFFFFF; font-size: 18px; font-weight: 800; line-height: 32px; text-align: center;">
+                  ✓
+                </div>
+              </td>
+              <td valign="top" style="padding-left: 10px;">
+                <div style="font-size: 17px; line-height: 1.3; font-weight: 800; color: #0A2A5E;">
+                  Your enquiry has been received.
+                </div>
+                <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.6; font-weight: 500; color: #2C4560;">
+                  For immediate emergency assistance, call Vidhya Sri Somajiguda control room directly rather than waiting for an email response.
+                </p>
+              </td>
+            </tr>
+          </table>
+          <a href="${siteConfig.phone.href}" style="display: block; margin-top: 18px; text-align: center; padding: 14px 22px; background-color: #1565D8; border: 2px solid #0A2A5E; box-shadow: 4px 4px 0 #0A2A5E; color: #FFFFFF; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; text-decoration: none;">
+            🚨 Call 24×7 · ${siteConfig.phone.display}
+          </a>
+        </div>
+      </div>
+
+      <!-- WHAT HAPPENS NEXT -->
+      <div class="email-pad" style="padding: 0 32px 36px;">
+        <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86; margin-bottom: 12px;">
+          What happens next
+        </div>
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top: 1px solid #DDE7F2;">
+          <tr>
+            <td width="36" style="padding: 12px 0;" valign="top">
+              <div style="width: 24px; height: 24px; border: 2px solid #0A2A5E; color: #0A2A5E; font-size: 12px; font-weight: 800; line-height: 20px; text-align: center;">
+                1
+              </div>
+            </td>
+            <td style="padding: 12px 0; font-size: 14px; line-height: 1.5; font-weight: 600; color: #0A2A5E;" valign="top">
+              Our Somajiguda dispatch coordinators review your route and patient requirements.
+            </td>
+          </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top: 1px solid #DDE7F2;">
+          <tr>
+            <td width="36" style="padding: 12px 0;" valign="top">
+              <div style="width: 24px; height: 24px; border: 2px solid #0A2A5E; color: #0A2A5E; font-size: 12px; font-weight: 800; line-height: 20px; text-align: center;">
+                2
+              </div>
+            </td>
+            <td style="padding: 12px 0; font-size: 14px; line-height: 1.5; font-weight: 600; color: #0A2A5E;" valign="top">
+              We contact you directly on +91 ${cleanPhone} to confirm vehicle dispatch and ETA.
+            </td>
+          </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top: 1px solid #DDE7F2;">
+          <tr>
+            <td width="36" style="padding: 12px 0;" valign="top">
+              <div style="width: 24px; height: 24px; border: 2px solid #0A2A5E; color: #0A2A5E; font-size: 12px; font-weight: 800; line-height: 20px; text-align: center;">
+                3
+              </div>
+            </td>
+            <td style="padding: 12px 0; font-size: 14px; line-height: 1.5; font-weight: 600; color: #0A2A5E;" valign="top">
+              If the patient's condition changes or is urgent, call our direct line without delay.
+            </td>
+          </tr>
+        </table>
+      </div>
+      `
+      }
+
+      <!-- FOOTER -->
+      <div class="email-pad" style="background-color: #0A2A5E; padding: 28px 32px;">
+        <img src="${baseUrl}/email/logo-footer.png" alt="Vidhya Sri Ambulance" height="34" style="display: block; height: 34px; width: auto; border: 0;" />
+        <div style="margin-top: 16px; font-size: 12px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #BBD5F7;">
+          Emergency &amp; Patient Transport
+        </div>
+        <div style="margin-top: 10px; font-size: 13px; line-height: 1.7; font-weight: 500; color: #FFFFFF;">
+          <a href="tel:+919951648174" style="color: #FFFFFF; font-weight: 800; text-decoration: none;">+91 99516 48174</a> · 24 Hours / 7 Days<br />
+          Arun Residency, Jafar Ali Bagh, Somajiguda, Hyderabad 500082
+        </div>
+        <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid #2A4A80; font-size: 11px; line-height: 1.6; color: #BBD5F7;">
+          ${footnote}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>`.trim();
+}
+
 export async function POST(req: Request) {
   try {
     const ip = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "127.0.0.1";
@@ -70,7 +370,6 @@ export async function POST(req: Request) {
     const resendApiKey = process.env.RESEND_API_KEY;
     if (!resendApiKey) {
       console.warn("RESEND_API_KEY is not configured in environment variables.");
-      // Return success in local preview so UX testing is unobstructed
       return NextResponse.json({
         success: true,
         message: "Enquiry received (local fallback).",
@@ -81,71 +380,16 @@ export async function POST(req: Request) {
     const adminRecipient = "lokesh.aluvala123@gmail.com";
 
     // ── EMAIL A: ADMIN NOTIFICATION ──
-    const adminHtml = `
-      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 2px solid #0A2A5E; border-radius: 6px; overflow: hidden; background-color: #ffffff;">
-        <div style="background-color: #0A2A5E; padding: 20px 24px; color: #ffffff;">
-          <h1 style="margin: 0; font-size: 20px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 800;">
-            🚑 New Ambulance Enquiry
-          </h1>
-          <p style="margin: 6px 0 0 0; font-size: 13px; color: #EAF2FC;">
-            Received from vidhyasriambulance.com
-          </p>
-        </div>
-
-        <div style="padding: 24px;">
-          <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-            <tr style="border-bottom: 1px solid #DDE7F2;">
-              <td style="padding: 10px 0; color: #536B86; font-weight: 600; width: 35%;">Service Required:</td>
-              <td style="padding: 10px 0; color: #0A2A5E; font-weight: 800;">${cleanService}</td>
-            </tr>
-            <tr style="border-bottom: 1px solid #DDE7F2;">
-              <td style="padding: 10px 0; color: #536B86; font-weight: 600;">Caller / Patient:</td>
-              <td style="padding: 10px 0; color: #0A2A5E; font-weight: 700;">${cleanName}</td>
-            </tr>
-            <tr style="border-bottom: 1px solid #DDE7F2;">
-              <td style="padding: 10px 0; color: #536B86; font-weight: 600;">Phone:</td>
-              <td style="padding: 10px 0; color: #1565D8; font-weight: 800;">
-                <a href="tel:${cleanPhone}" style="color: #1565D8; text-decoration: none;">+91 ${cleanPhone}</a>
-              </td>
-            </tr>
-            ${
-              cleanEmail
-                ? `<tr style="border-bottom: 1px solid #DDE7F2;">
-                    <td style="padding: 10px 0; color: #536B86; font-weight: 600;">Email:</td>
-                    <td style="padding: 10px 0; color: #0A2A5E;">${cleanEmail}</td>
-                  </tr>`
-                : ""
-            }
-            <tr style="border-bottom: 1px solid #DDE7F2;">
-              <td style="padding: 10px 0; color: #536B86; font-weight: 600;">Pickup & Destination:</td>
-              <td style="padding: 10px 0; color: #0A2A5E; font-weight: 600;">${cleanRoute}</td>
-            </tr>
-            <tr style="border-bottom: 1px solid #DDE7F2;">
-              <td style="padding: 10px 0; color: #536B86; font-weight: 600;">Timing:</td>
-              <td style="padding: 10px 0; color: #0A2A5E;">${cleanTiming}</td>
-            </tr>
-            ${
-              cleanNotes
-                ? `<tr>
-                    <td style="padding: 10px 0; color: #536B86; font-weight: 600;">Additional Details:</td>
-                    <td style="padding: 10px 0; color: #0A2A5E;">${cleanNotes}</td>
-                  </tr>`
-                : ""
-            }
-          </table>
-
-          <div style="margin-top: 24px; padding: 14px; background-color: #F8FAFD; border: 1px solid #DDE7F2; border-radius: 4px; text-align: center;">
-            <a href="tel:${cleanPhone}" style="display: inline-block; padding: 10px 20px; background-color: #1565D8; color: #ffffff; text-decoration: none; font-weight: 800; font-size: 13px; text-transform: uppercase; border-radius: 4px;">
-              📞 Call Caller Immediately
-            </a>
-          </div>
-        </div>
-
-        <div style="background-color: #F8FAFD; padding: 12px 24px; border-top: 1px solid #DDE7F2; font-size: 11px; color: #536B86; text-align: center;">
-          Somajiguda Dispatch Control Room · Vidhya Sri Ambulance Services
-        </div>
-      </div>
-    `;
+    const adminHtml = renderEmailTemplate({
+      variant: "admin",
+      cleanName,
+      cleanPhone,
+      cleanEmail,
+      cleanService,
+      cleanRoute,
+      cleanTiming,
+      cleanNotes,
+    });
 
     const adminPayload: Record<string, unknown> = {
       from: senderEmail,
@@ -175,64 +419,16 @@ export async function POST(req: Request) {
 
     // ── EMAIL B: CUSTOMER CONFIRMATION (if customer provided email) ──
     if (cleanEmail && cleanEmail.includes("@")) {
-      const customerHtml = `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 2px solid #0A2A5E; border-radius: 6px; overflow: hidden; background-color: #ffffff;">
-          <div style="background-color: #0A2A5E; padding: 24px; color: #ffffff;">
-            <h1 style="margin: 0; font-size: 20px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 800;">
-              Vidhya Sri Ambulance Services
-            </h1>
-            <p style="margin: 6px 0 0 0; font-size: 13px; color: #EAF2FC;">
-              We have received your transport enquiry
-            </p>
-          </div>
-
-          <div style="padding: 24px;">
-            <p style="font-size: 15px; color: #0A2A5E; font-weight: 700; margin-top: 0;">
-              Hello ${cleanName},
-            </p>
-            <p style="font-size: 14px; color: #536B86; line-height: 1.6;">
-              Thank you for contacting Vidhya Sri Ambulance. Our Somajiguda dispatch coordinators have received your journey details and are reviewing vehicle availability.
-            </p>
-
-            <div style="margin: 20px 0; padding: 16px; background-color: #F8FAFD; border: 1px solid #DDE7F2; border-radius: 4px;">
-              <h3 style="margin: 0 0 12px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #0A2A5E; font-weight: 800;">
-                Submitted Summary
-              </h3>
-              <p style="margin: 4px 0; font-size: 13px; color: #536B86;">
-                <strong>Service:</strong> ${cleanService}
-              </p>
-              <p style="margin: 4px 0; font-size: 13px; color: #536B86;">
-                <strong>Contact Phone:</strong> +91 ${cleanPhone}
-              </p>
-              <p style="margin: 4px 0; font-size: 13px; color: #536B86;">
-                <strong>Route / Destination:</strong> ${cleanRoute}
-              </p>
-              <p style="margin: 4px 0; font-size: 13px; color: #536B86;">
-                <strong>Preferred Timing:</strong> ${cleanTiming}
-              </p>
-            </div>
-
-            <div style="padding: 16px; background-color: #FDEDEC; border-left: 4px solid #D32F2F; border-radius: 3px; margin: 24px 0;">
-              <p style="margin: 0 0 6px 0; font-size: 13px; font-weight: 800; color: #D32F2F; text-transform: uppercase;">
-                🚨 Urgent Medical Need?
-              </p>
-              <p style="margin: 0; font-size: 13px; color: #536B86; line-height: 1.5;">
-                For immediate trauma or life-threatening emergencies, do not wait for email. Call our 24×7 Somajiguda dispatch helpline directly:
-                <br/>
-                <a href="${siteConfig.phone.href}" style="font-weight: 800; color: #D32F2F; font-size: 15px; text-decoration: none; display: inline-block; margin-top: 4px;">
-                  📞 ${siteConfig.phone.display}
-                </a>
-              </p>
-            </div>
-
-            <p style="font-size: 13px; color: #536B86; margin-bottom: 0;">
-              Warm regards,<br/>
-              <strong>Vidhya Sri Dispatch Team</strong><br/>
-              Somajiguda, Hyderabad
-            </p>
-          </div>
-        </div>
-      `;
+      const customerHtml = renderEmailTemplate({
+        variant: "customer",
+        cleanName,
+        cleanPhone,
+        cleanEmail,
+        cleanService,
+        cleanRoute,
+        cleanTiming,
+        cleanNotes,
+      });
 
       try {
         await fetch("https://api.resend.com/emails", {
