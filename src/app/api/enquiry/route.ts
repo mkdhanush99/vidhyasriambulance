@@ -703,7 +703,7 @@ export async function POST(req: Request) {
     }
 
     const senderEmail = `Vidhya Sri Ambulance <noreply@${siteConfig.seo.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}>`;
-    const adminRecipient = "lokesh.aluvala123@gmail.com";
+    const adminRecipients = ["lokesh.aluvala123@gmail.com", siteConfig.email];
 
     // ── ROUTE 1: BUSINESS / CORPORATE ENQUIRY ──
     if (enquiryType === "business") {
@@ -730,7 +730,7 @@ export async function POST(req: Request) {
 
       const adminPayload: Record<string, unknown> = {
         from: senderEmail,
-        to: [adminRecipient],
+        to: adminRecipients,
         subject: `🏢 New Business/Hospital Tie-Up — ${cleanOrgName}`,
         html: adminHtml,
       };
@@ -814,7 +814,7 @@ export async function POST(req: Request) {
 
     const adminPayload: Record<string, unknown> = {
       from: senderEmail,
-      to: [adminRecipient],
+      to: adminRecipients,
       subject: `New Vidhya Sri Ambulance Enquiry — ${cleanService}`,
       html: adminHtml,
     };

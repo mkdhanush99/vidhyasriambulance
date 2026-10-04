@@ -33,60 +33,52 @@ export function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 w-full z-50 bg-white border-b-[3px] border-[#0A2A5E]">
-        <div className="h-[78px] w-full px-4 sm:px-6 lg:px-10 max-w-[1280px] mx-auto flex items-center justify-between gap-4">
-          {/* ── Logo ── */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0" aria-label="Vidhya Sri Ambulance Home">
-            <Image
-              src={siteConfig.logo.horizontal.gradient}
-              alt="Vidhya Sri Ambulance"
-              width={190}
-              height={44}
-              className="h-[36px] sm:h-[44px] w-auto max-w-[155px] xs:max-w-[180px] sm:max-w-none object-contain"
-              priority
-              unoptimized
-            />
-          </Link>
+        <div className="h-[78px] w-full px-4 sm:px-6 lg:px-8 xl:px-10 max-w-[1400px] mx-auto flex items-center justify-between gap-4">
+          {/* ── Left Cluster: Logo + Clean Desktop Navigation ── */}
+          <div className="flex items-center gap-6 xl:gap-8 min-w-0">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0" aria-label="Vidhya Sri Ambulance Home">
+              <Image
+                src={siteConfig.logo.horizontal.gradient}
+                alt="Vidhya Sri Ambulance"
+                width={190}
+                height={44}
+                className="h-[36px] sm:h-[42px] w-auto max-w-[155px] xs:max-w-[180px] sm:max-w-none object-contain"
+                priority
+                unoptimized
+              />
+            </Link>
 
-          {/* ── Desktop Navigation ── */}
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-[12px] font-extrabold uppercase tracking-[.09em] text-[#0A2A5E] py-1 border-b-[3px] border-transparent hover:border-[#1565D8] transition-all"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {/* Desktop Navigation moved to left for breathing room and clean single line */}
+            <nav className="hidden lg:flex items-center gap-5 xl:gap-6">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-[12px] font-extrabold uppercase tracking-[.08em] text-[#0A2A5E] py-1 border-b-[3px] border-transparent hover:border-[#1565D8] transition-all whitespace-nowrap"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
 
-            {/* Decision Helper button */}
-            <button
-              type="button"
-              onClick={() => setFinderOpen(true)}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[11px] font-black uppercase tracking-wider rounded-[3px] hover:bg-[#1565D8] hover:text-white transition-all cursor-pointer"
-            >
-              <span className="material-symbols-outlined text-[15px]">help</span>
-              Find Ambulance
-            </button>
-
-            {/* Search Trigger */}
+          {/* ── Right Cluster: Search + WhatsApp + Emergency Call ── */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Desktop Search Button */}
             <button
               id="search-trigger-btn"
               type="button"
               onClick={() => setSearchOpen(true)}
               data-cursor="search"
               aria-label="Search services and locations"
-              className="flex items-center gap-1.5 px-2.5 py-1.5 text-[#536B86] hover:text-[#0A2A5E] border border-[#DDE7F2] hover:border-[#0A2A5E] rounded-[3px] bg-[#F8FAFD] transition-all cursor-pointer"
+              className="hidden lg:flex items-center gap-2 px-3 py-2 text-[#536B86] hover:text-[#0A2A5E] border-2 border-[#DDE7F2] hover:border-[#0A2A5E] rounded-[4px] bg-[#F8FAFD] hover:bg-white transition-all cursor-pointer"
             >
-              <span className="material-symbols-outlined text-[17px]">search</span>
+              <span className="material-symbols-outlined text-[17px] text-[#1565D8]">search</span>
+              <span className="text-[11.5px] font-bold text-[#536B86]">Search</span>
               <kbd className="text-[10px] font-black uppercase tracking-wider text-[#536B86] bg-white px-1.5 py-0.5 border border-[#DDE7F2] rounded-[2px]">
                 ⌘K
               </kbd>
             </button>
-          </nav>
-
-          {/* ── Right: CTAs ── */}
-          <div className="flex items-center gap-2 sm:gap-3">
             {/* Mobile Search Button */}
             <button
               type="button"
