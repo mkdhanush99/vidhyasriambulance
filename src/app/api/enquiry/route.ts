@@ -25,8 +25,52 @@ function checkRateLimit(ip: string): boolean {
 
 const baseUrl = "https://vidhyasriambulance.com";
 
+function parseRoute(routeStr: string): { pickup: string; destination: string } {
+  const clean = routeStr.trim();
+  if (!clean || clean.toLowerCase() === "not specified") {
+    return {
+      pickup: "To be confirmed on dispatch call",
+      destination: "To be confirmed on dispatch call",
+    };
+  }
+  const separators = [" to ", " -> ", " → ", " - ", " >> "];
+  for (const sep of separators) {
+    const parts = clean.split(new RegExp(sep, "i"));
+    if (parts.length >= 2 && parts[0].trim() && parts[1].trim()) {
+      return {
+        pickup: parts[0].trim(),
+        destination: parts.slice(1).join(" to ").trim(),
+      };
+    }
+  }
+  return {
+    pickup: clean,
+    destination: "Hospital / Destination to be confirmed on call",
+  };
+}
+
+function parseTiming(timingStr: string): { date: string; time: string } {
+  const clean = timingStr.trim();
+  if (!clean || clean.toLowerCase() === "immediate" || clean.toLowerCase() === "urgent" || clean.toLowerCase() === "asap") {
+    const today = new Date().toLocaleDateString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+    return { date: `${today} (Immediate)`, time: "ASAP / Emergency Dispatch" };
+  }
+  if (clean.includes(" - ") || clean.includes(" at ") || clean.includes(" @ ")) {
+    const parts = clean.split(/ - | at | @ /i);
+    return { date: parts[0].trim(), time: parts[1]?.trim() || "As scheduled" };
+  }
+  return { date: clean, time: "Confirmed upon coordinator call" };
+}
+
 /**
  * ── CUSTOMER / PATIENT ENQUIRY EMAIL TEMPLATE ──
+ * Exact match to Vidhya Sri Admin Email.html design system
  */
 function renderCustomerEmailTemplate({
   variant,
@@ -48,19 +92,22 @@ function renderCustomerEmailTemplate({
   cleanNotes: string;
 }): string {
   const isAdmin = variant === "admin";
-  const label = isAdmin ? "Customer enquiry" : "Enquiry received";
-  const whoLabel = isAdmin ? "Customer / Caller" : "Your contact details";
+  const label = isAdmin ? "New enquiry" : "Enquiry received";
+  const whoLabel = isAdmin ? "Customer" : "Your contact details";
   const headline = isAdmin
     ? "New ambulance enquiry received"
     : "We've received your enquiry.";
   const intro = isAdmin
-    ? "A patient / family member submitted a transfer request through vidhyasriambulance.com. Details are below."
-    : `Thank you, ${cleanName}. Your request has been received by the Vidhya Sri dispatch team. Here is what you submitted.`;
+    ? "A visitor submitted a request through the website. Details are below."
+    : `Thank you, ${cleanName}. Your request has been received by the Vidhya Sri team. Here is what you submitted.`;
   const footnote = isAdmin
     ? cleanEmail
-      ? "Sent automatically from the vidhyasriambulance.com customer enquiry form. Replying goes directly to the customer."
-      : "Sent automatically from the vidhyasriambulance.com customer enquiry form. Customer provided contact phone number only."
+      ? "Sent automatically from the vidhyasriambulance.com enquiry form. Replying goes to the customer."
+      : "Sent automatically from the vidhyasriambulance.com enquiry form. Customer provided contact phone number only."
     : "You received this email because an enquiry was submitted on vidhyasriambulance.com with this address.";
+
+  const { pickup, destination } = parseRoute(cleanRoute);
+  const { date: preferredDate, time: preferredTime } = parseTiming(cleanTiming);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -68,138 +115,124 @@ function renderCustomerEmailTemplate({
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${headline}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; padding: 0; background-color: #E3EAF4; font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #0A2A5E; -webkit-font-smoothing: antialiased; }
+    body { margin: 0; padding: 0; background: #E3EAF4; font-family: Manrope, Arial, Helvetica, sans-serif; color: #0A2A5E; -webkit-font-smoothing: antialiased; }
     a { color: #1565D8; text-decoration: none; }
     a:hover { color: #0B3F9E; }
-    @media only screen and (max-width: 600px) {
-      .email-container { width: 100% !important; }
+    @media only screen and (max-width: 580px) {
+      .outer-wrap { padding: 16px 10px 32px !important; }
       .email-pad { padding-left: 20px !important; padding-right: 20px !important; }
-      .action-btn { min-width: 100% !important; display: block !important; margin-bottom: 10px !important; }
+      .email-h1 { font-size: 24px !important; }
+      .stack-mobile { display: block !important; width: 100% !important; }
+      .stack-border { border-right: none !important; border-bottom: 1px solid #DDE7F2 !important; }
+      .action-col { display: block !important; width: 100% !important; margin-bottom: 12px !important; }
     }
   </style>
 </head>
-<body style="margin: 0; padding: 0; background-color: #E3EAF4; font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
-  <div style="background-color: #E3EAF4; padding: 32px 16px 48px; min-height: 100%;">
-    <div class="email-container" style="max-width: 640px; margin: 0 auto; background-color: #FFFFFF; border: 1px solid #DDE7F2; color: #0A2A5E;">
-      
+<body style="margin:0;padding:0;background:#E3EAF4;font-family:Manrope,Arial,Helvetica,sans-serif;color:#0A2A5E;">
+  <div class="outer-wrap" style="min-height:100%;background:#E3EAF4;padding:32px 20px 48px;box-sizing:border-box;">
+    <div style="width:100%;max-width:640px;margin:0 auto;background:#FFFFFF;border:1px solid #DDE7F2;color:#0A2A5E;">
+
       <!-- HEADER -->
-      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #FFFFFF; border-bottom: 3px solid #0A2A5E;">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#FFFFFF;border-bottom:3px solid #0A2A5E;">
         <tr>
-          <td class="email-pad" style="padding: 16px 32px; text-align: left; vertical-align: middle;">
-            <a href="${baseUrl}" target="_blank" style="display: inline-block; text-decoration: none;">
-              <img src="${baseUrl}/brand/png/logo/logo-horizontal-gradient-800.png" alt="Vidhya Sri Ambulance" width="180" height="42" style="display: block; width: 180px; height: 42px; border: 0; outline: none; font-family: 'Manrope', Arial, sans-serif; font-size: 18px; font-weight: 800; color: #0A2A5E;" />
+          <td class="email-pad" style="padding:16px 40px;vertical-align:middle;text-align:left;">
+            <a href="${baseUrl}" target="_blank" style="display:inline-block;text-decoration:none;">
+              <img src="${baseUrl}/brand/png/logo/logo-horizontal-gradient-800.png" alt="Vidhya Sri Ambulance" height="40" style="display:block;height:40px;width:auto;border:0;" />
             </a>
           </td>
-          <td class="email-pad" style="padding: 16px 32px; text-align: right; vertical-align: middle;">
-            <span style="display: inline-block; padding: 6px 12px; background-color: #EAF2FC; border: 1px solid #1565D8; color: #1565D8; font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; white-space: nowrap;">
+          <td class="email-pad" style="padding:16px 40px;vertical-align:middle;text-align:right;">
+            <div style="display:inline-block;padding:6px 10px;background:#EAF2FC;border:1px solid #1565D8;color:#1565D8;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;">
               ${label}
-            </span>
+            </div>
           </td>
         </tr>
       </table>
 
-      <!-- ACCENT STRIP -->
-      <div class="email-pad" style="padding: 20px 32px 0;">
-        <table cellpadding="0" cellspacing="0" border="0" width="100%">
-          <tr>
-            <td style="height: 4px; background-color: #1565D8; border-top: 2px solid #0A2A5E; font-size: 1px; line-height: 1px;">&nbsp;</td>
-          </tr>
-        </table>
+      <!-- ACCENT BANNER -->
+      <div class="email-pad" style="padding:20px 40px 0;">
+        <img src="${baseUrl}/email-accent.gif" alt="" width="560" style="display:block;width:100%;height:auto;border:0;" />
       </div>
 
-      <!-- HERO INTRO -->
-      <div class="email-pad" style="padding: 16px 32px 28px;">
-        <h1 style="margin: 0 0 12px; font-size: 28px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; color: #0A2A5E;">
+      <!-- HERO -->
+      <div class="email-pad" style="padding:14px 40px 28px;">
+        <h1 class="email-h1" style="margin:0 0 12px;font-size:32px;line-height:1.15;font-weight:800;letter-spacing:-.01em;color:#0A2A5E;">
           ${headline}
         </h1>
-        <p style="margin: 0; font-size: 15px; line-height: 1.6; font-weight: 500; color: #3F5873;">
+        <p style="margin:0;font-size:16px;line-height:1.6;font-weight:500;color:#3F5873;">
           ${intro}
         </p>
       </div>
 
       <!-- SUMMARY CARD -->
-      <div class="email-pad" style="padding: 0 32px 32px;">
-        <div style="border: 2px solid #0A2A5E; box-shadow: 6px 6px 0 #DDE7F2; background-color: #FFFFFF;">
+      <div class="email-pad" style="padding:0 40px 32px;">
+        <div style="border:2px solid #0A2A5E;box-shadow:6px 6px 0 #DDE7F2;background:#FFFFFF;">
           
-          <!-- SERVICE TITLE BAR -->
-          <div style="background-color: #0A2A5E; padding: 16px 20px;">
-            <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #BBD5F7;">
-              Service Required
-            </div>
-            <div style="margin-top: 4px; font-size: 22px; line-height: 1.2; font-weight: 800; color: #FFFFFF;">
-              ${cleanService}
+          <!-- SERVICE HEADER -->
+          <div style="background:#0A2A5E;padding:16px 20px;">
+            <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#BBD5F7;">Service</div>
+            <div style="margin-top:4px;font-size:22px;line-height:1.2;font-weight:800;color:#FFFFFF;">${cleanService}</div>
+          </div>
+
+          <!-- WHO / CONTACT DETAILS -->
+          <div style="padding:18px 20px;border-bottom:1px solid #DDE7F2;">
+            <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;">${whoLabel}</div>
+            <div style="margin-top:4px;font-size:18px;font-weight:800;color:#0A2A5E;">${cleanName}</div>
+            <div style="margin-top:6px;font-size:15px;font-weight:700;">
+              <a href="tel:+91${cleanPhone}" style="color:#1565D8;text-decoration:none;margin-right:20px;display:inline-block;">+91 ${cleanPhone}</a>
+              ${cleanEmail ? `<a href="mailto:${cleanEmail}" style="color:#0A2A5E;text-decoration:none;font-weight:600;word-break:break-all;display:inline-block;">${cleanEmail}</a>` : ""}
             </div>
           </div>
 
-          <!-- CALLER / CONTACT DETAILS -->
-          <div style="padding: 18px 20px; border-bottom: 1px solid #DDE7F2;">
-            <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
-              ${whoLabel}
-            </div>
-            <div style="margin-top: 4px; font-size: 18px; font-weight: 800; color: #0A2A5E;">
-              ${cleanName}
-            </div>
-            <div style="margin-top: 6px; font-size: 15px; font-weight: 700;">
-              <a href="tel:+91${cleanPhone}" style="color: #1565D8; text-decoration: none; margin-right: 18px; display: inline-block;">
-                📞 +91 ${cleanPhone}
-              </a>
-              ${
-                cleanEmail
-                  ? `<a href="mailto:${cleanEmail}" style="color: #0A2A5E; text-decoration: none; font-weight: 600; word-break: break-all; display: inline-block;">
-                      ✉️ ${cleanEmail}
-                    </a>`
-                  : ""
-              }
-            </div>
-          </div>
-
-          <!-- JOURNEY / ROUTE -->
-          <div style="padding: 20px; background-color: #EAF2FC; border-bottom: 1px solid #DDE7F2;">
+          <!-- JOURNEY GRAPHIC -->
+          <div style="padding:20px;background:#EAF2FC;border-bottom:1px solid #DDE7F2;">
             <table cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
-                <td width="24" valign="top" style="padding-top: 2px;">
-                  <div style="width: 14px; height: 14px; border: 4px solid #0A2A5E; background-color: #FFFFFF; border-radius: 50%;"></div>
-                  <div style="width: 3px; height: 32px; background-color: #1565D8; margin: 3px 0 3px 5px;"></div>
-                  <div style="width: 14px; height: 14px; background-color: #1565D8; border: 2px solid #0A2A5E;"></div>
+                <td width="24" valign="top" style="padding-top:3px;text-align:center;">
+                  <div style="width:16px;height:16px;box-sizing:border-box;border:4px solid #0A2A5E;background:#FFFFFF;border-radius:50%;margin:0 auto;"></div>
+                  <div style="width:3px;height:38px;background:#1565D8;margin:4px auto;"></div>
+                  <div style="width:16px;height:16px;background:#1565D8;border:2px solid #0A2A5E;box-sizing:border-box;margin:0 auto;"></div>
                 </td>
-                <td valign="top" style="padding-left: 12px;">
-                  <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
-                    Pickup &amp; Destination / Route
+                <td valign="top" style="padding-left:16px;">
+                  <div style="margin-bottom:18px;">
+                    <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;">From · Pickup</div>
+                    <div style="margin-top:3px;font-size:17px;line-height:1.35;font-weight:800;color:#0A2A5E;word-break:break-word;">${pickup}</div>
                   </div>
-                  <div style="margin-top: 4px; font-size: 16px; line-height: 1.4; font-weight: 800; color: #0A2A5E;">
-                    ${cleanRoute}
+                  <div>
+                    <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;">To · Destination</div>
+                    <div style="margin-top:3px;font-size:17px;line-height:1.35;font-weight:800;color:#0A2A5E;word-break:break-word;">${destination}</div>
                   </div>
                 </td>
               </tr>
             </table>
           </div>
 
-          <!-- TIMING -->
-          <div style="padding: 16px 20px; border-bottom: 1px solid #DDE7F2;">
-            <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
-              Preferred Timing
-            </div>
-            <div style="margin-top: 4px; font-size: 16px; font-weight: 800; color: #0A2A5E;">
-              ${cleanTiming}
-            </div>
-          </div>
+          <!-- DATE / TIME -->
+          <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-bottom:1px solid #DDE7F2;">
+            <tr>
+              <td class="stack-mobile stack-border" width="50%" valign="top" style="padding:16px 20px;border-right:1px solid #DDE7F2;">
+                <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;">Preferred date</div>
+                <div style="margin-top:4px;font-size:16px;font-weight:800;color:#0A2A5E;">${preferredDate}</div>
+              </td>
+              <td class="stack-mobile" width="50%" valign="top" style="padding:16px 20px;">
+                <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;">Preferred time</div>
+                <div style="margin-top:4px;font-size:16px;font-weight:800;color:#0A2A5E;">${preferredTime}</div>
+              </td>
+            </tr>
+          </table>
 
-          <!-- MESSAGE / NOTES (if provided) -->
+          <!-- MESSAGE / NOTES (if present) -->
           ${
             cleanNotes
-              ? `<div style="padding: 16px 20px; background-color: #F8FAFD;">
-                  <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
-                    Message / Additional Details
-                  </div>
-                  <div style="margin-top: 6px; font-size: 14px; line-height: 1.6; font-weight: 500; color: #0A2A5E;">
-                    ${cleanNotes}
-                  </div>
+              ? `<div style="padding:16px 20px;background:#F8FAFD;">
+                  <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;">Message</div>
+                  <div style="margin-top:6px;font-size:15px;line-height:1.6;font-weight:500;color:#0A2A5E;">${cleanNotes}</div>
                 </div>`
               : ""
           }
-
         </div>
       </div>
 
@@ -208,100 +241,77 @@ function renderCustomerEmailTemplate({
         isAdmin
           ? `
       <!-- ADMIN ACTIONS -->
-      <div class="email-pad" style="padding: 0 32px 36px;">
-        <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
-          Next Action
-        </div>
-        <p style="margin: 6px 0 16px; font-size: 15px; line-height: 1.55; font-weight: 600; color: #0A2A5E;">
-          Call the customer immediately to confirm the vehicle, route and dispatch timing.
-        </p>
+      <div class="email-pad" style="padding:0 40px 36px;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;">Next action</div>
+        <p style="margin:6px 0 16px;font-size:15px;line-height:1.55;font-weight:600;color:#0A2A5E;">Call the customer to confirm the vehicle, route and timing.</p>
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
           <tr>
-            <td style="padding-bottom: ${cleanEmail ? "10px" : "0"};">
-              <a class="action-btn" href="tel:+91${cleanPhone}" style="display: block; text-align: center; padding: 14px 22px; background-color: #1565D8; border: 2px solid #0A2A5E; box-shadow: 4px 4px 0 #0A2A5E; color: #FFFFFF; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; text-decoration: none;">
-                📞 Call Customer (+91 ${cleanPhone})
-              </a>
+            <td class="action-col" width="${cleanEmail ? "50%" : "100%"}" style="padding-right:${cleanEmail ? "7px" : "0"};">
+              <a href="tel:+91${cleanPhone}" style="display:block;box-sizing:border-box;text-align:center;padding:15px 22px;background:#1565D8;border:2px solid #0A2A5E;box-shadow:4px 4px 0 #0A2A5E;color:#FFFFFF;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;">Call customer</a>
             </td>
+            ${
+              cleanEmail
+                ? `<td class="action-col" width="50%" style="padding-left:7px;">
+                    <a href="mailto:${cleanEmail}" style="display:block;box-sizing:border-box;text-align:center;padding:15px 22px;background:#FFFFFF;border:2px solid #0A2A5E;box-shadow:4px 4px 0 #0A2A5E;color:#0A2A5E;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;">Reply to customer</a>
+                  </td>`
+                : ""
+            }
           </tr>
-          ${
-            cleanEmail
-              ? `<tr>
-                  <td>
-                    <a class="action-btn" href="mailto:${cleanEmail}" style="display: block; text-align: center; padding: 14px 22px; background-color: #FFFFFF; border: 2px solid #0A2A5E; box-shadow: 4px 4px 0 #0A2A5E; color: #0A2A5E; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; text-decoration: none;">
-                      ✉️ Reply to Customer (${cleanEmail})
-                    </a>
-                  </td>
-                </tr>`
-              : ""
-          }
         </table>
       </div>
       `
           : `
       <!-- CUSTOMER REASSURANCE -->
-      <div class="email-pad" style="padding: 0 32px 28px;">
-        <div style="background-color: #EAF2FC; border: 1px solid #1565D8; padding: 22px 20px;">
+      <div class="email-pad" style="padding:0 40px 32px;">
+        <div style="background:#EAF2FC;border:1px solid #1565D8;padding:22px 20px;">
           <table cellpadding="0" cellspacing="0" border="0" width="100%">
             <tr>
-              <td width="40" valign="top">
-                <div style="width: 32px; height: 32px; background-color: #0A2A5E; color: #FFFFFF; font-size: 18px; font-weight: 800; line-height: 32px; text-align: center;">
-                  ✓
-                </div>
+              <td width="42" valign="top">
+                <div style="width:34px;height:34px;background:#0A2A5E;color:#FFFFFF;font-size:18px;font-weight:800;line-height:34px;text-align:center;">✓</div>
               </td>
-              <td valign="top" style="padding-left: 10px;">
-                <div style="font-size: 17px; line-height: 1.3; font-weight: 800; color: #0A2A5E;">
-                  Your enquiry has been received.
-                </div>
-                <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.6; font-weight: 500; color: #2C4560;">
-                  For immediate emergency assistance, call Vidhya Sri Somajiguda control room directly rather than waiting for an email response.
-                </p>
+              <td valign="top" style="padding-left:12px;">
+                <div style="font-size:18px;line-height:1.3;font-weight:800;color:#0A2A5E;">Your enquiry has been received.</div>
+                <p style="margin:6px 0 0;font-size:15px;line-height:1.6;font-weight:500;color:#2C4560;">For emergency assistance, call Vidhya Sri directly rather than waiting for an email response.</p>
               </td>
             </tr>
           </table>
-          <a href="${siteConfig.phone.href}" style="display: block; margin-top: 18px; text-align: center; padding: 14px 22px; background-color: #1565D8; border: 2px solid #0A2A5E; box-shadow: 4px 4px 0 #0A2A5E; color: #FFFFFF; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; text-decoration: none;">
-            🚨 Call 24×7 · ${siteConfig.phone.display}
-          </a>
+          <a href="tel:+919951648174" style="display:block;box-sizing:border-box;margin-top:18px;text-align:center;padding:15px 22px;background:#1565D8;border:2px solid #0A2A5E;box-shadow:4px 4px 0 #0A2A5E;color:#FFFFFF;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;">Call 24×7 · +91 99516 48174</a>
         </div>
       </div>
 
       <!-- WHAT HAPPENS NEXT -->
-      <div class="email-pad" style="padding: 0 32px 36px;">
-        <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86; margin-bottom: 12px;">
-          What happens next
-        </div>
-        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top: 1px solid #DDE7F2;">
+      <div class="email-pad" style="padding:0 40px 36px;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;margin-bottom:12px;">What happens next</div>
+        
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #DDE7F2;">
           <tr>
-            <td width="36" style="padding: 12px 0;" valign="top">
-              <div style="width: 24px; height: 24px; border: 2px solid #0A2A5E; color: #0A2A5E; font-size: 12px; font-weight: 800; line-height: 20px; text-align: center;">
-                1
-              </div>
+            <td width="36" valign="top" style="padding:12px 0;">
+              <div style="width:26px;height:26px;box-sizing:border-box;border:2px solid #0A2A5E;color:#0A2A5E;font-size:13px;font-weight:800;line-height:22px;text-align:center;">1</div>
             </td>
-            <td style="padding: 12px 0; font-size: 14px; line-height: 1.5; font-weight: 600; color: #0A2A5E;" valign="top">
-              Our Somajiguda dispatch coordinators review your route and patient requirements.
+            <td valign="top" style="padding:14px 0 12px 14px;font-size:15px;line-height:1.55;font-weight:600;color:#0A2A5E;">
+              Our team reviews the journey details you submitted.
             </td>
           </tr>
         </table>
-        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top: 1px solid #DDE7F2;">
+
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #DDE7F2;">
           <tr>
-            <td width="36" style="padding: 12px 0;" valign="top">
-              <div style="width: 24px; height: 24px; border: 2px solid #0A2A5E; color: #0A2A5E; font-size: 12px; font-weight: 800; line-height: 20px; text-align: center;">
-                2
-              </div>
+            <td width="36" valign="top" style="padding:12px 0;">
+              <div style="width:26px;height:26px;box-sizing:border-box;border:2px solid #0A2A5E;color:#0A2A5E;font-size:13px;font-weight:800;line-height:22px;text-align:center;">2</div>
             </td>
-            <td style="padding: 12px 0; font-size: 14px; line-height: 1.5; font-weight: 600; color: #0A2A5E;" valign="top">
-              We contact you directly on +91 ${cleanPhone} to confirm vehicle dispatch and ETA.
+            <td valign="top" style="padding:14px 0 12px 14px;font-size:15px;line-height:1.55;font-weight:600;color:#0A2A5E;">
+              We contact you on the phone number you provided.
             </td>
           </tr>
         </table>
-        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top: 1px solid #DDE7F2;">
+
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #DDE7F2;">
           <tr>
-            <td width="36" style="padding: 12px 0;" valign="top">
-              <div style="width: 24px; height: 24px; border: 2px solid #0A2A5E; color: #0A2A5E; font-size: 12px; font-weight: 800; line-height: 20px; text-align: center;">
-                3
-              </div>
+            <td width="36" valign="top" style="padding:12px 0;">
+              <div style="width:26px;height:26px;box-sizing:border-box;border:2px solid #0A2A5E;color:#0A2A5E;font-size:13px;font-weight:800;line-height:22px;text-align:center;">3</div>
             </td>
-            <td style="padding: 12px 0; font-size: 14px; line-height: 1.5; font-weight: 600; color: #0A2A5E;" valign="top">
-              If the patient's condition changes or is urgent, call our direct line without delay.
+            <td valign="top" style="padding:14px 0 12px 14px;font-size:15px;line-height:1.55;font-weight:600;color:#0A2A5E;">
+              If anything changes or is urgent, call us directly.
             </td>
           </tr>
         </table>
@@ -310,18 +320,16 @@ function renderCustomerEmailTemplate({
       }
 
       <!-- FOOTER -->
-      <div class="email-pad" style="background-color: #0A2A5E; padding: 28px 32px;">
-        <a href="${baseUrl}" target="_blank" style="display: inline-block; text-decoration: none;">
-          <img src="${baseUrl}/brand/png/logo/logo-horizontal-reverse-800.png" alt="Vidhya Sri Ambulance" width="160" height="37" style="display: block; width: 160px; height: 37px; border: 0; outline: none; font-family: 'Manrope', Arial, sans-serif; font-size: 16px; font-weight: 800; color: #FFFFFF;" />
+      <div class="email-pad" style="background:#0A2A5E;padding:28px 40px;">
+        <a href="${baseUrl}" target="_blank" style="display:inline-block;text-decoration:none;">
+          <img src="${baseUrl}/brand/png/logo/logo-horizontal-reverse-800.png" alt="Vidhya Sri Ambulance" height="34" style="display:block;height:34px;width:auto;border:0;" />
         </a>
-        <div style="margin-top: 16px; font-size: 12px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #BBD5F7;">
-          Emergency &amp; Patient Transport
-        </div>
-        <div style="margin-top: 10px; font-size: 13px; line-height: 1.7; font-weight: 500; color: #FFFFFF;">
-          <a href="tel:+919951648174" style="color: #FFFFFF; font-weight: 800; text-decoration: none;">+91 99516 48174</a> · 24 Hours / 7 Days<br />
+        <div style="margin-top:16px;font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#BBD5F7;">Emergency &amp; Patient Transport</div>
+        <div style="margin-top:10px;font-size:14px;line-height:1.7;font-weight:500;color:#FFFFFF;">
+          <a href="tel:+919951648174" style="color:#FFFFFF;font-weight:800;text-decoration:none;">+91 99516 48174</a> · 24 Hours / 7 Days<br>
           Arun Residency, Jafar Ali Bagh, Somajiguda, Hyderabad 500082
         </div>
-        <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid #2A4A80; font-size: 11px; line-height: 1.6; color: #BBD5F7;">
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid #2A4A80;font-size:12px;line-height:1.6;color:#BBD5F7;">
           ${footnote}
         </div>
       </div>
@@ -334,6 +342,7 @@ function renderCustomerEmailTemplate({
 
 /**
  * ── BUSINESS / CORPORATE / HOSPITAL TIE-UP EMAIL TEMPLATE ──
+ * Exact match to Vidhya Sri design system & branding
  */
 function renderBusinessEmailTemplate({
   variant,
@@ -359,15 +368,17 @@ function renderBusinessEmailTemplate({
   cleanNotes: string;
 }): string {
   const isAdmin = variant === "admin";
-  const label = isAdmin ? "Business Tie-Up Enquiry" : "Partnership Received";
+  const label = isAdmin ? "Business Tie-Up" : "Partnership Received";
   const headline = isAdmin
     ? "New Corporate / Hospital Tie-Up Enquiry"
     : "We've received your business enquiry.";
   const intro = isAdmin
     ? `An institution submitted a partnership enquiry for ${cleanOrgName}. Details are below.`
-    : `Dear ${cleanContactPerson}, thank you for reaching out on behalf of ${cleanOrgName}. Our corporate relations team at Somajiguda has received your requirements.`;
+    : `Dear ${cleanContactPerson}, thank you for reaching out on behalf of ${cleanOrgName}. Our corporate relations team has received your request. Here are the details you submitted.`;
   const footnote = isAdmin
-    ? `Sent automatically from the vidhyasriambulance.com business enquiry form. Replying goes to ${cleanEmail || "the organization"}.`
+    ? cleanEmail
+      ? `Sent automatically from the vidhyasriambulance.com business enquiry form. Replying goes to ${cleanEmail}.`
+      : "Sent automatically from the vidhyasriambulance.com business enquiry form."
     : `You received this email because a business enquiry was submitted on vidhyasriambulance.com for ${cleanOrgName}.`;
 
   return `<!DOCTYPE html>
@@ -376,232 +387,185 @@ function renderBusinessEmailTemplate({
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${headline}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; padding: 0; background-color: #E3EAF4; font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #0A2A5E; -webkit-font-smoothing: antialiased; }
+    body { margin: 0; padding: 0; background: #E3EAF4; font-family: Manrope, Arial, Helvetica, sans-serif; color: #0A2A5E; -webkit-font-smoothing: antialiased; }
     a { color: #1565D8; text-decoration: none; }
     a:hover { color: #0B3F9E; }
-    @media only screen and (max-width: 600px) {
-      .email-container { width: 100% !important; }
+    @media only screen and (max-width: 580px) {
+      .outer-wrap { padding: 16px 10px 32px !important; }
       .email-pad { padding-left: 20px !important; padding-right: 20px !important; }
-      .action-btn { min-width: 100% !important; display: block !important; margin-bottom: 10px !important; }
+      .email-h1 { font-size: 24px !important; }
+      .stack-mobile { display: block !important; width: 100% !important; }
+      .stack-border { border-right: none !important; border-bottom: 1px solid #DDE7F2 !important; }
+      .action-col { display: block !important; width: 100% !important; margin-bottom: 12px !important; }
     }
   </style>
 </head>
-<body style="margin: 0; padding: 0; background-color: #E3EAF4; font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
-  <div style="background-color: #E3EAF4; padding: 32px 16px 48px; min-height: 100%;">
-    <div class="email-container" style="max-width: 640px; margin: 0 auto; background-color: #FFFFFF; border: 1px solid #DDE7F2; color: #0A2A5E;">
-      
+<body style="margin:0;padding:0;background:#E3EAF4;font-family:Manrope,Arial,Helvetica,sans-serif;color:#0A2A5E;">
+  <div class="outer-wrap" style="min-height:100%;background:#E3EAF4;padding:32px 20px 48px;box-sizing:border-box;">
+    <div style="width:100%;max-width:640px;margin:0 auto;background:#FFFFFF;border:1px solid #DDE7F2;color:#0A2A5E;">
+
       <!-- HEADER -->
-      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #FFFFFF; border-bottom: 3px solid #0A2A5E;">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#FFFFFF;border-bottom:3px solid #0A2A5E;">
         <tr>
-          <td class="email-pad" style="padding: 16px 32px; text-align: left; vertical-align: middle;">
-            <a href="${baseUrl}" target="_blank" style="display: inline-block; text-decoration: none;">
-              <img src="${baseUrl}/brand/png/logo/logo-horizontal-gradient-800.png" alt="Vidhya Sri Ambulance" width="180" height="42" style="display: block; width: 180px; height: 42px; border: 0; outline: none; font-family: 'Manrope', Arial, sans-serif; font-size: 18px; font-weight: 800; color: #0A2A5E;" />
+          <td class="email-pad" style="padding:16px 40px;vertical-align:middle;text-align:left;">
+            <a href="${baseUrl}" target="_blank" style="display:inline-block;text-decoration:none;">
+              <img src="${baseUrl}/brand/png/logo/logo-horizontal-gradient-800.png" alt="Vidhya Sri Ambulance" height="40" style="display:block;height:40px;width:auto;border:0;" />
             </a>
           </td>
-          <td class="email-pad" style="padding: 16px 32px; text-align: right; vertical-align: middle;">
-            <span style="display: inline-block; padding: 6px 12px; background-color: #0A2A5E; border: 1px solid #0A2A5E; color: #FFFFFF; font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; white-space: nowrap;">
+          <td class="email-pad" style="padding:16px 40px;vertical-align:middle;text-align:right;">
+            <div style="display:inline-block;padding:6px 10px;background:#EAF2FC;border:1px solid #1565D8;color:#1565D8;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;">
               ${label}
-            </span>
+            </div>
           </td>
         </tr>
       </table>
 
-      <!-- ACCENT STRIP -->
-      <div class="email-pad" style="padding: 20px 32px 0;">
-        <table cellpadding="0" cellspacing="0" border="0" width="100%">
-          <tr>
-            <td style="height: 4px; background-color: #1565D8; border-top: 2px solid #0A2A5E; font-size: 1px; line-height: 1px;">&nbsp;</td>
-          </tr>
-        </table>
+      <!-- ACCENT BANNER -->
+      <div class="email-pad" style="padding:20px 40px 0;">
+        <img src="${baseUrl}/email-accent.gif" alt="" width="560" style="display:block;width:100%;height:auto;border:0;" />
       </div>
 
-      <!-- HERO INTRO -->
-      <div class="email-pad" style="padding: 16px 32px 28px;">
-        <h1 style="margin: 0 0 12px; font-size: 28px; line-height: 1.2; font-weight: 800; letter-spacing: -0.01em; color: #0A2A5E;">
+      <!-- HERO -->
+      <div class="email-pad" style="padding:14px 40px 28px;">
+        <h1 class="email-h1" style="margin:0 0 12px;font-size:32px;line-height:1.15;font-weight:800;letter-spacing:-.01em;color:#0A2A5E;">
           ${headline}
         </h1>
-        <p style="margin: 0; font-size: 15px; line-height: 1.6; font-weight: 500; color: #3F5873;">
+        <p style="margin:0;font-size:16px;line-height:1.6;font-weight:500;color:#3F5873;">
           ${intro}
         </p>
       </div>
 
       <!-- SUMMARY CARD -->
-      <div class="email-pad" style="padding: 0 32px 32px;">
-        <div style="border: 2px solid #0A2A5E; box-shadow: 6px 6px 0 #DDE7F2; background-color: #FFFFFF;">
+      <div class="email-pad" style="padding:0 40px 32px;">
+        <div style="border:2px solid #0A2A5E;box-shadow:6px 6px 0 #DDE7F2;background:#FFFFFF;">
           
-          <!-- ORGANIZATION & CATEGORY BAR -->
-          <div style="background-color: #0A2A5E; padding: 18px 20px;">
-            <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #BBD5F7;">
-              Organization / Hospital / Entity
-            </div>
-            <div style="margin-top: 4px; font-size: 24px; line-height: 1.2; font-weight: 800; color: #FFFFFF;">
-              ${cleanOrgName}
-            </div>
-            <div style="margin-top: 6px; font-size: 13px; font-weight: 700; color: #38A3F7; text-transform: uppercase; letter-spacing: 0.05em;">
+          <!-- ORG & CATEGORY BAR -->
+          <div style="background:#0A2A5E;padding:16px 20px;">
+            <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#BBD5F7;">Organization / Institution</div>
+            <div style="margin-top:4px;font-size:22px;line-height:1.2;font-weight:800;color:#FFFFFF;">${cleanOrgName}</div>
+            <div style="margin-top:6px;font-size:13px;font-weight:700;color:#BBD5F7;text-transform:uppercase;letter-spacing:0.05em;">
               📌 ${cleanCategory}
             </div>
           </div>
 
           <!-- REPRESENTATIVE DETAILS -->
-          <div style="padding: 18px 20px; border-bottom: 1px solid #DDE7F2;">
-            <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
-              Official Representative
+          <div style="padding:18px 20px;border-bottom:1px solid #DDE7F2;">
+            <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;">Official Representative</div>
+            <div style="margin-top:4px;font-size:18px;font-weight:800;color:#0A2A5E;">
+              ${cleanContactPerson} ${cleanDesignation ? `<span style="font-size:14px;font-weight:600;color:#536B86;">(${cleanDesignation})</span>` : ""}
             </div>
-            <div style="margin-top: 4px; font-size: 18px; font-weight: 800; color: #0A2A5E;">
-              ${cleanContactPerson} ${cleanDesignation ? `<span style="font-size: 14px; font-weight: 600; color: #536B86;">(${cleanDesignation})</span>` : ""}
-            </div>
-            <div style="margin-top: 8px; font-size: 15px; font-weight: 700;">
-              <a href="tel:+91${cleanPhone}" style="color: #1565D8; text-decoration: none; margin-right: 18px; display: inline-block;">
-                📞 +91 ${cleanPhone}
-              </a>
-              ${
-                cleanEmail
-                  ? `<a href="mailto:${cleanEmail}" style="color: #0A2A5E; text-decoration: none; font-weight: 600; word-break: break-all; display: inline-block;">
-                      ✉️ ${cleanEmail}
-                    </a>`
-                  : ""
-              }
+            <div style="margin-top:6px;font-size:15px;font-weight:700;">
+              <a href="tel:+91${cleanPhone}" style="color:#1565D8;text-decoration:none;margin-right:20px;display:inline-block;">+91 ${cleanPhone}</a>
+              ${cleanEmail ? `<a href="mailto:${cleanEmail}" style="color:#0A2A5E;text-decoration:none;font-weight:600;word-break:break-all;display:inline-block;">${cleanEmail}</a>` : ""}
             </div>
           </div>
 
-          <!-- FACILITY LOCATION -->
-          <div style="padding: 18px 20px; border-bottom: 1px solid #DDE7F2; background-color: #EAF2FC;">
-            <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
-              Facility / Campus / Event Location
-            </div>
-            <div style="margin-top: 4px; font-size: 16px; font-weight: 800; color: #0A2A5E;">
-              📍 ${cleanLocation}
-            </div>
-          </div>
+          <!-- LOCATION & CAPACITY METRICS -->
+          <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-bottom:1px solid #DDE7F2;">
+            <tr>
+              <td class="stack-mobile stack-border" width="50%" valign="top" style="padding:16px 20px;border-right:1px solid #DDE7F2;">
+                <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;">Facility Location / Area</div>
+                <div style="margin-top:4px;font-size:16px;font-weight:800;color:#0A2A5E;">${cleanLocation}</div>
+              </td>
+              <td class="stack-mobile" width="50%" valign="top" style="padding:16px 20px;">
+                <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;">Fleet / Volume Need</div>
+                <div style="margin-top:4px;font-size:16px;font-weight:800;color:#0A2A5E;">${cleanVolume}</div>
+              </td>
+            </tr>
+          </table>
 
-          <!-- ESTIMATED VOLUME / FLEET REQUIREMENT -->
-          <div style="padding: 18px 20px; border-bottom: 1px solid #DDE7F2;">
-            <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
-              Fleet Structure / Service Scope
-            </div>
-            <div style="margin-top: 4px; font-size: 16px; font-weight: 800; color: #0A2A5E;">
-              🚑 ${cleanVolume}
-            </div>
-          </div>
-
-          <!-- ADDITIONAL SPECIFICATIONS / NOTES -->
+          <!-- MESSAGE / NOTES (if present) -->
           ${
             cleanNotes
-              ? `<div style="padding: 18px 20px; background-color: #F8FAFD;">
-                  <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
-                    Contract Details / Special Equipment Requirements
-                  </div>
-                  <div style="margin-top: 6px; font-size: 14px; line-height: 1.6; font-weight: 500; color: #0A2A5E;">
-                    ${cleanNotes}
-                  </div>
+              ? `<div style="padding:16px 20px;background:#F8FAFD;">
+                  <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;">Specific Requirements / Notes</div>
+                  <div style="margin-top:6px;font-size:15px;line-height:1.6;font-weight:500;color:#0A2A5E;">${cleanNotes}</div>
                 </div>`
               : ""
           }
-
         </div>
       </div>
 
-      <!-- CONDITIONAL ACTION: ADMIN vs CORPORATE CLIENT -->
+      <!-- CONDITIONAL ACTIONS -->
       ${
         isAdmin
           ? `
       <!-- ADMIN ACTIONS -->
-      <div class="email-pad" style="padding: 0 32px 36px;">
-        <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86;">
-          Next Action
-        </div>
-        <p style="margin: 6px 0 16px; font-size: 15px; line-height: 1.55; font-weight: 600; color: #0A2A5E;">
-          Contact ${cleanContactPerson} to discuss fleet allocation, service level agreements (SLA), and commercial terms.
-        </p>
+      <div class="email-pad" style="padding:0 40px 36px;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;">Next action</div>
+        <p style="margin:6px 0 16px;font-size:15px;line-height:1.55;font-weight:600;color:#0A2A5E;">Initiate partnership discussion with representative.</p>
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
           <tr>
-            <td style="padding-bottom: ${cleanEmail ? "10px" : "0"};">
-              <a class="action-btn" href="tel:+91${cleanPhone}" style="display: block; text-align: center; padding: 14px 22px; background-color: #1565D8; border: 2px solid #0A2A5E; box-shadow: 4px 4px 0 #0A2A5E; color: #FFFFFF; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; text-decoration: none;">
-                📞 Call Representative (+91 ${cleanPhone})
-              </a>
+            <td class="action-col" width="${cleanEmail ? "50%" : "100%"}" style="padding-right:${cleanEmail ? "7px" : "0"};">
+              <a href="tel:+91${cleanPhone}" style="display:block;box-sizing:border-box;text-align:center;padding:15px 22px;background:#1565D8;border:2px solid #0A2A5E;box-shadow:4px 4px 0 #0A2A5E;color:#FFFFFF;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;">Call representative</a>
             </td>
+            ${
+              cleanEmail
+                ? `<td class="action-col" width="50%" style="padding-left:7px;">
+                    <a href="mailto:${cleanEmail}" style="display:block;box-sizing:border-box;text-align:center;padding:15px 22px;background:#FFFFFF;border:2px solid #0A2A5E;box-shadow:4px 4px 0 #0A2A5E;color:#0A2A5E;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;">Reply via Email</a>
+                  </td>`
+                : ""
+            }
           </tr>
-          ${
-            cleanEmail
-              ? `<tr>
-                  <td>
-                    <a class="action-btn" href="mailto:${cleanEmail}" style="display: block; text-align: center; padding: 14px 22px; background-color: #FFFFFF; border: 2px solid #0A2A5E; box-shadow: 4px 4px 0 #0A2A5E; color: #0A2A5E; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; text-decoration: none;">
-                      ✉️ Reply to Work Email (${cleanEmail})
-                    </a>
-                  </td>
-                </tr>`
-              : ""
-          }
         </table>
       </div>
       `
           : `
-      <!-- CLIENT CONFIRMATION -->
-      <div class="email-pad" style="padding: 0 32px 28px;">
-        <div style="background-color: #EAF2FC; border: 1px solid #1565D8; padding: 22px 20px;">
+      <!-- CLIENT REASSURANCE -->
+      <div class="email-pad" style="padding:0 40px 32px;">
+        <div style="background:#EAF2FC;border:1px solid #1565D8;padding:22px 20px;">
           <table cellpadding="0" cellspacing="0" border="0" width="100%">
             <tr>
-              <td width="40" valign="top">
-                <div style="width: 32px; height: 32px; background-color: #0A2A5E; color: #FFFFFF; font-size: 18px; font-weight: 800; line-height: 32px; text-align: center;">
-                  ✓
-                </div>
+              <td width="42" valign="top">
+                <div style="width:34px;height:34px;background:#0A2A5E;color:#FFFFFF;font-size:18px;font-weight:800;line-height:34px;text-align:center;">✓</div>
               </td>
-              <td valign="top" style="padding-left: 10px;">
-                <div style="font-size: 17px; line-height: 1.3; font-weight: 800; color: #0A2A5E;">
-                  Partnership Enquiry Received
-                </div>
-                <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.6; font-weight: 500; color: #2C4560;">
-                  Our Somajiguda corporate fleet operations desk is reviewing ${cleanOrgName}'s requirements. A partnerships manager will contact you within 2-4 business hours with vehicle availability and SLA documentation.
-                </p>
+              <td valign="top" style="padding-left:12px;">
+                <div style="font-size:18px;line-height:1.3;font-weight:800;color:#0A2A5E;">Corporate tie-up request logged.</div>
+                <p style="margin:6px 0 0;font-size:15px;line-height:1.6;font-weight:500;color:#2C4560;">Our corporate relations team will review your fleet / standby requirements and prepare a tailored SLA proposal.</p>
               </td>
             </tr>
           </table>
-          <a href="tel:+919951648174" style="display: block; margin-top: 18px; text-align: center; padding: 14px 22px; background-color: #1565D8; border: 2px solid #0A2A5E; box-shadow: 4px 4px 0 #0A2A5E; color: #FFFFFF; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; text-decoration: none;">
-            📞 Direct Corporate Desk · +91 99516 48174
-          </a>
+          <a href="tel:+919951648174" style="display:block;box-sizing:border-box;margin-top:18px;text-align:center;padding:15px 22px;background:#1565D8;border:2px solid #0A2A5E;box-shadow:4px 4px 0 #0A2A5E;color:#FFFFFF;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;">Call 24×7 · +91 99516 48174</a>
         </div>
       </div>
 
-      <!-- NEXT STEPS -->
-      <div class="email-pad" style="padding: 0 32px 36px;">
-        <div style="font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #536B86; margin-bottom: 12px;">
-          Tie-up Onboarding Process
-        </div>
-        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top: 1px solid #DDE7F2;">
+      <!-- WHAT HAPPENS NEXT -->
+      <div class="email-pad" style="padding:0 40px 36px;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#536B86;margin-bottom:12px;">Partnership workflow</div>
+        
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #DDE7F2;">
           <tr>
-            <td width="36" style="padding: 12px 0;" valign="top">
-              <div style="width: 24px; height: 24px; border: 2px solid #0A2A5E; color: #0A2A5E; font-size: 12px; font-weight: 800; line-height: 20px; text-align: center;">
-                1
-              </div>
+            <td width="36" valign="top" style="padding:12px 0;">
+              <div style="width:26px;height:26px;box-sizing:border-box;border:2px solid #0A2A5E;color:#0A2A5E;font-size:13px;font-weight:800;line-height:22px;text-align:center;">1</div>
             </td>
-            <td style="padding: 12px 0; font-size: 14px; line-height: 1.5; font-weight: 600; color: #0A2A5E;" valign="top">
-              Preliminary fleet capacity and paramedic staffing alignment for your facility.
+            <td valign="top" style="padding:14px 0 12px 14px;font-size:15px;line-height:1.55;font-weight:600;color:#0A2A5E;">
+              Needs Assessment: We review your site location, emergency tiers and fleet requirements.
             </td>
           </tr>
         </table>
-        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top: 1px solid #DDE7F2;">
+
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #DDE7F2;">
           <tr>
-            <td width="36" style="padding: 12px 0;" valign="top">
-              <div style="width: 24px; height: 24px; border: 2px solid #0A2A5E; color: #0A2A5E; font-size: 12px; font-weight: 800; line-height: 20px; text-align: center;">
-                2
-              </div>
+            <td width="36" valign="top" style="padding:12px 0;">
+              <div style="width:26px;height:26px;box-sizing:border-box;border:2px solid #0A2A5E;color:#0A2A5E;font-size:13px;font-weight:800;line-height:22px;text-align:center;">2</div>
             </td>
-            <td style="padding: 12px 0; font-size: 14px; line-height: 1.5; font-weight: 600; color: #0A2A5E;" valign="top">
-              Formal proposal, response time SLA guarantees, and contract signing.
+            <td valign="top" style="padding:14px 0 12px 14px;font-size:15px;line-height:1.55;font-weight:600;color:#0A2A5E;">
+              SLA Proposal: We share pricing tiers, dedicated ALS/BLS vehicle allocation, and driver roster.
             </td>
           </tr>
         </table>
-        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top: 1px solid #DDE7F2;">
+
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid #DDE7F2;">
           <tr>
-            <td width="36" style="padding: 12px 0;" valign="top">
-              <div style="width: 24px; height: 24px; border: 2px solid #0A2A5E; color: #0A2A5E; font-size: 12px; font-weight: 800; line-height: 20px; text-align: center;">
-                3
-              </div>
+            <td width="36" valign="top" style="padding:12px 0;">
+              <div style="width:26px;height:26px;box-sizing:border-box;border:2px solid #0A2A5E;color:#0A2A5E;font-size:13px;font-weight:800;line-height:22px;text-align:center;">3</div>
             </td>
-            <td style="padding: 12px 0; font-size: 14px; line-height: 1.5; font-weight: 600; color: #0A2A5E;" valign="top">
-              Vehicle deployment, dedicated control room hotline, and driver/paramedic orientation.
+            <td valign="top" style="padding:14px 0 12px 14px;font-size:15px;line-height:1.55;font-weight:600;color:#0A2A5E;">
+              Onboarding: 24×7 hotline activation and priority dispatch hotline integration.
             </td>
           </tr>
         </table>
@@ -610,18 +574,16 @@ function renderBusinessEmailTemplate({
       }
 
       <!-- FOOTER -->
-      <div class="email-pad" style="background-color: #0A2A5E; padding: 28px 32px;">
-        <a href="${baseUrl}" target="_blank" style="display: inline-block; text-decoration: none;">
-          <img src="${baseUrl}/brand/png/logo/logo-horizontal-reverse-800.png" alt="Vidhya Sri Ambulance" width="160" height="37" style="display: block; width: 160px; height: 37px; border: 0; outline: none; font-family: 'Manrope', Arial, sans-serif; font-size: 16px; font-weight: 800; color: #FFFFFF;" />
+      <div class="email-pad" style="background:#0A2A5E;padding:28px 40px;">
+        <a href="${baseUrl}" target="_blank" style="display:inline-block;text-decoration:none;">
+          <img src="${baseUrl}/brand/png/logo/logo-horizontal-reverse-800.png" alt="Vidhya Sri Ambulance" height="34" style="display:block;height:34px;width:auto;border:0;" />
         </a>
-        <div style="margin-top: 16px; font-size: 12px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: #BBD5F7;">
-          Corporate &amp; Institutional Fleet Solutions
-        </div>
-        <div style="margin-top: 10px; font-size: 13px; line-height: 1.7; font-weight: 500; color: #FFFFFF;">
-          <a href="tel:+919951648174" style="color: #FFFFFF; font-weight: 800; text-decoration: none;">+91 99516 48174</a> · 24 Hours / 7 Days<br />
+        <div style="margin-top:16px;font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#BBD5F7;">Emergency &amp; Patient Transport</div>
+        <div style="margin-top:10px;font-size:14px;line-height:1.7;font-weight:500;color:#FFFFFF;">
+          <a href="tel:+919951648174" style="color:#FFFFFF;font-weight:800;text-decoration:none;">+91 99516 48174</a> · 24 Hours / 7 Days<br>
           Arun Residency, Jafar Ali Bagh, Somajiguda, Hyderabad 500082
         </div>
-        <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid #2A4A80; font-size: 11px; line-height: 1.6; color: #BBD5F7;">
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid #2A4A80;font-size:12px;line-height:1.6;color:#BBD5F7;">
           ${footnote}
         </div>
       </div>
