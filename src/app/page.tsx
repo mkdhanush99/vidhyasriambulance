@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { siteConfig } from "@/data/site";
 import { services } from "@/data/services";
-import { siteImages } from "@/data/images";
+import { siteImages, getServiceImage } from "@/data/images";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { HeroSpatialStage } from "@/components/ui/HeroSpatialStage";
 import { SpatialServiceCard } from "@/components/ui/SpatialServiceCard";
@@ -13,6 +13,12 @@ import { SpatialCoverageMap } from "@/components/ui/SpatialCoverageMap";
 import { AmbulanceFinder } from "@/components/ui/AmbulanceFinder";
 import { AmbulanceBookingFlow } from "@/components/ui/AmbulanceBookingFlow";
 import { ProcessReassurance } from "@/components/ui/ProcessReassurance";
+import { SectionNumber } from "@/components/ui/SectionNumber";
+import { RouteMotif } from "@/components/ui/RouteMotif";
+import { MetaLabel } from "@/components/ui/MetaLabel";
+import { ManifestoSection } from "@/components/ui/ManifestoSection";
+import { ImageBreak } from "@/components/ui/ImageBreak";
+import { FeatureServiceBlock } from "@/components/ui/FeatureServiceBlock";
 
 // ═══════════════════════════════════════════════
 // 1. HERO SECTION (LIGHT PREMIUM HEALTHCARE)
@@ -200,20 +206,23 @@ function BrandStatementSection() {
 // ═══════════════════════════════════════════════
 
 function ServicesGridSection() {
+  const featuredEmergency = services.find((s) => s.slug === "emergency-ambulance") || services[0];
+  const supportingServices = services.filter((s) => s.slug !== "emergency-ambulance");
+
   return (
     <section
       id="services"
-      className="w-full bg-white py-20 lg:py-24 border-b-[3px] border-[#0A2A5E]"
+      className="relative w-full bg-white py-20 lg:py-28 border-b-[3px] border-[#0A2A5E] overflow-hidden"
     >
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+      {/* 01 Oversized Background Section Numeral (§2) */}
+      <SectionNumber number="01" label="SERVICES" position="right" />
+
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
+        {/* Header with Route Motif */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
           <div>
-            <div className="inline-flex items-center gap-2.5 mb-3">
-              <span className="w-3 h-3 bg-[#1565D8] border border-[#0A2A5E] inline-block" />
-              <span className="text-[11px] font-black uppercase tracking-[.18em] px-2.5 py-1 border border-[#DDE7F2] bg-[#EAF2FC] text-[#0A2A5E] rounded-[2px]">
-                02 / Services
-              </span>
+            <div className="flex items-center gap-2.5 mb-3">
+              <MetaLabel category="01 / SERVICES" detail="HYDERABAD & OUTSTATION" indicator="dot" />
             </div>
             <h2 className="text-[clamp(34px,5.2vw,56px)] font-extrabold uppercase tracking-tight leading-[0.98] text-[#0A2A5E]">
               Every emergency,
@@ -231,10 +240,36 @@ function ServicesGridSection() {
           </Link>
         </div>
 
-        {/* 11 Services Grid: 3D Spatial Cards */}
+        {/* Route Motif Divider */}
+        <RouteMotif
+          variant="horizontal"
+          originLabel="Emergency Call"
+          destinationLabel="Paramedic Arrival"
+          className="mb-8"
+        />
+
+        {/* ── Featured Service: Emergency ALS Ambulance (Controlled Asymmetry, §5 & §6) ── */}
+        <FeatureServiceBlock
+          service={featuredEmergency}
+          image={getServiceImage("emergency-ambulance")}
+          layout="imageLeft"
+          sectionNum="01"
+        />
+
+        {/* Supporting Services Header */}
+        <div className="flex items-center justify-between gap-4 mt-12 mb-6 pt-6 border-t-2 border-[#DDE7F2]">
+          <span className="text-xs font-black uppercase tracking-widest text-[#0A2A5E]">
+            Supporting Clinical Transport Tiers
+          </span>
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#1565D8]">
+            10 Additional Specialised Services
+          </span>
+        </div>
+
+        {/* Supporting Services Grid: 3D Spatial Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
-          {services.map((service, idx) => (
-            <SpatialServiceCard key={service.slug} service={service} index={idx} />
+          {supportingServices.map((service, idx) => (
+            <SpatialServiceCard key={service.slug} service={service} index={idx + 1} />
           ))}
         </div>
       </div>
@@ -261,15 +296,15 @@ function FinderSection() {
 
 function HowItWorksSection() {
   return (
-    <section className="w-full bg-[#EAF2FC] py-20 lg:py-24 border-b-[3px] border-[#0A2A5E]">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
+    <section className="relative w-full bg-[#EAF2FC] py-20 lg:py-28 border-b-[3px] border-[#0A2A5E] overflow-hidden">
+      {/* 02 Oversized Background Section Numeral (§2) */}
+      <SectionNumber number="02" label="HOW IT WORKS" position="left" />
+
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
         {/* Left-aligned header */}
         <div className="mb-14">
-          <div className="inline-flex items-center gap-2.5 mb-3">
-            <span className="w-3 h-3 bg-[#1565D8] border border-[#0A2A5E] inline-block" />
-            <span className="text-[11px] font-black uppercase tracking-[.18em] px-2.5 py-1 border border-[#DDE7F2] bg-white text-[#0A2A5E] rounded-[2px]">
-              03 / Dispatch Process
-            </span>
+          <div className="flex items-center gap-2.5 mb-3">
+            <MetaLabel category="02 / DISPATCH PROCESS" detail="COORDINATED & IMMEDIATE" indicator="dot" />
           </div>
           <h2 className="text-[clamp(34px,5.2vw,56px)] font-extrabold uppercase tracking-tight leading-[0.98] text-[#0A2A5E]">
             Four steps to <span className="text-[#1565D8]">dispatch.</span>
@@ -305,15 +340,15 @@ const coverageAreas = [
 
 function CoverageSection() {
   return (
-    <section className="relative w-full bg-white py-20 lg:py-24 border-b-[3px] border-[#0A2A5E] overflow-hidden">
+    <section className="relative w-full bg-white py-20 lg:py-28 border-b-[3px] border-[#0A2A5E] overflow-hidden">
+      {/* 03 Oversized Background Section Numeral (§2) */}
+      <SectionNumber number="03" label="COVERAGE" position="right" />
+
       <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2.5 mb-3">
-              <span className="w-3 h-3 bg-[#1565D8] border border-[#0A2A5E] inline-block" />
-              <span className="text-[11px] font-black uppercase tracking-[.18em] px-2.5 py-1 border border-[#DDE7F2] bg-[#EAF2FC] text-[#0A2A5E] rounded-[2px]">
-                04 / Hyderabad Coverage
-              </span>
+            <div className="flex items-center gap-2.5 mb-3">
+              <MetaLabel category="03 / HYDERABAD COVERAGE" detail="GREATER METROPOLITAN AREA" indicator="dot" />
             </div>
             <h2 className="text-[clamp(34px,5.2vw,56px)] font-extrabold uppercase tracking-tight leading-[0.98] text-[#0A2A5E]">
               Across greater
@@ -823,8 +858,16 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <BrandStatementSection />
+      <ManifestoSection />
       <ServicesGridSection />
+      <ImageBreak
+        src={siteImages.home.hero.src}
+        alt="Vidhya Sri emergency ambulance operational outside hospital facility"
+        category="FLEET READINESS / SOMAJIGUDA"
+        detail="GREATER HYDERABAD 24×7"
+        statement="Care That Moves. When Every Minute Counts."
+        subtext="Staffed with trained paramedics and equipped with certified life-support systems, our fleet responds immediately across Greater Hyderabad."
+      />
       <FinderSection />
       <HowItWorksSection />
       <ProcessReassurance />

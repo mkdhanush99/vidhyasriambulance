@@ -6,6 +6,9 @@ import { siteImages, getServiceImage } from "@/data/images";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { AmbulanceFinder } from "@/components/ui/AmbulanceFinder";
 import { ProcessReassurance } from "@/components/ui/ProcessReassurance";
+import { FeatureServiceBlock } from "@/components/ui/FeatureServiceBlock";
+import { MetaLabel } from "@/components/ui/MetaLabel";
+import { RouteMotif } from "@/components/ui/RouteMotif";
 
 export const metadata: Metadata = {
   title: "Ambulance Services in Hyderabad",
@@ -74,19 +77,29 @@ export default function ServicesPage() {
       {/* ── Categorized Services (White Dominant Surfaces) ── */}
       <section className="w-full bg-white py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 space-y-16">
-          {categories.map((cat) => {
+          {categories.map((cat, catIdx) => {
             const catServices = services.filter((s) => s.category === cat.name);
+            const featuredSlug =
+              catIdx === 0
+                ? "emergency-ambulance"
+                : catIdx === 1
+                ? "patient-transfer-ambulance"
+                : "outstation-ambulance";
+
+            const featuredService = catServices.find((s) => s.slug === featuredSlug);
+            const supportingServices = catServices.filter((s) => s.slug !== featuredSlug);
+
             return (
               <div key={cat.name} className="space-y-8">
-                {/* Category Header */}
-                <div className="border-b-2 border-[#DDE7F2] pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                {/* Category Header with Route Line */}
+                <div className="border-b-2 border-[#0A2A5E] pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                   <div>
-                    <span
-                      className={`inline-block px-3 py-1 ${cat.badgeBg} text-[10px] font-black uppercase tracking-widest mb-2 rounded-[2px]`}
-                    >
-                      Category
-                    </span>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E]">
+                    <MetaLabel
+                      category={`SECTION 0${catIdx + 1}`}
+                      detail={cat.name}
+                      indicator="dot"
+                    />
+                    <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mt-2">
                       {cat.name}
                     </h2>
                   </div>
@@ -95,65 +108,86 @@ export default function ServicesPage() {
                   </p>
                 </div>
 
-                {/* Services Cards — Uniform, aligned layout with clear ambulance view */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {catServices.map((service) => {
-                    const img = getServiceImage(service.slug);
+                {/* ── Featured Cornerstone Service Block (Asymmetry §5 & §6) ── */}
+                {featuredService && (
+                  <FeatureServiceBlock
+                    service={featuredService}
+                    image={getServiceImage(featuredService.slug)}
+                    layout={catIdx % 2 === 0 ? "imageLeft" : "imageRight"}
+                    sectionNum={`0${catIdx + 1}`}
+                  />
+                )}
 
-                    return (
-                      <div
-                        key={service.slug}
-                        className="flex flex-col h-full bg-white border-2 border-[#0A2A5E] rounded-[4px] p-4 sm:p-5 shadow-[4px_4px_0_#EAF2FC] hover:shadow-[4px_4px_0_#1565D8] hover:-translate-y-0.5 transition-all duration-200"
-                      >
-                        {/* Image frame with clear ambulance view */}
-                        <div className="mb-4">
-                          <ImageFrame
-                            src={img.src}
-                            alt={img.alt}
-                            caption={img.caption}
-                            captionLocation={img.captionLocation}
-                            badge={img.badge}
-                            variant="default"
-                            aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
-                            objectPosition={img.objectPosition}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          />
-                        </div>
+                {/* Supporting Services Grid */}
+                {supportingServices.length > 0 && (
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[11px] font-black uppercase tracking-widest text-[#0A2A5E]">
+                        Additional Specialized Services in this Tier
+                      </span>
+                      <RouteMotif variant="inline" />
+                    </div>
 
-                        {/* Category & Icon */}
-                        <div className="flex items-center gap-2.5 mb-2.5">
-                          <span className="inline-flex items-center justify-center w-8 h-8 border border-[#1565D8]/20 bg-[#EAF2FC] rounded-[2px]">
-                            <span className="material-symbols-outlined text-[17px] text-[#1565D8]">
-                              {service.icon}
-                            </span>
-                          </span>
-                          <span className="text-[9.5px] font-black uppercase tracking-widest text-[#536B86]">
-                            {service.category}
-                          </span>
-                        </div>
+                    <div className={`grid grid-cols-1 md:grid-cols-2 ${supportingServices.length >= 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"} gap-6`}>
+                      {supportingServices.map((service) => {
+                        const img = getServiceImage(service.slug);
 
-                        {/* Service Title */}
-                        <h3 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-2 leading-snug">
-                          {service.name}
-                        </h3>
+                        return (
+                          <div
+                            key={service.slug}
+                            className="flex flex-col h-full bg-white border-2 border-[#0A2A5E] rounded-[4px] p-4 sm:p-5 shadow-[4px_4px_0_#EAF2FC] hover:shadow-[4px_4px_0_#1565D8] hover:-translate-y-0.5 transition-all duration-200"
+                          >
+                            {/* Image frame with clear ambulance view */}
+                            <div className="mb-4">
+                              <ImageFrame
+                                src={img.src}
+                                alt={img.alt}
+                                caption={img.caption}
+                                captionLocation={img.captionLocation}
+                                badge={img.badge}
+                                variant="corner-marked"
+                                aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
+                                objectPosition={img.objectPosition}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              />
+                            </div>
 
-                        {/* Short Description */}
-                        <p className="text-xs sm:text-[13px] font-medium text-[#536B86] leading-relaxed mb-4 flex-1">
-                          {service.shortDescription}
-                        </p>
+                            {/* Category & Icon */}
+                            <div className="flex items-center gap-2.5 mb-2.5">
+                              <span className="inline-flex items-center justify-center w-8 h-8 border border-[#1565D8]/20 bg-[#EAF2FC] rounded-[2px]">
+                                <span className="material-symbols-outlined text-[17px] text-[#1565D8]">
+                                  {service.icon}
+                                </span>
+                              </span>
+                              <span className="text-[9.5px] font-black uppercase tracking-widest text-[#536B86]">
+                                {service.category}
+                              </span>
+                            </div>
 
-                        {/* Action Link */}
-                        <Link
-                          href={`/services/${service.slug}`}
-                          className="inline-flex items-center justify-between px-4 py-2.5 bg-[#F8FAFD] hover:bg-[#EAF2FC] border-2 border-[#0A2A5E] text-[#0A2A5E] text-[11px] font-extrabold uppercase tracking-wider rounded-[2px] shadow-[2px_2px_0_#0A2A5E] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
-                        >
-                          <span>{service.cardAnchor}</span>
-                          <span className="material-symbols-outlined text-[15px] text-[#1565D8]">arrow_forward</span>
-                        </Link>
-                      </div>
-                    );
-                  })}
-                </div>
+                            {/* Service Title */}
+                            <h3 className="text-base font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-2 leading-snug">
+                              {service.name}
+                            </h3>
+
+                            {/* Short Description */}
+                            <p className="text-xs sm:text-[13px] font-medium text-[#536B86] leading-relaxed mb-4 flex-1">
+                              {service.shortDescription}
+                            </p>
+
+                            {/* Action Link */}
+                            <Link
+                              href={`/services/${service.slug}`}
+                              className="inline-flex items-center justify-between px-4 py-2.5 bg-[#F8FAFD] hover:bg-[#EAF2FC] border-2 border-[#0A2A5E] text-[#0A2A5E] text-[11px] font-extrabold uppercase tracking-wider rounded-[2px] shadow-[2px_2px_0_#0A2A5E] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
+                            >
+                              <span>{service.cardAnchor}</span>
+                              <span className="material-symbols-outlined text-[15px] text-[#1565D8]">arrow_forward</span>
+                            </Link>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             );
           })}

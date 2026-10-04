@@ -8,6 +8,8 @@ export type ImageFrameVariant =
   | "dark"
   | "caption"
   | "fullbleed"
+  | "corner-marked"
+  | "split-frame"
   | "mobile";
 
 export type OffsetColor =
@@ -262,7 +264,92 @@ export function ImageFrame({
     );
   }
 
-  // 5. DEFAULT VARIANT
+  // 5. VARIANT: CORNER-MARKED (Technical editorial corner crosshair brackets)
+  if (variant === "corner-marked") {
+    return (
+      <div className={`relative p-2.5 sm:p-3 bg-white border-2 border-[#0A2A5E] rounded-[3px] shadow-[4px_4px_0_#EAF2FC] ${className}`}>
+        {/* 4 Corner Route Line Brackets */}
+        <span className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-[#1565D8] pointer-events-none" />
+        <span className="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-[#1565D8] pointer-events-none" />
+        <span className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-[#1565D8] pointer-events-none" />
+        <span className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-[#1565D8] pointer-events-none" />
+
+        <div className={`relative w-full overflow-hidden border border-[#0A2A5E]/30 ${aspectRatio} rounded-[2px]`}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority={priority}
+            sizes={sizes}
+            style={{ objectFit: "cover", objectPosition }}
+            className={`transition-transform duration-500 hover:scale-[1.02] ${imageClassName}`}
+          />
+          {badge && (
+            <div className="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 bg-[#0A2A5E] border border-white text-white text-[9.5px] font-black uppercase tracking-wider">
+              {badge}
+            </div>
+          )}
+        </div>
+
+        {(caption || captionLocation) && (
+          <div className="mt-2.5 pt-2 border-t border-[#DDE7F2] flex items-center justify-between gap-2 text-[10.5px] font-black uppercase tracking-wider text-[#0A2A5E]">
+            <span className="truncate">{caption}</span>
+            {captionLocation && (
+              <span className="shrink-0 text-[#1565D8]">{captionLocation}</span>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // 6. VARIANT: SPLIT-FRAME (Image + Adjacent Architectural Data Strip)
+  if (variant === "split-frame") {
+    return (
+      <div className={`grid grid-cols-1 md:grid-cols-12 border-[3px] border-[#0A2A5E] bg-white rounded-[4px] shadow-spatial overflow-hidden ${className}`}>
+        <div className={`relative md:col-span-8 ${aspectRatio} md:aspect-auto md:min-h-[320px] overflow-hidden`}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority={priority}
+            sizes={sizes}
+            style={{ objectFit: "cover", objectPosition }}
+            className={`transition-transform duration-500 hover:scale-[1.02] ${imageClassName}`}
+          />
+          {badge && (
+            <div className="absolute top-3 left-3 z-10 px-2.5 py-1 bg-[#0A2A5E] border border-white text-white text-[10px] font-black uppercase tracking-widest shadow-[2px_2px_0_#0A2A5E]">
+              {badge}
+            </div>
+          )}
+        </div>
+        <div className="md:col-span-4 p-5 sm:p-6 bg-[#F8FAFD] border-t-2 md:border-t-0 md:border-l-2 border-[#0A2A5E] flex flex-col justify-between">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#EAF2FC] border border-[#1565D8]/30 text-[9.5px] font-black uppercase tracking-wider text-[#1565D8] mb-3 rounded-[2px]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1565D8]" />
+              Verified Fleet Unit
+            </div>
+            {caption && (
+              <h4 className="text-base font-extrabold uppercase text-[#0A2A5E] tracking-tight leading-snug">
+                {caption}
+              </h4>
+            )}
+            {captionLocation && (
+              <p className="text-xs text-[#536B86] font-medium mt-1">
+                Stationed at: <span className="font-bold text-[#0A2A5E]">{captionLocation}</span>
+              </p>
+            )}
+          </div>
+          <div className="pt-4 mt-4 border-t border-[#DDE7F2] flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-[#1565D8]">
+            <span>Dispatch: 24×7</span>
+            <span>GPS Monitored</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 7. DEFAULT VARIANT
   return (
     <div className={`group relative perspective-1000 ${className}`}>
       <div

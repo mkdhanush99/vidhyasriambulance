@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/data/site";
 import { siteImages } from "@/data/images";
 import { ImageFrame } from "@/components/ui/ImageFrame";
+import { SectionNumber } from "@/components/ui/SectionNumber";
+import { RouteMotif } from "@/components/ui/RouteMotif";
+import { MetaLabel } from "@/components/ui/MetaLabel";
+import { LayeredPanel } from "@/components/ui/LayeredPanel";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -100,15 +104,18 @@ export default function AboutPage() {
       </section>
 
       {/* ── Brand Story Section ── */}
-      <section className="w-full bg-white py-16 sm:py-20 border-b-[3px] border-[#0A2A5E]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <section className="w-full bg-white py-16 sm:py-20 border-b-[3px] border-[#0A2A5E] relative overflow-hidden">
+        <SectionNumber number="04" label="ABOUT VIDHYA SRI" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Story Details (7 cols) */}
             <div className="lg:col-span-7">
-              <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
-                Brand Philosophy
-              </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-6">
+              <MetaLabel
+                category="SECTION 04"
+                detail="BRAND PHILOSOPHY"
+                indicator="dot"
+              />
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mt-3 mb-6">
                 Care held safely, and moving forward.
               </h2>
               <div className="space-y-4 text-sm font-medium text-navy/75 leading-relaxed">
@@ -123,8 +130,17 @@ export default function AboutPage() {
                 </p>
               </div>
 
+              {/* Route Motif */}
+              <div className="my-6 max-w-md">
+                <RouteMotif
+                  variant="horizontal"
+                  originLabel="Compassionate Care"
+                  destinationLabel="Safe Arrival"
+                />
+              </div>
+
               {/* Navigation Links */}
-              <div className="flex flex-wrap gap-3 mt-8">
+              <div className="flex flex-wrap gap-3 mt-6">
                 <Link
                   href="/services"
                   className="px-4 py-2.5 bg-care-blue border-2 border-navy text-white text-[12px] font-extrabold uppercase tracking-wider hover:bg-blue-700 transition-all shadow-brutal-sm"
@@ -154,55 +170,60 @@ export default function AboutPage() {
                 caption={siteImages.about.icuFleet.caption}
                 captionLocation={siteImages.about.icuFleet.captionLocation}
                 badge={siteImages.about.icuFleet.badge}
-                variant="offset"
+                variant="corner-marked"
                 offsetColor="careBlue"
                 aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
                 objectPosition={siteImages.about.icuFleet.objectPosition}
                 sizes="(max-width: 1024px) 100vw, 42vw"
               />
 
-              <div className="bg-clinic-mist border-2 border-navy p-4 shadow-brutal-sm space-y-2.5">
-                <div className="flex items-center gap-2.5">
-                  <span className="material-symbols-outlined text-[18px] text-care-blue">
-                    location_on
-                  </span>
-                  <div>
-                    <span className="text-[9px] font-black uppercase text-navy/50 tracking-wider block">
-                      Dispatch Base
+              <LayeredPanel offsetColor="careBlue">
+                <div className="p-4 space-y-2.5">
+                  <div className="flex items-center gap-2.5">
+                    <span className="material-symbols-outlined text-[18px] text-care-blue">
+                      location_on
                     </span>
-                    <p className="text-xs font-bold text-navy">
-                      Somajiguda, Hyderabad 500082
-                    </p>
+                    <div>
+                      <span className="text-[9px] font-black uppercase text-navy/50 tracking-wider block">
+                        Dispatch Base
+                      </span>
+                      <p className="text-xs font-bold text-navy">
+                        Somajiguda, Hyderabad 500082
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex items-center gap-2.5 pt-2 border-t border-navy/10">
-                  <span className="material-symbols-outlined text-[18px] text-care-blue">
-                    schedule
-                  </span>
-                  <div>
-                    <span className="text-[9px] font-black uppercase text-navy/50 tracking-wider block">
-                      Readiness
+                  <div className="flex items-center gap-2.5 pt-2 border-t border-navy/10">
+                    <span className="material-symbols-outlined text-[18px] text-care-blue">
+                      schedule
                     </span>
-                    <p className="text-xs font-bold text-navy">
-                      24 Hours / 7 Days Continuous Operations
-                    </p>
+                    <div>
+                      <span className="text-[9px] font-black uppercase text-navy/50 tracking-wider block">
+                        Readiness
+                      </span>
+                      <p className="text-xs font-bold text-navy">
+                        24 Hours / 7 Days Continuous Operations
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </LayeredPanel>
             </div>
           </div>
         </div>
       </section>
 
       {/* ── Pillars Section with Image 03 (Patient Transport Vehicle) ── */}
-      <section className="w-full bg-white py-16 sm:py-20 border-b-[3px] border-[#0A2A5E]">
+      <section className="w-full bg-[#F8FAFD] py-16 sm:py-20 border-b-[3px] border-[#0A2A5E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
           <div className="max-w-3xl mb-12">
-            <span className="inline-block px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-3 rounded-[2px]">
-              Our Principles
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-[#0A2A5E]">
+            <MetaLabel
+              category="CORE VALUES"
+              detail="OPERATIONAL STANDARDS"
+              indicator="pulse"
+              indicatorColor="blue"
+            />
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-[#0A2A5E] mt-3">
               Four commitments guiding every dispatch.
             </h2>
           </div>
@@ -213,7 +234,7 @@ export default function AboutPage() {
               {pillars.map((pillar) => (
                 <div
                   key={pillar.title}
-                  className="bg-[#F8FAFD] border-2 border-[#DDE7F2] p-6 rounded-[4px] shadow-[4px_4px_0_#EAF2FC, 4px_4px_0_2px_#DDE7F2]"
+                  className="bg-white border-2 border-[#DDE7F2] p-6 rounded-[4px] shadow-[4px_4px_0_#EAF2FC, 4px_4px_0_2px_#DDE7F2] hover:border-[#1565D8] transition-colors"
                 >
                   <span className="inline-flex items-center justify-center w-10 h-10 border border-[#1565D8]/20 bg-[#EAF2FC] rounded-[2px] mb-4">
                     <span className="material-symbols-outlined text-[20px] text-[#1565D8]">
@@ -238,7 +259,7 @@ export default function AboutPage() {
                 caption={siteImages.about.patientVehicle.caption}
                 captionLocation={siteImages.about.patientVehicle.captionLocation}
                 badge={siteImages.about.patientVehicle.badge}
-                variant="default"
+                variant="corner-marked"
                 aspectRatio="aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/4]"
                 objectPosition={siteImages.about.patientVehicle.objectPosition}
                 sizes="(max-width: 1024px) 100vw, 33vw"

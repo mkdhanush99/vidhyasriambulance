@@ -8,6 +8,8 @@ import { siteImages } from "@/data/images";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { NearbyAreas } from "@/components/ui/NearbyAreas";
 import { ProcessReassurance } from "@/components/ui/ProcessReassurance";
+import { MetaLabel } from "@/components/ui/MetaLabel";
+import { RouteMotif } from "@/components/ui/RouteMotif";
 
 // ── Static params for SSG ──
 export async function generateStaticParams() {
@@ -209,9 +211,13 @@ export default async function LocalityCoveragePage({ params }: Props) {
             <span className="text-[#0A2A5E]">{isPrimaryCityHub ? "Hyderabad" : loc.name}</span>
           </nav>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            {loc.zone} · 24×7 Local Dispatch
+          <div className="mb-4">
+            <MetaLabel
+              category={loc.zone.toUpperCase()}
+              detail="24×7 LOCAL DISPATCH"
+              indicator="pulse"
+              indicatorColor="blue"
+            />
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#0A2A5E] leading-[0.95] mb-4">
@@ -252,23 +258,32 @@ export default async function LocalityCoveragePage({ params }: Props) {
             {/* Corridors and Hospitals (7 cols) */}
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* Primary Corridors */}
-              <div className="p-6 bg-white border-2 border-[#DDE7F2] rounded-[2px] shadow-sm">
-                <span className="inline-block px-2.5 py-0.5 bg-[#EAF2FC] text-[#1565D8] text-[10px] font-black uppercase tracking-wider border border-[#1565D8]/30 mb-3 rounded-[2px]">
-                  Key Road Links
-                </span>
-                <h2 className="text-lg font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
-                  {loc.name} Transit Corridors
-                </h2>
-                <ul className="space-y-2 text-xs font-bold text-[#0A2A5E]">
-                  {loc.landmarkCorridors.map((corridor) => (
-                    <li key={corridor} className="flex items-center gap-2">
-                      <span className="material-symbols-outlined text-[16px] text-[#1565D8]">
-                        route
-                      </span>
-                      {corridor}
-                    </li>
-                  ))}
-                </ul>
+              <div className="p-6 bg-white border-2 border-[#DDE7F2] rounded-[2px] shadow-sm flex flex-col justify-between">
+                <div>
+                  <span className="inline-block px-2.5 py-0.5 bg-[#EAF2FC] text-[#1565D8] text-[10px] font-black uppercase tracking-wider border border-[#1565D8]/30 mb-3 rounded-[2px]">
+                    Key Road Links
+                  </span>
+                  <h2 className="text-lg font-extrabold uppercase tracking-tight text-[#0A2A5E] mb-3">
+                    {loc.name} Transit Corridors
+                  </h2>
+                  <ul className="space-y-2 text-xs font-bold text-[#0A2A5E]">
+                    {loc.landmarkCorridors.map((corridor) => (
+                      <li key={corridor} className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-[16px] text-[#1565D8]">
+                          route
+                        </span>
+                        {corridor}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="pt-4 border-t border-[#DDE7F2] mt-4">
+                  <RouteMotif
+                    variant="horizontal"
+                    originLabel={loc.name}
+                    destinationLabel="Hospital Hub"
+                  />
+                </div>
               </div>
 
               {/* Nearby Hospital Clusters */}
@@ -300,8 +315,7 @@ export default async function LocalityCoveragePage({ params }: Props) {
                 caption={siteImages.coverage.supportingImage.caption}
                 captionLocation={`Central Dispatch · Serving ${loc.name}`}
                 badge="LOCAL DISPATCH"
-                variant="offset"
-                offsetColor="careBlue"
+                variant="corner-marked"
                 aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
                 objectPosition={siteImages.coverage.supportingImage.objectPosition}
                 sizes="(max-width: 1024px) 100vw, 42vw"

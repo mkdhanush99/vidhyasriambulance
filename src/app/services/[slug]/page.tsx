@@ -8,6 +8,9 @@ import { getServiceImage } from "@/data/images";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { ProcessReassurance } from "@/components/ui/ProcessReassurance";
 import { ServiceContextualActions } from "@/components/ui/ServiceContextualActions";
+import { ServiceMotifBadge } from "@/components/ui/ServiceMotifBadge";
+import { RouteMotif } from "@/components/ui/RouteMotif";
+import { MetaLabel } from "@/components/ui/MetaLabel";
 
 // ── Static params for SSG ──
 export async function generateStaticParams() {
@@ -181,15 +184,28 @@ export default async function ServiceDetailPage({ params }: Props) {
                 <span className="text-[#0A2A5E]">{service.name}</span>
               </nav>
 
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#EAF2FC] border border-[#1565D8]/30 text-[#1565D8] text-[10px] font-black uppercase tracking-widest mb-4 rounded-[2px]">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                {service.category} · 24×7 Available
+              <div className="flex flex-wrap items-center gap-3 mb-4">
+                <ServiceMotifBadge slug={service.slug} />
+                <MetaLabel
+                  category={service.category}
+                  detail="24×7 IMMEDIATE DISPATCH"
+                  indicator="pulse"
+                  indicatorColor={service.slug.includes("emergency") ? "red" : "blue"}
+                />
               </div>
 
               {/* Exact H1 Title */}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-[#0A2A5E] leading-[0.95] mb-4">
                 {service.h1Title}
               </h1>
+
+              <RouteMotif
+                variant="horizontal"
+                originLabel="Point of Call"
+                destinationLabel="Specialist Care Delivery"
+                className="max-w-md my-4"
+              />
+
               <p className="text-base sm:text-lg font-medium text-[#536B86] max-w-xl leading-relaxed">
                 {service.description}
               </p>
@@ -198,7 +214,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               <div className="flex flex-wrap items-center gap-3 mt-8">
                 <a
                   href={siteConfig.phone.href}
-                  className="inline-flex items-center gap-2.5 px-7 py-4 bg-[#1565D8] border-2 border-[#0A2A5E] text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#0A2A5E] transition-all shadow-sm hover:translate-x-[2px] hover:translate-y-[2px]"
+                  className="inline-flex items-center gap-2.5 px-7 py-4 bg-[#1565D8] border-2 border-[#0A2A5E] text-white text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#0A2A5E] transition-all shadow-[3px_3px_0_#0A2A5E] hover:translate-x-[2px] hover:translate-y-[2px]"
                 >
                   <span className="material-symbols-outlined text-[18px]">call</span>
                   Call 24×7 · {siteConfig.phone.display}
@@ -207,7 +223,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                   href={siteConfig.whatsapp.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 px-7 py-4 bg-white border-2 border-[#0A2A5E] text-[#0A2A5E] text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#EAF2FC] transition-all"
+                  className="inline-flex items-center gap-2.5 px-7 py-4 bg-white border-2 border-[#0A2A5E] text-[#0A2A5E] text-[13px] font-extrabold uppercase tracking-wider hover:bg-[#EAF2FC] transition-all shadow-[3px_3px_0_#0A2A5E]"
                 >
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   WhatsApp Us
@@ -223,8 +239,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                 caption={getServiceImage(service.slug).caption}
                 captionLocation={getServiceImage(service.slug).captionLocation}
                 badge={getServiceImage(service.slug).badge}
-                variant="featured"
-                offsetColor="mint"
+                variant="corner-marked"
                 aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
                 objectPosition={getServiceImage(service.slug).objectPosition}
                 priority={true}
