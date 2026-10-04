@@ -23,6 +23,15 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
+function escapeHtml(str: string): string {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 const baseUrl = "https://vidhyasriambulance.com";
 
 function parseRoute(routeStr: string): { pickup: string; destination: string } {
@@ -596,12 +605,32 @@ function renderBusinessEmailTemplate({
 
 export async function POST(req: Request) {
   try {
-    const ip = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "127.0.0.1";
+    const rawIp = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "127.0.0.1";
+    const ip = rawIp.split(",")[0].trim();
     if (!checkRateLimit(ip)) {
       return NextResponse.json(
         { error: "Too many requests. Please call our 24×7 dispatch helpline directly." },
         { status: 429 }
       );
+    }
+
+    // Origin / CSRF validation
+    const origin = req.headers.get("origin");
+    const host = req.headers.get("host");
+    if (origin && host) {
+      const originHost = origin.replace(/^https?:\/\//, "").split(":")[0];
+      const expectedHost = host.split(":")[0];
+      if (
+        originHost !== expectedHost &&
+        !originHost.includes("vidhyasriambulance.com") &&
+        !originHost.includes("localhost") &&
+        originHost !== "127.0.0.1"
+      ) {
+        return NextResponse.json(
+          { error: "Cross-origin submission rejected." },
+          { status: 403 }
+        );
+      }
     }
 
     const body = await req.json();
@@ -669,13 +698,13 @@ export async function POST(req: Request) {
 
     // ── ROUTE 1: BUSINESS / CORPORATE ENQUIRY ──
     if (enquiryType === "business") {
-      const cleanOrgName = String(organization).trim() || "Corporate Entity";
-      const cleanContactPerson = String(contactPerson || name).trim() || "Institutional Representative";
-      const cleanDesignation = String(designation).trim() || "Coordinator";
-      const cleanCategory = String(category || service).trim() || "Corporate Fleet Tie-Up";
-      const cleanLocation = String(location || route).trim() || "Hyderabad Facility";
-      const cleanVolume = String(estimatedVolume || timing).trim() || "On-Demand SLA / Contract";
-      const cleanNotes = String(notes).trim();
+      const cleanOrgName = escapeHtml(String(organization).trim().slice(0, 150)) || "Corporate Entity";
+      const cleanContactPerson = escapeHtml(String(contactPerson || name).trim().slice(0, 100)) || "Institutional Representative";
+      const cleanDesignation = escapeHtml(String(designation).trim().slice(0, 100)) || "Coordinator";
+      const cleanCategory = escapeHtml(String(category || service).trim().slice(0, 100)) || "Corporate Fleet Tie-Up";
+      const cleanLocation = escapeHtml(String(location || route).trim().slice(0, 300)) || "Hyderabad Facility";
+      const cleanVolume = escapeHtml(String(estimatedVolume || timing).trim().slice(0, 100)) || "On-Demand SLA / Contract";
+      const cleanNotes = escapeHtml(String(notes).trim().slice(0, 2000));
 
       const adminHtml = renderBusinessEmailTemplate({
         variant: "admin",
@@ -757,11 +786,11 @@ export async function POST(req: Request) {
     }
 
     // ── ROUTE 2: CUSTOMER / PATIENT ENQUIRY ──
-    const cleanName = String(name).trim() || "Website Visitor";
-    const cleanRoute = String(route).trim() || "Not specified";
-    const cleanService = String(service).trim() || "Ambulance Transfer";
+    const cleanName = escapeHtml(String(name).trim().slice(0, 100)) || "Website Visitor";
+    const cleanRoute = escapeHtml(String(route).trim().slice(0, 300)) || "Not specified";
+    const cleanService = escapeHtml(String(service).trim().slice(0, 100)) || "Ambulance Transfer";
     const cleanNotes = String(notes).trim();
-    const cleanTiming = String(timing).trim() || "Immediate";
+    const cleanTiming = escapeHtml(String(timing).trim().slice(0, 100)) || "Immediate";
 
     const adminHtml = renderCustomerEmailTemplate({
       variant: "admin",
