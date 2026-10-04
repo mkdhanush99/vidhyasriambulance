@@ -235,7 +235,7 @@ function ServicesGridSection() {
             href="/services"
             className="inline-flex items-center gap-2 px-5 py-3.5 bg-white border-[3px] border-[#0A2A5E] text-[#0A2A5E] text-[12.5px] font-black uppercase tracking-[.08em] rounded-[4px] shadow-[4px_4px_0_#DDE7F2] hover:border-[#1565D8] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#DDE7F2] transition-all self-start sm:self-auto"
           >
-            All 11 Services
+            All {services.length} Services
             <span className="material-symbols-outlined text-[19px]">arrow_forward</span>
           </Link>
         </div>
@@ -262,7 +262,7 @@ function ServicesGridSection() {
             Supporting Clinical Transport Tiers
           </span>
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#1565D8]">
-            10 Additional Specialised Services
+            {supportingServices.length} Additional Specialised Services
           </span>
         </div>
 

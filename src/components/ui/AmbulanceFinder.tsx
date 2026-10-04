@@ -19,6 +19,8 @@ type SupportType =
   | "nicu"
   | "transfer"
   | "outstation"
+  | "mortuary"
+  | "freezer_box"
   | "notsure";
 
 type JourneyType = "local" | "outstation";
@@ -47,6 +49,17 @@ export function AmbulanceFinder({
     }
 
     switch (supportType) {
+      case "mortuary":
+        return (
+          services.find((s) => s.slug === "mortuary-ambulance") ||
+          services.find((s) => s.slug === "mortuary-transportation") ||
+          services[0]
+        );
+      case "freezer_box":
+        return (
+          services.find((s) => s.slug === "dead-body-freezer-box") ||
+          services[0]
+        );
       case "icu":
         return (
           services.find((s) => s.slug === "icu-ambulance") ||
@@ -59,11 +72,11 @@ export function AmbulanceFinder({
         );
       case "nicu":
         return (
-          services.find((s) => s.slug === "neonatal-ambulance") || services[0]
+          services.find((s) => s.slug === "nicu-neonatal-ambulance") || services[0]
         );
       case "transfer":
         return (
-          services.find((s) => s.slug === "patient-transport") || services[0]
+          services.find((s) => s.slug === "patient-transfer-ambulance") || services[0]
         );
       case "bls":
       default:
@@ -288,6 +301,18 @@ export function AmbulanceFinder({
                 icon: "distance",
               },
               {
+                id: "mortuary",
+                label: "Mortuary Ambulance / Deceased Transport",
+                desc: "Dignified road transportation of deceased person with family seating.",
+                icon: "directions_car",
+              },
+              {
+                id: "freezer_box",
+                label: "Dead Body Freezer Box (Hire / Rent)",
+                desc: "Standard or VIP glass-top preservation freezer box delivered to your home.",
+                icon: "ac_unit",
+              },
+              {
                 id: "notsure",
                 label: "Not sure what is needed",
                 desc: "Let our Somajiguda coordinators guide you based on hospital discharge notes.",
@@ -302,8 +327,8 @@ export function AmbulanceFinder({
                   if (item.id === "outstation") {
                     setJourneyType("outstation");
                     setStep(4); // Go straight to recommendation
-                  } else if (item.id === "notsure") {
-                    setStep(4);
+                  } else if (item.id === "mortuary" || item.id === "freezer_box" || item.id === "notsure") {
+                    setStep(4); // Go straight to recommendation
                   } else {
                     setStep(3);
                   }

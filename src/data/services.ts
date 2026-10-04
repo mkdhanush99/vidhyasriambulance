@@ -406,7 +406,8 @@ export const services: ServiceData[] = [
       "icu-ambulance",
       "ventilator-ambulance",
       "patient-transfer-ambulance",
-      "mortuary-transportation",
+      "mortuary-ambulance",
+      "dead-body-freezer-box",
     ],
     faqs: [
       {
@@ -525,51 +526,131 @@ export const services: ServiceData[] = [
     },
   },
   {
-    slug: "mortuary-transportation",
-    name: "Mortuary / Dead Body Transportation",
-    h1Title: "Mortuary / Dead Body Transportation in Hyderabad",
+    slug: "mortuary-ambulance",
+    name: "Mortuary Ambulance / Dead Body Transport",
+    h1Title: "Mortuary Ambulance & Dead Body Transport in Hyderabad",
     category: "SPECIALIZED & PLANNED TRANSPORT",
     shortDescription:
-      "Dignified deceased patient transportation across Hyderabad, Telangana, and interstate journeys with respectful care.",
+      "Dignified deceased body transportation across Hyderabad, Telangana districts, and interstate journeys in climate-regulated ambulance vans.",
     description:
-      "Vidhya Sri Ambulance Services provides dignified mortuary and deceased patient transportation in Hyderabad, assisting families with respectful transfer between hospitals, residences, and outstation destinations.",
-    cardAnchor: "View Mortuary Transportation →",
+      "Vidhya Sri Ambulance Services provides 24×7 dignified mortuary ambulance and dead body transportation in Hyderabad. Our specialized ambulance vans are equipped with climate-regulated compartments, secure stretcher locks, and seating for accompanying family members, ensuring respectful transit between hospitals, residences, crematoriums, and outstation native towns.",
+    cardAnchor: "View Mortuary Ambulance →",
     accent: "navy",
     accentHex: "#0A2A5E",
-    icon: "church",
+    icon: "directions_car",
     features: [
-      "Dignified and respectful handling protocols",
-      "Freezer box availability for preservation",
-      "Local Hyderabad and long-distance outstation transport",
-      "Assistance with hospital release and documentation formalities",
-      "24×7 compassionate family coordination",
+      "Sanitized, climate-regulated deceased transport compartment",
+      "Secure stretcher locking mechanism & respectful handling protocols",
+      "Dedicated passenger seating for accompanying family members",
+      "Interstate transit permits across Telangana, AP, Karnataka & Maharashtra",
+      "Assistance with hospital release, death certificate & transit documentation",
+      "24×7 prompt dispatch coordination from Somajiguda control room",
     ],
     bookingChecklist: [
-      "Pickup location (hospital mortuary, ICU, or home residence)",
-      "Destination address (crematorium, residence, or ancestral town)",
-      "Whether freezer box support is required for transit or home preservation",
-      "Availability of hospital death summary / legal documentation",
+      "Pickup location (Hospital ICU, hospital mortuary, or private home)",
+      "Final destination address (Crematorium, home residence, or outstation native town)",
+      "Hospital death summary / medical certificate of cause of death",
+      "Number of accompanying family members travelling with the vehicle",
+      "Whether destination requires dead body freezer box setup upon arrival",
     ],
     relatedServices: [
+      "dead-body-freezer-box",
       "outstation-ambulance",
       "patient-transfer-ambulance",
     ],
     faqs: [
       {
-        question: "Do you provide freezer box services for deceased transport?",
+        question: "What is the difference between a mortuary ambulance and a freezer box?",
         answer:
-          "Yes, we provide mortuary vehicles equipped with mobile cooling units and can arrange freezer box support for home preservation or long-distance outstation journeys.",
+          "A mortuary ambulance is a specialized road vehicle used for the dignified transport of a deceased individual between hospitals, homes, or across cities. A dead body freezer box is a stationary cooling preservation chamber placed at home or a ceremonial hall to preserve the body until final rites.",
       },
       {
-        question: "Can deceased transportation be arranged to another state?",
+        question: "Can family members travel inside the mortuary ambulance?",
         answer:
-          "Yes, we arrange interstate mortuary transfers with appropriate vehicle permits and documentation guidance across neighboring states.",
+          "Yes, our mortuary ambulances include comfortable passenger seating for accompanying family members alongside the separate, secure transport compartment.",
+      },
+      {
+        question: "Do you arrange interstate dead body transport from Hyderabad?",
+        answer:
+          "Yes, we provide outstation mortuary transfers from Hyderabad across all districts of Telangana and Andhra Pradesh, as well as interstate routes to Karnataka, Maharashtra, Tamil Nadu, and beyond, with complete highway permits.",
+      },
+      {
+        question: "What documents are needed to arrange mortuary ambulance transportation?",
+        answer:
+          "For hospital discharges, a hospital death summary or doctor certificate is required. For interstate highway journeys, our dispatch team assists with necessary transit documentation and local clearance guidelines.",
       },
     ],
     seo: {
-      title: "Mortuary / Dead Body Transportation in Hyderabad | Vidhya Sri Ambulance",
+      title: "Mortuary Ambulance & Dead Body Transport in Hyderabad | Vidhya Sri",
       description:
-        "Dignified mortuary and dead body transportation in Hyderabad by Vidhya Sri Ambulance Services. Freezer box support, local and interstate transfers. Call 9951648174.",
+        "24×7 Dignified mortuary ambulance and dead body transport in Hyderabad. Local hospital, home, and outstation interstate deceased transfer. Call 9951648174.",
+    },
+  },
+  {
+    slug: "dead-body-freezer-box",
+    name: "Dead Body Freezer Box on Hire / Rent",
+    h1Title: "Dead Body Freezer Box on Hire & Rent in Hyderabad",
+    category: "SPECIALIZED & PLANNED TRANSPORT",
+    shortDescription:
+      "Standard and VIP dead body freezer boxes available on hire and rent across Hyderabad for home preservation and homage ceremonies.",
+    description:
+      "Vidhya Sri Ambulance Services provides 24×7 dead body freezer box hire and rental services across Hyderabad and Secunderabad. We supply heavy-duty Standard stainless-steel freezer boxes and premium VIP glass-top display freezer boxes with digital temperature regulation (-2°C to -10°C), silent cooling compressors, and backup power compatibility. Delivered, installed, and collected directly at your doorstep with compassionate promptness.",
+    cardAnchor: "View Freezer Box Rentals →",
+    accent: "navy",
+    accentHex: "#1565D8",
+    icon: "ac_unit",
+    features: [
+      "Standard Stainless-Steel Mortuary Freezer Boxes on hire and rent",
+      "VIP Glass-Top Display Freezer Boxes for respectful public homage and family viewing",
+      "Digital thermostat controller maintaining optimal preservation temperature (-2°C to -10°C)",
+      "Whisper-quiet, energy-efficient commercial cooling compressors",
+      "Flexible rental durations: hourly, 12-hour, 24-hour, and multi-day hire",
+      "Doorstep delivery, complete technical electrical installation, and sanitization",
+      "Compatible with standard domestic 220V power outlets and home inverters / generators",
+    ],
+    bookingChecklist: [
+      "Delivery address in Hyderabad or Secunderabad (apartment floor, lift access, or independent house)",
+      "Duration required for rental (hours, full day, or multi-day requirement)",
+      "Preferred model (Standard Stainless Steel or VIP Glass-Top Display unit)",
+      "Standard domestic 220V electric plug point availability (15A/5A socket)",
+      "Primary family coordinator contact number for delivery technician",
+    ],
+    relatedServices: [
+      "mortuary-ambulance",
+      "outstation-ambulance",
+      "patient-transfer-ambulance",
+    ],
+    faqs: [
+      {
+        question: "Are VIP freezer boxes available for hire in Hyderabad?",
+        answer:
+          "Yes, Vidhya Sri provides VIP glass-top display freezer boxes featuring high-transparency toughened glass, internal viewing illumination, and premium stainless-steel construction, ideal for home homage ceremonies and dignified public viewing.",
+      },
+      {
+        question: "How quickly can a dead body freezer box be delivered to our home?",
+        answer:
+          "Our Somajiguda dispatch control room coordinates immediate transport. A freezer box unit typically reaches most Hyderabad and Secunderabad localities within 30 to 60 minutes.",
+      },
+      {
+        question: "Can we rent the dead body freezer box for multiple days?",
+        answer:
+          "Yes, we offer flexible rental periods from a few hours up to multiple days, commonly needed when families are waiting for relatives travelling from outstation or abroad.",
+      },
+      {
+        question: "Does the freezer box run on regular home power sockets?",
+        answer:
+          "Yes, our freezer boxes operate on standard single-phase 220V domestic electrical sockets. They are also compatible with domestic home inverters and portable generators.",
+      },
+      {
+        question: "Which areas in Hyderabad do you deliver freezer boxes to?",
+        answer:
+          "We provide 24×7 doorstep freezer box delivery across all Hyderabad and Secunderabad localities, including Somajiguda, Banjara Hills, Jubilee Hills, Secunderabad, Madhapur, Gachibowli, Kukatpally, LB Nagar, Charminar, and surrounding areas.",
+      },
+    ],
+    seo: {
+      title: "Dead Body Freezer Box on Hire & Rent in Hyderabad | VIP Freezer Box",
+      description:
+        "24×7 Dead body freezer box on hire and rent in Hyderabad. Standard & VIP glass-top freezer boxes, prompt home delivery, digital cooling. Call 9951648174.",
     },
   },
 ];

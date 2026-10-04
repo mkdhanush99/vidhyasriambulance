@@ -11,6 +11,10 @@ import { ServiceContextualActions } from "@/components/ui/ServiceContextualActio
 import { ServiceMotifBadge } from "@/components/ui/ServiceMotifBadge";
 import { RouteMotif } from "@/components/ui/RouteMotif";
 import { MetaLabel } from "@/components/ui/MetaLabel";
+import {
+  FreezerBoxShowcase,
+  MortuaryAmbulanceShowcase,
+} from "@/components/ui/SpecializedMortuaryShowcases";
 
 // ── Static params for SSG ──
 export async function generateStaticParams() {
@@ -250,6 +254,14 @@ export default async function ServiceDetailPage({ params }: Props) {
         </div>
         <div className="h-1.5 bg-[#1565D8] relative z-10 mt-12 w-full" />
       </section>
+
+      {/* ── Specialized Showcase: Dead Body Freezer Box Rentals (Hire/Rent & VIP) ── */}
+      {service.slug === "dead-body-freezer-box" && <FreezerBoxShowcase />}
+
+      {/* ── Specialized Showcase: Mortuary Ambulance & Transit Standards ── */}
+      {(service.slug === "mortuary-ambulance" || service.slug === "mortuary-transportation") && (
+        <MortuaryAmbulanceShowcase />
+      )}
 
       {/* ── Booking Information Checklist & Service Specifications ── */}
       <section className="w-full bg-white py-14 sm:py-18 border-b border-[#DDE7F2]">

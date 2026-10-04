@@ -140,14 +140,31 @@ export function ServiceMotifBadge({ slug, className = "" }: ServiceMotifBadgePro
     );
   }
 
-  // Mortuary Transportation
-  if (slug === "mortuary-transportation") {
+  // Mortuary Ambulance / Deceased Transport
+  if (slug === "mortuary-ambulance" || slug === "mortuary-transportation") {
     return (
       <svg className={`w-10 h-10 ${className}`} viewBox="0 0 40 40" fill="none" aria-hidden="true">
         <rect width="40" height="40" rx="3" fill="#EAF2FC" stroke="#0A2A5E" strokeWidth="2" />
-        <rect x="10" y="16" width="20" height="12" rx="2" fill="#0A2A5E" fillOpacity="0.15" stroke="#0A2A5E" strokeWidth="2" />
-        <path d="M10 20H30" stroke="#1565D8" strokeWidth="1.5" />
-        <circle cx="20" cy="12" r="2.5" fill="#1565D8" />
+        <rect x="8" y="16" width="24" height="12" rx="2" fill="#0A2A5E" fillOpacity="0.15" stroke="#0A2A5E" strokeWidth="2" />
+        <path d="M8 20H32" stroke="#1565D8" strokeWidth="1.5" />
+        <circle cx="14" cy="28" r="2.5" fill="#0A2A5E" />
+        <circle cx="26" cy="28" r="2.5" fill="#0A2A5E" />
+        <path d="M16 11H24" stroke="#1565D8" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  // Dead Body Freezer Box (Standard & VIP Rental)
+  if (slug === "dead-body-freezer-box") {
+    return (
+      <svg className={`w-10 h-10 ${className}`} viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <rect width="40" height="40" rx="3" fill="#EAF2FC" stroke="#1565D8" strokeWidth="2" />
+        {/* Freezer box glass display contour */}
+        <rect x="8" y="14" width="24" height="16" rx="2" fill="#1565D8" fillOpacity="0.15" stroke="#1565D8" strokeWidth="1.8" />
+        <path d="M10 18H30" stroke="#38A3F7" strokeWidth="1.5" strokeDasharray="2 2" />
+        {/* Snowflake / Cooling indicator */}
+        <path d="M20 7V12M17 9.5L23 9.5" stroke="#1565D8" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="20" cy="22" r="3" fill="#1565D8" />
       </svg>
     );
   }

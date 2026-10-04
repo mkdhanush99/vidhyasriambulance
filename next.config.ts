@@ -59,23 +59,48 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/services/mortuary-transportation",
+        destination: "/services/mortuary-ambulance",
+        permanent: true,
+      },
+      {
         source: "/deadbody-transport-services",
-        destination: "/services/mortuary-transportation",
+        destination: "/services/mortuary-ambulance",
         permanent: true,
       },
       {
         source: "/deadbody-transport-services/:path*",
-        destination: "/services/mortuary-transportation",
+        destination: "/services/mortuary-ambulance",
         permanent: true,
       },
       {
         source: "/deadbody-freezer-services",
-        destination: "/services/mortuary-transportation",
+        destination: "/services/dead-body-freezer-box",
         permanent: true,
       },
       {
         source: "/deadbody-freezer-services/:path*",
-        destination: "/services/mortuary-transportation",
+        destination: "/services/dead-body-freezer-box",
+        permanent: true,
+      },
+      {
+        source: "/freezer-box",
+        destination: "/services/dead-body-freezer-box",
+        permanent: true,
+      },
+      {
+        source: "/dead-body-freezer-box",
+        destination: "/services/dead-body-freezer-box",
+        permanent: true,
+      },
+      {
+        source: "/vip-freezer-box",
+        destination: "/services/dead-body-freezer-box",
+        permanent: true,
+      },
+      {
+        source: "/mortuary-ambulance",
+        destination: "/services/mortuary-ambulance",
         permanent: true,
       },
 

@@ -833,7 +833,8 @@ export const localities: LocalityData[] = [
       "emergency-ambulance",
       "icu-ambulance",
       "outstation-ambulance",
-      "mortuary-transportation",
+      "mortuary-ambulance",
+      "dead-body-freezer-box",
     ],
     nearbyLocalities: [
       { name: "Secunderabad", slug: "secunderabad" },

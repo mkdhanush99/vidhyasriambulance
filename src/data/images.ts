@@ -239,12 +239,34 @@ export const siteImages = {
       assetType: "REAL_CLIENT_ASSET",
     } as ImageAsset,
 
-    "mortuary-transportation": {
+    "mortuary-ambulance": {
+      src: "/images/vidhya-sri-mortuary-van.webp",
+      alt: "Dignified mortuary ambulance van vehicle for deceased transportation across Hyderabad and interstate routes",
+      caption: "Mortuary Transport Ambulance",
+      captionLocation: "Hyderabad & Interstate Transit",
+      badge: "DIGNIFIED TRANSPORT",
+      aspectRatio: "aspect-[4/3] sm:aspect-[16/11]",
+      objectPosition: "center 50%",
+      assetType: "REAL_CLIENT_ASSET",
+    } as ImageAsset,
+
+    "dead-body-freezer-box": {
       src: "/images/vidhya-sri-mortuary-freezer-box.webp",
-      alt: "Specialized mobile mortuary cold storage freezer box unit provided by Vidhya Sri",
-      caption: "Mobile Mortuary Freezer Box Unit",
-      captionLocation: "Respectful Preservation & Transit",
-      badge: "FREEZER BOX AVAILABLE",
+      alt: "Dead body freezer box with VIP glass top display available for hire and rent in Hyderabad",
+      caption: "Dead Body Freezer Box (Standard & VIP)",
+      captionLocation: "Doorstep Delivery & Rental Across Hyderabad",
+      badge: "VIP FREEZER BOX ON RENT",
+      aspectRatio: "aspect-[4/3] sm:aspect-[16/11]",
+      objectPosition: "center 50%",
+      assetType: "REAL_CLIENT_ASSET",
+    } as ImageAsset,
+
+    "mortuary-transportation": {
+      src: "/images/vidhya-sri-mortuary-van.webp",
+      alt: "Dignified mortuary ambulance transport vehicle in Hyderabad",
+      caption: "Mortuary Transport Ambulance",
+      captionLocation: "Hyderabad & Interstate Transit",
+      badge: "DIGNIFIED TRANSPORT",
       aspectRatio: "aspect-[4/3] sm:aspect-[16/11]",
       objectPosition: "center 50%",
       assetType: "REAL_CLIENT_ASSET",
