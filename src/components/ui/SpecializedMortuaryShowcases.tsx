@@ -336,6 +336,78 @@ export function MortuaryAmbulanceShowcase() {
           </div>
         </div>
 
+        {/* ── Visual Photo Showcase & Vehicle Features ── */}
+        <div className="bg-white border-2 border-[#DDE7F2] p-6 sm:p-10 rounded-[4px] shadow-sm mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Left: Image Frame with mortuary transport van photo */}
+            <div className="lg:col-span-5">
+              <ImageFrame
+                src="/images/vidhya-sri-mortuary-van.webp"
+                alt="Vidhya Sri specialized mortuary ambulance vehicle for dead body transport in Hyderabad"
+                caption="Mortuary Transport Ambulance Van"
+                captionLocation="Hyderabad & Interstate Transit"
+                badge="DEAD BODY TRANSPORT"
+                variant="corner-marked"
+                aspectRatio="aspect-[4/3] sm:aspect-[16/11]"
+                objectPosition="center 50%"
+                priority={false}
+              />
+            </div>
+
+            {/* Right: Deceased Transit Specifications */}
+            <div className="lg:col-span-7 space-y-6">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#1565D8]">
+                  Respectful Transport Protocol
+                </span>
+                <h3 className="text-xl sm:text-2xl font-extrabold uppercase text-[#0A2A5E] tracking-tight mt-1">
+                  Purpose-Built Deceased Carrying Ambulance
+                </h3>
+                <p className="text-xs sm:text-sm font-medium text-[#536B86] mt-1.5 leading-relaxed">
+                  Our mortuary ambulance service is dedicated solely to the dignified carriage of deceased individuals. Every vehicle adheres to stringent hygiene and decorum standards:
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  {
+                    icon: "lock",
+                    title: "Secure Stretcher & Tray",
+                    desc: "Equipped with heavy-duty locking mechanisms to ensure stability and solemn carriage on city roads and highways.",
+                  },
+                  {
+                    icon: "hvac",
+                    title: "Climate-Regulated Airflow",
+                    desc: "Dual high-capacity air conditioning maintains a cool, clean environment throughout long transit durations.",
+                  },
+                  {
+                    icon: "chair",
+                    title: "Family Accompanying Seats",
+                    desc: "Comfortable seating allowing 2 to 4 immediate family members to travel alongside their loved one.",
+                  },
+                  {
+                    icon: "description",
+                    title: "Transit Permits & Clearance",
+                    desc: "Complete documentation support for interstate borders and hospital mortuary release formalities.",
+                  },
+                ].map((spec, idx) => (
+                  <div key={idx} className="p-3.5 bg-[#F8FAFD] border border-[#DDE7F2] rounded-[3px]">
+                    <div className="flex items-center gap-2 mb-1 text-[#1565D8]">
+                      <span className="material-symbols-outlined text-[18px]">{spec.icon}</span>
+                      <h4 className="text-xs font-black uppercase text-[#0A2A5E] tracking-tight">
+                        {spec.title}
+                      </h4>
+                    </div>
+                    <p className="text-[11.5px] text-[#536B86] font-medium leading-relaxed">
+                      {spec.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* ── Also Need a Freezer Box Banner ── */}
         <div className="p-6 sm:p-8 bg-white border-2 border-[#0A2A5E] rounded-[4px] shadow-[4px_4px_0_#DDE7F2] flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-start gap-4">
