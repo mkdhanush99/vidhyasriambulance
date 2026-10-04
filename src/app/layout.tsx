@@ -5,13 +5,14 @@ import { siteConfig } from "@/data/site";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileCTA } from "@/components/layout/MobileCTA";
-import { CustomCursor } from "@/components/ui/CustomCursor";
+import { ClientPeripherals } from "@/components/layout/ClientPeripherals";
 
 const manrope = Manrope({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "600", "700", "800"],
   display: "swap",
   variable: "--font-sans",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -135,10 +136,61 @@ export default function RootLayout({
   return (
     <html lang="en" className={manrope.variable}>
       <head>
+        {/* Preconnect to external font origins */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+        {/* ── GOOGLE CONSENT MODE V2 DEFAULT CONFIGURATION ── */}
+        <script
+          id="google-consent-mode-init"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag(consent, default, {
+                ad_storage: denied,
+                analytics_storage: denied,
+                ad_user_data: denied,
+                ad_personalization: denied,
+                wait_for_update: 500
+              });
+              gtag(set, ads_data_redaction, true);
+              try {
+                var stored = localStorage.getItem(vidhya_sri_consent_settings);
+                if (stored) {
+                  var c = JSON.parse(stored);
+                  gtag(consent, update, {
+                    ad_storage: c.marketing ? granted : denied,
+                    analytics_storage: c.analytics ? granted : denied,
+                    ad_user_data: c.marketing ? granted : denied,
+                    ad_personalization: c.marketing ? granted : denied
+                  });
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+
+        {/* Non-blocking icon font loading */}
+        <link
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap"
+        />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100..700,0..1,0&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap"
+          media="print"
+          // @ts-expect-error async font stylesheet load
+          onLoad="this.media=all"
         />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap"
+          />
+        </noscript>
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -147,11 +199,11 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-white text-gray-900 antialiased">
-        <CustomCursor />
         <Header />
         <main className="w-full pt-20">{children}</main>
         <Footer />
         <MobileCTA />
+        <ClientPeripherals />
       </body>
     </html>
   );

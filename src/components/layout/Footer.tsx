@@ -1,3 +1,4 @@
+import { CookiePreferencesButton } from "@/components/ui/CookiePreferencesButton";
 import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/data/site";
@@ -252,6 +253,9 @@ export function Footer() {
                 <Link href="/cancellation-refund" className="hover:text-[#38A3F7] transition-colors">
                   Cancellation & Refund
                 </Link>
+              </li>
+              <li>
+                <CookiePreferencesButton />
               </li>
             </ul>
           </div>

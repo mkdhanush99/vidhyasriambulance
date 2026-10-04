@@ -1,228 +1,30 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import { siteConfig } from "@/data/site";
+import { trackConversion } from "@/lib/tracking";
 
-/**
- * MobileQuickActions (MobileCTA)
- * Edge-to-edge 4-action mobile rail: Call · WhatsApp · Location · Callback
- * Built specifically in Vidhya Sri's brutalist editorial design language:
- * - 3px solid navy (#0A2A5E) top border
- * - Distinct contextual accent color blocks with 2px dividers
- * - Heavy Manrope font, uppercase tracking, filled Material Symbols
- * - Full accessibility with aria-labels and touch targets >= 56px
- * - Accessible Callback bottom sheet dialog
- * - Auto safe-area-inset-bottom support
- */
-
-function CallbackModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [note, setNote] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-    }
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const cleanPhone = phone.trim();
-    if (!cleanPhone) return;
-
-    // Send background email notification via server-side /api/enquiry
-    fetch("/api/enquiry", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: name.trim() || "Mobile Callback Request",
-        phone: cleanPhone,
-        service: "Immediate Mobile Callback Request",
-        notes: note.trim() || "User clicked 'Request Callback' from mobile bottom rail.",
-        timing: "Immediate",
-      }),
-    }).catch((err) => console.error("Callback notification error:", err));
-
-    const message = encodeURIComponent(
-      `🚨 *Urgent Callback Request — Vidhya Sri Ambulance*\n` +
-      `• *Name:* ${name.trim() || "Immediate Assistance Needed"}\n` +
-      `• *Contact Number:* ${cleanPhone}\n` +
-      (note.trim() ? `• *Requirement:* ${note.trim()}\n` : "") +
-      `\n_Please call me back immediately for ambulance coordination._`
-    );
-
-    window.open(`${siteConfig.whatsapp.href}?text=${message}`, "_blank", "noopener,noreferrer");
-    setSubmitted(true);
-  }
-
-  return (
-    <div
-      className="fixed inset-0 z-[100] flex items-end justify-center p-0 md:hidden"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="callback-title"
-    >
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-[#0A2A5E]/75 backdrop-blur-xs anim-fade-in"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-
-      {/* Bottom Sheet Modal with Emil Kowalski drawer physics */}
-      <div
-        className="relative w-full max-w-lg bg-white border-t-[3px] border-x-[3px] border-[#0A2A5E] shadow-[0_-8px_0_#0A2A5E] px-5 pt-5 pb-6 z-10 anim-drawer-up"
-        style={{ paddingBottom: "max(24px, calc(env(safe-area-inset-bottom, 0px) + 16px))" }}
-      >
-        {/* Top grab bar */}
-        <div className="w-12 h-1 bg-[#0A2A5E]/20 mx-auto rounded-full mb-4" />
-
-        <div className="flex items-start justify-between gap-4 mb-4 pb-3 border-b-2 border-[#DDE7F2]">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#EAF2FC] border border-[#1565D8]/30 text-[10px] font-extrabold uppercase tracking-widest text-[#1565D8] mb-1.5 rounded-[2px]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1565D8]" />
-              Quick Dispatch Support
-            </div>
-            <h2 id="callback-title" className="text-xl font-extrabold uppercase text-[#0A2A5E] tracking-tight leading-none">
-              Request Immediate Callback
-            </h2>
-            <p className="text-xs text-[#536B86] mt-1 font-medium">
-              Enter your number. Our Somajiguda control room coordinates promptly.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close callback dialog"
-            className="w-9 h-9 flex items-center justify-center border-2 border-[#0A2A5E] bg-white text-[#0A2A5E] shadow-[2px_2px_0_#0A2A5E] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform"
-          >
-            <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}>
-              close
-            </span>
-          </button>
-        </div>
-
-        {submitted ? (
-          <div className="py-6 text-center bg-[#EAF2FC] border-2 border-[#1565D8] p-4 shadow-[4px_4px_0_#0A2A5E]">
-            <span
-              className="material-symbols-outlined text-4xl text-[#1565D8] mb-2 inline-block"
-              style={{ fontVariationSettings: "'FILL' 1, 'wght' 700" }}
-            >
-              check_circle
-            </span>
-            <p className="text-base font-extrabold uppercase text-[#0A2A5E] tracking-tight">
-              Callback Request Sent
-            </p>
-            <p className="text-xs text-[#536B86] mt-1 font-medium">
-              Opening WhatsApp with your dispatch details. You can also call us directly at:
-            </p>
-            <a
-              href={siteConfig.phone.href}
-              className="inline-flex items-center justify-center gap-2 mt-4 w-full py-3 bg-[#1565D8] text-white border-2 border-[#0A2A5E] text-xs font-extrabold uppercase tracking-wider shadow-[3px_3px_0_#0A2A5E]"
-            >
-              <span className="material-symbols-outlined text-[18px]">call</span>
-              Direct Call: {siteConfig.phone.display}
-            </a>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-            <div>
-              <label htmlFor="cb-phone" className="block text-[11px] font-extrabold uppercase tracking-wider text-[#0A2A5E] mb-1">
-                Phone Number <span className="text-[#1565D8]">*</span>
-              </label>
-              <input
-                id="cb-phone"
-                type="tel"
-                required
-                autoFocus
-                placeholder="Enter 10-digit mobile number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-[#F8FAFD] border-2 border-[#DDE7F2] text-[#0A2A5E] font-bold text-sm placeholder:text-[#536B86]/60 focus:outline-none focus:bg-white focus:border-[#1565D8] focus:shadow-[2px_2px_0_#1565D8]"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="cb-name" className="block text-[11px] font-extrabold uppercase tracking-wider text-[#0A2A5E] mb-1">
-                Your Name <span className="text-[#536B86] font-normal">(Optional)</span>
-              </label>
-              <input
-                id="cb-name"
-                type="text"
-                placeholder="Patient / Caller name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-[#F8FAFD] border-2 border-[#DDE7F2] text-[#0A2A5E] font-bold text-sm placeholder:text-[#536B86]/60 focus:outline-none focus:bg-white focus:border-[#1565D8] focus:shadow-[2px_2px_0_#1565D8]"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="cb-note" className="block text-[11px] font-extrabold uppercase tracking-wider text-[#0A2A5E] mb-1">
-                Requirement / Location <span className="text-[#536B86] font-normal">(Optional)</span>
-              </label>
-              <input
-                id="cb-note"
-                type="text"
-                placeholder="e.g. ICU Ambulance needed in Somajiguda"
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-[#F8FAFD] border-2 border-[#DDE7F2] text-[#0A2A5E] font-bold text-sm placeholder:text-[#536B86]/60 focus:outline-none focus:bg-white focus:border-[#1565D8] focus:shadow-[2px_2px_0_#1565D8]"
-              />
-            </div>
-
-            <div className="flex gap-2 pt-2">
-              <button
-                type="submit"
-                className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#1565D8] text-white border-2 border-[#0A2A5E] text-xs font-black uppercase tracking-wider shadow-[3px_3px_0_#0A2A5E] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none cursor-pointer"
-              >
-                <span className="material-symbols-outlined text-[18px]">phone_callback</span>
-                Request Callback Now
-              </button>
-              <a
-                href={siteConfig.phone.href}
-                className="flex items-center justify-center px-4 py-3 bg-white text-[#0A2A5E] border-2 border-[#0A2A5E] text-xs font-black uppercase tracking-wider shadow-[3px_3px_0_#0A2A5E]"
-                aria-label="Call directly"
-              >
-                <span className="material-symbols-outlined text-[18px]">call</span>
-              </a>
-            </div>
-          </form>
-        )}
-      </div>
-    </div>
-  );
-}
+// Lazy load the callback modal form only when the user taps "Callback"
+const CallbackModal = dynamic(
+  () => import("./CallbackModal").then((m) => m.CallbackModal),
+  { ssr: false }
+);
 
 export function MobileCTA() {
   const [callbackOpen, setCallbackOpen] = useState(false);
 
   return (
     <>
-      <CallbackModal isOpen={callbackOpen} onClose={() => setCallbackOpen(false)} />
+      {callbackOpen && (
+        <CallbackModal isOpen={callbackOpen} onClose={() => setCallbackOpen(false)} />
+      )}
 
       {/* 
-        Floating Pill Mobile CTA Dock (Matches screenshot: Call · WhatsApp · Location · Callback)
-        Floating capsule pill design adapted to Vidhya Sri brand identity:
+        Floating Pill Mobile CTA Dock (Call · WhatsApp · Location · Callback)
+        Vidhya Sri brand identity:
         - Floating rounded-full pill container with blur and subtle border/shadow
-        - 4 evenly spaced quick actions:
-            1. Call: Red telephone receiver + "Call"
-            2. WhatsApp: Official Green WhatsApp icon + "WhatsApp"
-            3. Location: Blue navigation dart + "Location"
-            4. Callback: Deep Navy phone callback + "Callback"
+        - 4 evenly spaced quick actions
         - Safe area padding & smooth press feedback
       */}
       <aside
@@ -235,6 +37,7 @@ export function MobileCTA() {
         {/* 1. CALL (Red phone receiver icon + Call label) */}
         <a
           href={siteConfig.phone.href}
+          onClick={() => trackConversion("ambulance_call_click", { serviceCategory: "Mobile Dock Call" })}
           aria-label={`Call emergency line 24x7 at ${siteConfig.phone.display}`}
           className="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-full text-[#0A2A5E] active:scale-95 active:bg-[#F3F7FC] transition-transform"
         >
@@ -256,6 +59,7 @@ export function MobileCTA() {
           href={siteConfig.whatsapp.href}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackConversion("whatsapp_click", { serviceCategory: "Mobile Dock WhatsApp" })}
           aria-label={`Open WhatsApp emergency chat at ${siteConfig.whatsapp.display}`}
           className="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-full text-[#0A2A5E] active:scale-95 active:bg-[#F3F7FC] transition-transform"
         >
@@ -315,7 +119,7 @@ export function MobileCTA() {
         </button>
       </aside>
 
-      {/* Bottom spacer on mobile so content isn't obscured by fixed floating pill */}
+      {/* Bottom spacer on mobile so content isn	 obscured by fixed floating pill */}
       <div
         className="md:hidden w-full pointer-events-none"
         style={{ height: "calc(78px + env(safe-area-inset-bottom, 0px))" }}
