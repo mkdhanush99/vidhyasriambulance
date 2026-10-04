@@ -1,0 +1,54 @@
+# Vidhya Sri Ambulance
+
+> Vidhya Sri Ambulance provides 24×7 emergency ambulance, advanced life support (ALS), ICU, neonatal (NICU), and planned patient transportation across Hyderabad, Telangana, and intercity corridors across India.
+
+## Core Pages
+- [Home](https://vidhyasriambulance.com): Emergency dispatch, service directory, and rapid booking.
+- [About](https://vidhyasriambulance.com/about): Mission, paramedic fleet standards, response protocols, and verified credentials.
+- [Services](https://vidhyasriambulance.com/services): Complete portfolio of medical transport options.
+- [Coverage](https://vidhyasriambulance.com/coverage): 14 key dispatch zones across Greater Hyderabad.
+- [Contact](https://vidhyasriambulance.com/contact): 24/7 direct helpline, dispatch hub location, and support forms.
+
+## Ambulance Services
+- [Emergency Ambulance](https://vidhyasriambulance.com/services/emergency-ambulance): Rapid-response emergency ALS ambulance with trained paramedics.
+- [ICU Ambulance](https://vidhyasriambulance.com/services/icu-ambulance): Mobile intensive care unit with multi-para monitors and critical care equipment.
+- [Ventilator Ambulance](https://vidhyasriambulance.com/services/ventilator-ambulance): Advanced mechanical ventilator support for respiratory emergencies.
+- [BLS Ambulance](https://vidhyasriambulance.com/services/bls-ambulance): Basic Life Support transport for stable patients requiring monitoring.
+- [Patient Transfer Ambulance](https://vidhyasriambulance.com/services/patient-transfer-ambulance): Scheduled inter-hospital transfers and diagnostic visit transit.
+- [Oxygen Ambulance](https://vidhyasriambulance.com/services/oxygen-ambulance): Continuous flow medical-grade oxygen support transport.
+- [NICU Neonatal Ambulance](https://vidhyasriambulance.com/services/nicu-neonatal-ambulance): Specialized incubators and pediatric life-support for newborns.
+- [Outstation Ambulance](https://vidhyasriambulance.com/services/outstation-ambulance): Long-distance intercity transfers from Hyderabad across India.
+- [Event Standby Ambulance](https://vidhyasriambulance.com/services/event-standby-ambulance): Dedicated on-site medical standby for sports, concerts, and public gatherings.
+- [Corporate Ambulance](https://vidhyasriambulance.com/services/corporate-ambulance): Emergency response partnerships for tech parks and industrial sites.
+- [Mortuary Ambulance](https://vidhyasriambulance.com/services/mortuary-ambulance): Dignified deceased patient transport with refrigeration.
+- [Dead Body Freezer Box](https://vidhyasriambulance.com/services/dead-body-freezer-box): Temperature-controlled preservation units for home and transit.
+
+## Hyderabad Coverage
+- [Hyderabad (Citywide Overview)](https://vidhyasriambulance.com/coverage/hyderabad)
+- [Somajiguda (Headquarters)](https://vidhyasriambulance.com/coverage/somajiguda)
+- [Banjara Hills](https://vidhyasriambulance.com/coverage/banjara-hills)
+- [Jubilee Hills](https://vidhyasriambulance.com/coverage/jubilee-hills)
+- [Punjagutta](https://vidhyasriambulance.com/coverage/punjagutta)
+- [Begumpet](https://vidhyasriambulance.com/coverage/begumpet)
+- [Secunderabad](https://vidhyasriambulance.com/coverage/secunderabad)
+- [Madhapur](https://vidhyasriambulance.com/coverage/madhapur)
+- [HITEC City](https://vidhyasriambulance.com/coverage/hitech-city)
+- [Gachibowli](https://vidhyasriambulance.com/coverage/gachibowli)
+- [Kondapur](https://vidhyasriambulance.com/coverage/kondapur)
+- [Kukatpally](https://vidhyasriambulance.com/coverage/kukatpally)
+- [Mehdipatnam](https://vidhyasriambulance.com/coverage/mehdipatnam)
+- [LB Nagar](https://vidhyasriambulance.com/coverage/lb-nagar)
+
+## Information & Policies
+- [How It Works](https://vidhyasriambulance.com/how-it-works): 3-step rapid dispatch process (Call -> Triage -> En Route).
+- [FAQ](https://vidhyasriambulance.com/faq): Transparent answers regarding costs, response times, and equipment.
+- [Customer Enquiry](https://vidhyasriambulance.com/customer-enquiry): Scheduled patient transportation booking form.
+- [Business Enquiry](https://vidhyasriambulance.com/business-enquiry): Corporate standby contracts and hospital tie-ups.
+- [Privacy Policy](https://vidhyasriambulance.com/privacy-policy): DPDP Act compliance, data retention, and patient confidentiality.
+- [Terms & Conditions](https://vidhyasriambulance.com/terms): Service terms, dispatch commitments, and liability framework.
+- [Cancellation & Refund](https://vidhyasriambulance.com/cancellation-refund): Cancellation rules and refund process.
+
+## Dispatch Contacts
+- 24/7 Emergency Line: +91 99516 48174
+- WhatsApp Dispatch: https://wa.me/919951648174
+- Central Station: H.No: 6-3-662/5 & 6/4, Arun Residency, Jafar Ali Bagh, Somajiguda, Hyderabad, Telangana 500082, India

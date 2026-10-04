@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { siteConfig } from "@/data/site";
+import { ContactFlowGraphic } from "@/components/motion/MotionGraphics";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -84,6 +85,9 @@ export default function ContactPage() {
             <p className="text-xs sm:text-sm text-[#536B86] mt-2 font-medium">
               Choose the dedicated enquiry pathway that matches your requirement for priority response and automated confirmation receipts.
             </p>
+            <div className="flex justify-center my-4">
+              <ContactFlowGraphic />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">

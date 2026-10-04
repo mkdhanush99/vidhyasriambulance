@@ -10,6 +10,7 @@ import { ProcessReassurance } from "@/components/ui/ProcessReassurance";
 import { ServiceContextualActions } from "@/components/ui/ServiceContextualActions";
 import { ServiceMotifBadge } from "@/components/ui/ServiceMotifBadge";
 import { RouteMotif } from "@/components/ui/RouteMotif";
+import { ServiceMotionGraphic } from "@/components/motion/MotionGraphics";
 import { MetaLabel } from "@/components/ui/MetaLabel";
 import {
   FreezerBoxShowcase,
@@ -190,6 +191,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 
               <div className="flex flex-wrap items-center gap-3 mb-4">
                 <ServiceMotifBadge slug={service.slug} />
+                <ServiceMotionGraphic slug={service.slug} className="w-16 h-12 inline-block opacity-90" />
                 <MetaLabel
                   category={service.category}
                   detail="24×7 IMMEDIATE DISPATCH"

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { ForwardRouteGraphic } from "@/components/motion/MotionGraphics";
 
 const steps = [
   {
@@ -39,6 +40,9 @@ export function SpatialHowItWorks() {
   return (
     <div className="relative w-full max-w-5xl mx-auto">
       {/* ── Dimensional Route Line (Desktop Connecting Flow) ── */}
+      <div className="hidden lg:block relative w-full mb-6" aria-hidden="true">
+        <ForwardRouteGraphic className="w-full h-12" />
+      </div>
       <div className="hidden lg:block relative w-full mb-8" aria-hidden="true">
         <div className="h-1 w-full bg-[#DDE7F2] rounded-full relative overflow-hidden">
           <div className="absolute top-0 left-0 h-full w-48 bg-gradient-to-r from-transparent via-[#1565D8] to-transparent anim-border-cross-h" />
