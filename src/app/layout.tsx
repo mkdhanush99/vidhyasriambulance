@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileCTA } from "@/components/layout/MobileCTA";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { CookieConsentBanner } from "@/components/ui/CookieConsentBanner";
+import { TawkChat } from "@/components/layout/TawkChat";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -156,6 +157,7 @@ export default function RootLayout({
         <Footer />
         <MobileCTA />
         <CookieConsentBanner />
+        <TawkChat />
       </body>
     </html>
   );
